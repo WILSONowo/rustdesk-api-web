@@ -1,6 +1,6 @@
 # 账号中心前端 fork
 
-配套后端为 `WILSONowo/rustdesk-api` 的 `codex/account-review-v1` 分支。前端使用同名分支，发布时记录两个仓库的提交号。
+配套后端为 `WILSONowo/rustdesk-api` 的 `feature/api-rebuild` 分支。前端使用同名分支，发布时记录两个仓库的提交号。
 
 本版本包含注册/邮箱验证/管理员审核、邮箱换绑与找回密码、个人/共享通讯录、客户端下载及配置复制、账号页面统一样式、固定导航布局和表格宽度优化。
 
