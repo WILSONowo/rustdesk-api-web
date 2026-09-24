@@ -8,12 +8,12 @@
     <el-form :disabled="!canSend">
       <el-form-item>
         <el-table :data="form.list" size="small">
-          <el-table-column prop="0" label="IP"></el-table-column>
-          <el-table-column prop="1" label="TIME"></el-table-column>
-          <el-table-column prop="2" label="TOTAL"></el-table-column>
-          <el-table-column prop="3" label="HIGHEST"></el-table-column>
-          <el-table-column prop="4" label="AVG"></el-table-column>
-          <el-table-column prop="5" label="SPEED"></el-table-column>
+          <el-table-column min-width="150" :resizable="false" prop="0" label="IP"></el-table-column>
+          <el-table-column min-width="150" :resizable="false" prop="1" label="TIME"></el-table-column>
+          <el-table-column min-width="150" :resizable="false" prop="2" label="TOTAL"></el-table-column>
+          <el-table-column min-width="150" :resizable="false" prop="3" label="HIGHEST"></el-table-column>
+          <el-table-column min-width="150" :resizable="false" prop="4" label="AVG"></el-table-column>
+          <el-table-column min-width="150" :resizable="false" prop="5" label="SPEED"></el-table-column>
         </el-table>
       </el-form-item>
       <el-form-item>

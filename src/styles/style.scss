@@ -8,6 +8,9 @@ $primaryColor: #409eff;
   --basicWhite: #ffffff;
   --primaryColor: #409eff;
   --tag-bg-color: #efefef;
+  --account-page-background: radial-gradient(ellipse at 50% 0, rgba(64, 158, 255, .09), transparent 65%), var(--el-fill-color-light);
+  --account-card-radius: 16px;
+  --account-card-shadow: 0 12px 40px rgba(0, 0, 0, .06);
 }
 
 body {
@@ -48,4 +51,82 @@ html.dark {
   //--el-bg-color: #626aef;
   --tag-bg-color: #24252b;
   --basicBlack: #fff;
+}
+
+.app-shell {
+  background: var(--account-page-background);
+  color: var(--el-text-color-primary);
+
+  .el-card {
+    --el-card-border-radius: var(--account-card-radius);
+    background: var(--el-bg-color-overlay);
+    border-color: var(--el-border-color-lighter);
+    box-shadow: var(--account-card-shadow);
+    &.is-hover-shadow:hover { box-shadow: var(--account-card-shadow); }
+  }
+  .el-card__body { padding: 24px; }
+  .list-body { margin: 20px 0; }
+  .list-query .el-card__body { padding-bottom: 6px; }
+  .list-page .el-card__body { overflow-x: auto; }
+  .el-table {
+    --el-table-header-bg-color: var(--el-fill-color-light);
+    --el-table-header-text-color: var(--el-text-color-regular);
+    border-radius: 8px;
+    th.el-table__cell { font-weight: 600; }
+    th.el-table__cell > .cell { white-space: nowrap; }
+    .el-table__cell { padding: 12px 0; }
+  }
+  .el-form-item__label { color: var(--el-text-color-regular); }
+  .el-pagination button, .el-pager li { border-radius: 8px; }
+}
+
+// Keep row actions compact without giving one column most of the viewport.
+.el-table .table-actions > .cell {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  .el-button { margin: 0; }
+}
+
+:is(.app-shell, .el-dialog, .el-message-box) {
+  .el-input__wrapper, .el-select__wrapper {
+    min-height: 40px;
+    box-sizing: border-box;
+    border-radius: 8px;
+  }
+  .el-textarea__inner { border-radius: 8px; }
+  .el-button:not(.is-link):not(.is-text):not(.is-circle) {
+    min-height: 40px;
+    border-radius: 8px;
+  }
+  .el-button--small:not(.is-link):not(.is-text):not(.is-circle) { min-height: 30px; }
+  .el-alert { border-radius: 8px; padding: 12px; }
+}
+
+.el-dialog, .el-message-box {
+  border: 1px solid var(--el-border-color-lighter);
+  border-radius: var(--account-card-radius);
+  box-shadow: var(--account-card-shadow);
+  padding: 24px;
+  max-width: calc(100vw - 32px);
+  box-sizing: border-box;
+  .el-form-item { margin-bottom: 22px; }
+  .el-form--label-top .el-form-item__label { padding-bottom: 8px; line-height: 20px; }
+}
+.el-dialog__title, .el-message-box__title { font-weight: 600; }
+.el-dialog__header { padding-bottom: 24px; }
+.el-dialog__footer { padding-top: 16px; }
+
+@media (max-width: 768px) {
+  .app-shell .el-card__body { padding: 20px 16px; }
+  .app-shell .list-query .el-card__body { padding-bottom: 2px; }
+  // On narrow screens a pinned action column can cover every data column.
+  :is(.app-shell, .el-dialog) .el-table .el-table__cell:is(.el-table-fixed-column--left, .el-table-fixed-column--right) {
+    position: static !important;
+    left: auto !important;
+    right: auto !important;
+    &::before { display: none; }
+  }
 }

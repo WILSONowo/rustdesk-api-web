@@ -3,9 +3,9 @@
           class="menus"
           :collapse="isCollapse"
           :default-active="activeIndex"
-          background-color="#2d3a4b"
-          text-color="#fff"
-          active-text-color="#409eff"
+          background-color="var(--el-bg-color-overlay)"
+          text-color="var(--el-text-color-regular)"
+          active-text-color="var(--el-color-primary)"
           router
   >
     <menu-item v-for="(route,index) in routes" :key="route.name" :route="route"></menu-item>
@@ -44,12 +44,44 @@
 
 <style lang="scss" scoped>
   .menus {
-    min-height: 100vh;
+    min-height: 100%;
+    width: 100%;
     border-right: none;
+    padding: 16px 0;
+    box-sizing: border-box;
     &:not(.el-menu--collapse) {
-      width: var(--sideBarWidth);
+      width: 100%;
     }
 
+    :deep(.el-menu-item), :deep(.el-sub-menu__title) {
+      min-width: 0;
+      height: 44px;
+      line-height: 44px;
+      margin: 4px 8px;
+      border-radius: 8px;
+    }
+    :deep(.el-menu-item.is-active) {
+      background: var(--el-color-primary-light-9);
+      font-weight: 600;
+    }
+    :deep(.el-sub-menu__title:hover), :deep(.el-menu-item:hover) {
+      background: var(--el-fill-color-light);
+    }
+    &.el-menu--collapse {
+      :deep(.el-menu-item), :deep(.el-sub-menu__title) {
+        padding: 0 !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      :deep(.el-menu-tooltip__trigger) {
+        padding: 0 !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      :deep(.el-icon) { margin-right: 0; }
+    }
   }
 </style>
 <style>

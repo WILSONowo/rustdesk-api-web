@@ -10,21 +10,21 @@
     </el-card>
     <el-card class="list-body" shadow="hover">
       <el-table :data="listRes.list" v-loading="listRes.loading" border>
-        <el-table-column prop="rule" :label="T('Rule')" align="center">
+        <el-table-column min-width="150" :resizable="false" prop="rule" :label="T('Rule')" align="center">
           <template #default="{row}">
             <div>
               {{ rules.find(r => r.value === row.rule)?.label }}
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="type" :label="T('Type')" align="center">
+        <el-table-column min-width="100" :resizable="false" prop="type" :label="T('Type')" align="center">
           <template #default="{row}">
             <div>
               {{ types.find(t => t.value === row.type)?.label }}
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="to_id" :label="T('ShareTo')" align="center">
+        <el-table-column min-width="150" :resizable="false" prop="to_id" :label="T('ShareTo')" align="center">
           <template #default="{row}">
             <div v-if="row.type===TYPE_U">
               {{ users.find(u => u.id === row.to_id)?.username }}
@@ -34,9 +34,9 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="created_at" :label="T('CreatedAt')" align="center"/>
+        <el-table-column min-width="180" :resizable="false" prop="created_at" :label="T('CreatedAt')" align="center" show-overflow-tooltip/>
         <!--        <el-table-column prop="updated_at" label="更新时间" align="center"/>-->
-        <el-table-column :label="T('Actions')" align="center" class-name="table-actions" width="300" fixed="right">
+        <el-table-column :resizable="false" :label="T('Actions')" align="center" class-name="table-actions" width="240" fixed="right">
           <template #default="{row}">
             <el-button @click="toEdit(row)">{{ T('Edit') }}</el-button>
             <el-button type="danger" @click="del(row)">{{ T('Delete') }}</el-button>

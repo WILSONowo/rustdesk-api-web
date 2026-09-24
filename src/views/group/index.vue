@@ -13,17 +13,17 @@
     </el-card>
     <el-card class="list-body" shadow="hover">
       <el-table :data="listRes.list" v-loading="listRes.loading" border>
-        <el-table-column prop="id" label="ID" align="center"></el-table-column>
-        <el-table-column prop="name" :label="T('Name')" align="center"/>
-        <el-table-column prop="type" :label="T('Type')" align="center">
+        <el-table-column min-width="100" :resizable="false" prop="id" label="ID" align="center"></el-table-column>
+        <el-table-column min-width="150" :resizable="false" prop="name" :label="T('Name')" align="center" show-overflow-tooltip/>
+        <el-table-column min-width="100" :resizable="false" prop="type" :label="T('Type')" align="center">
           <template #default="{row}">
             <span v-if="row.type === 1">{{ T('CommonGroup') }}</span>
             <span v-else>{{ T('SharedGroup') }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="created_at" :label="T('CreatedAt')" align="center"/>
-        <el-table-column prop="updated_at" :label="T('UpdatedAt')" align="center"/>
-        <el-table-column :label="T('Actions')" align="center">
+        <el-table-column min-width="180" :resizable="false" prop="created_at" :label="T('CreatedAt')" align="center" show-overflow-tooltip/>
+        <el-table-column min-width="180" :resizable="false" prop="updated_at" :label="T('UpdatedAt')" align="center" show-overflow-tooltip/>
+        <el-table-column :resizable="false" :label="T('Actions')" align="center" width="200" class-name="table-actions">
           <template #default="{row}">
             <el-button @click="toEdit(row)">{{ T('Edit') }}</el-button>
             <el-button type="danger" @click="del(row)">{{ T('Delete') }}</el-button>

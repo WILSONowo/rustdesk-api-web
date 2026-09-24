@@ -1,18 +1,19 @@
 <template>
-  <el-dialog v-model="v" width="50%" :show-close="false">
-    <el-form ref="cpwd" :model="changePwdForm" :rules="chagePwdRules" label-width="150px" label-position="left" style="margin-top: 20px">
+  <el-dialog v-model="v" :title="T('ChangePassword')" width="min(480px, 94vw)" :show-close="false" :close-on-click-modal="false" @closed="clearPasswords">
+    <el-form id="change-password-form" method="post" @submit.prevent="changePassword" ref="cpwd" :model="changePwdForm" :rules="chagePwdRules" label-position="top">
+      <input type="hidden" name="username" autocomplete="username" :value="userStore.username" />
       <el-form-item :label="T('OldPassword')" prop="old_password">
-        <el-input v-model="changePwdForm.old_password" :placeholder="T('For OIDC login without a password, enter any 4-20 letters')" show-password></el-input>
+        <el-input v-model="changePwdForm.old_password" name="old_password" type="password" autocomplete="current-password" :placeholder="T('For OIDC login without a password, enter any 4-20 letters')" show-password></el-input>
       </el-form-item>
       <el-form-item :label="T('NewPassword')" prop="new_password">
-        <el-input v-model="changePwdForm.new_password" show-password></el-input>
+        <el-input v-model="changePwdForm.new_password" name="new_password" type="password" autocomplete="new-password" show-password></el-input>
       </el-form-item>
       <el-form-item :label="T('ConfirmPassword')" prop="confirmPwd">
-        <el-input v-model="changePwdForm.confirmPwd" show-password></el-input>
+        <el-input v-model="changePwdForm.confirmPwd" name="confirm_password" type="password" autocomplete="new-password" show-password></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button @click="cancelChangePwd">{{ T('Cancel') }}</el-button>
-        <el-button type="primary" @click="changePassword">{{ T('Confirm') }}</el-button>
+        <el-button native-type="button" @click="cancelChangePwd">{{ T('Cancel') }}</el-button>
+        <el-button native-type="submit" type="primary" :loading="saving">{{ T('Confirm') }}</el-button>
       </el-form-item>
     </el-form>
   </el-dialog>
@@ -81,38 +82,51 @@
     ],
   }))
   const cpwd = ref(null)
+  const saving = ref(false)
+  const clearPasswords = () => {
+    changePwdForm.old_password = ''
+    changePwdForm.new_password = ''
+    changePwdForm.confirmPwd = ''
+    cpwd.value?.clearValidate()
+  }
   const cancelChangePwd = () => {
+    clearPasswords()
     emit('update:visible', false)
   }
 
   const userStore = useUserStore()
 
   const changePassword = async () => {
-    //验证
-    const valid = await cpwd.value.validate().catch(_ => false)
-    if (!valid) {
-      return
-    }
-    console.log('changePassword')
-    const confirm = await ElMessageBox.confirm(T('Confirm?', { param: T('ChangePassword') }), {
-      confirmButtonText: T('Confirm'),
-      cancelButtonText: T('Cancel'),
-    }).catch(_ => false)
-    if (!confirm) {
-      return
-    }
-    const res = await changeCurPwd(changePwdForm).catch(_ => false)
-    if (!res) {
-      return
-    }
-    ElMessageBox.alert(T('OperationSuccess'), T('ChangePassword'), {
-      autofocus: true,
-      confirmButtonText: 'OK',
-      callback: (action) => {
-        userStore.logout()
-        window.location.reload()
-      },
-    })
+    if (saving.value) return
+    saving.value = true
+    try {
+      //验证
+      const valid = await cpwd.value.validate().catch(_ => false)
+      if (!valid) {
+        return
+      }
+      const confirm = await ElMessageBox.confirm(T('Confirm?', { param: T('ChangePassword') }), {
+        confirmButtonText: T('Confirm'),
+        cancelButtonText: T('Cancel'),
+        closeOnClickModal: false,
+      }).catch(_ => false)
+      if (!confirm) {
+        return
+      }
+      const res = await changeCurPwd(changePwdForm).catch(_ => false)
+      if (!res) {
+        return
+      }
+      clearPasswords()
+      ElMessageBox.alert(T('OperationSuccess'), T('ChangePassword'), {
+        autofocus: true,
+        confirmButtonText: 'OK',
+        callback: (action) => {
+          userStore.clearSession()
+          window.location.reload()
+        },
+      })
+    } finally { saving.value = false }
   }
 </script>
 

@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 const constantRoutes = [
+  { path: '/reset-password', name: 'ResetPassword', meta: { title: 'ForgotPassword' }, component: () => import('@/views/login/resetPassword.vue') },
   {
     path: '/login',
     name: 'Login',
@@ -201,6 +202,12 @@ export const asyncRoutes = [
         name: 'ServerCmd',
         meta: { title: 'ServerCmd', icon: 'Tools' /*keepAlive: true*/ },
         component: () => import('@/views/rustdesk/control.vue'),
+      },
+      {
+        path: '/clientResources',
+        name: 'ClientResourcesManage',
+        meta: { title: 'ManageClientResources', icon: 'Download' },
+        component: () => import('@/views/clientResources/index.vue'),
       },
     ],
   },

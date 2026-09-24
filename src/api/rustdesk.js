@@ -1,5 +1,9 @@
 import request from '@/utils/request'
 
+export function capabilities () {
+  return request({ url: '/rustdesk/capabilities' })
+}
+
 export function list (params) {
   return request({
     url: '/rustdesk/cmdList',

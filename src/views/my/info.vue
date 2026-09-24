@@ -6,21 +6,21 @@
           <div>{{ userStore.username }}</div>
         </el-form-item>
         <el-form-item :label="T('Email')">
-          <div>{{ userStore.email }}</div>
+          <email-binding />
         </el-form-item>
         <el-form-item :label="T('Password')" prop="password">
-          <el-button type="danger" @click="showChangePwd">{{ T('ChangePassword') }}</el-button>
+          <el-button @click="showChangePwd">{{ T('ChangePassword') }}</el-button>
         </el-form-item>
         <el-form-item label="OIDC">
           <el-table :data="oidcData" border fit>
-            <el-table-column :label="T('IdP')" prop="op" align="center"></el-table-column>
-            <el-table-column :label="T('Status')" prop="status" align="center">
+            <el-table-column min-width="150" :resizable="false" :label="T('IdP')" prop="op" align="center"></el-table-column>
+            <el-table-column min-width="100" :resizable="false" :label="T('Status')" prop="status" align="center">
               <template #default="{ row }">
                 <el-tag v-if="row.status === 1" type="success">{{ T('HasBind') }}</el-tag>
                 <el-tag v-else type="danger">{{ T('NoBind') }}</el-tag>
               </template>
             </el-table-column>
-            <el-table-column :label="T('Actions')" align="center" width="200">
+            <el-table-column :resizable="false" :label="T('Actions')" align="center" width="200" class-name="table-actions">
               <template #default="{ row }">
                 <el-button v-if="row.status === 1" type="danger" size="small" @click="toUnBind(row)">{{ T('UnBind') }}</el-button>
                 <el-button v-else type="success" size="small" @click="toBind(row)">{{ T('ToBind') }}</el-button>
@@ -33,11 +33,14 @@
     <el-card shadow="hover" style="margin-top: 20px">
       <div v-html="html"></div>
     </el-card>
+    <client-resources />
     <changePwdDialog v-model:visible="changePwdVisible"></changePwdDialog>
   </div>
 </template>
 
 <script setup>
+  import ClientResources from '@/components/clientResources.vue'
+  import EmailBinding from '@/components/emailBinding.vue'
   import changePwdDialog from '@/components/changePwdDialog.vue'
   import { computed, ref } from 'vue'
   import { useUserStore } from '@/store/user'
@@ -92,7 +95,8 @@
 
 <style scoped lang="scss">
 .info-form {
-  width: 600px;
+  width: 100%;
+  max-width: 600px;
   margin: 0 auto;
 
 }

@@ -21,7 +21,7 @@
     "One": "Login Success"
   },
   "ForgotPassword": {
-    "One": "Forgot Password"
+    "One": "Forgot password"
   },
   "ResetPassword": {
     "One": "Reset Password"
@@ -531,5 +531,245 @@
   },
   "Remark": {
     "One": "Remark"
+  },
+  "RegistrationSubmitted": {
+    "One": "Registration submitted"
+  },
+  "PendingApprovalHelp": {
+    "One": "Wait for administrator approval before signing in to the web portal or RustDesk client."
+  },
+  "RegistrationApprovalNotice": {
+    "One": "Verify your email before registering. Administrator approval is required before sign-in."
+  },
+  "RegistrationPasswordLength": {
+    "One": "Use a password of 8–32 characters"
+  },
+  "AllStatuses": {
+    "One": "All statuses"
+  },
+  "PendingApproval": {
+    "One": "Pending approval"
+  },
+  "AccountEnabled": {
+    "One": "Enabled"
+  },
+  "AccountDisabled": {
+    "One": "Disabled / rejected"
+  },
+  "RegistrationReview": {
+    "One": "Registration review"
+  },
+  "ApproveRegistration": {
+    "One": "Approve"
+  },
+  "RejectRegistration": {
+    "One": "Reject"
+  },
+  "ApproveRegistrationConfirm": {
+    "One": "Allow {username} to sign in and use address books?"
+  },
+  "RejectRegistrationConfirm": {
+    "One": "Reject registration for {username}? The account will be disabled."
+  },
+  "EmailCode": {
+    "One": "Email verification code"
+  },
+  "SendEmailCode": {
+    "One": "Send code"
+  },
+  "EmailCodeRequested": {
+    "One": "If this address is eligible, a code will be sent. Check your inbox and spam folder."
+  },
+  "NoEmailBound": {
+    "One": "No email address"
+  },
+  "EmailVerified": {
+    "One": "Verified"
+  },
+  "EmailUnverified": {
+    "One": "Unverified"
+  },
+  "ChangeEmail": {
+    "One": "Change email"
+  },
+  "VerifyEmail": {
+    "One": "Verify email"
+  },
+  "EmailBindingTitle": {
+    "One": "Verify or change email"
+  },
+  "EmailBindingHelp": {
+    "One": "Enter your current password and verify the target address. Existing accounts can still sign in; only verified email can recover your password."
+  },
+  "MailUnavailableHint": {
+    "One": "Email is not configured or is unavailable. Contact an administrator. Existing accounts can still sign in."
+  },
+  "CurrentPassword": {
+    "One": "Current password"
+  },
+  "ValidEmailRequired": {
+    "One": "Enter a valid email address"
+  },
+  "EmailCodeLength": {
+    "One": "Enter the 8-digit code"
+  },
+  "EmailBindingSuccess": {
+    "One": "Email verified and saved"
+  },
+  "PasswordResetSuccess": {
+    "One": "Password reset. Please sign in again."
+  },
+  "PasswordResetHelp": {
+    "One": "Use your verified email to reset your password. All existing sessions will be revoked."
+  },
+  "AccountCenter": {
+    "One": "Account center"
+  },
+  "LoginAccountHelp": {
+    "One": "Sign in to manage your devices and address books."
+  },
+  "ServerCommandsDisabled": {
+    "One": "Server commands are not enabled"
+  },
+  "ServerCommandsHelp": {
+    "One": "This deployment provides accounts and address books without a connected hbbs / hbbr command interface. Login, address books and remote desktop are unaffected. Commands require a compatible server in the same network namespace as the API."
+  },
+  "AlreadyHaveAccountLogin": {
+    "One": "Already have an account? Sign in"
+  },
+  "ToggleNavigation": {
+    "One": "Toggle navigation"
+  },
+  "ClientResources": {
+    "One": "Client downloads and setup"
+  },
+  "ClientResourcesIntro": {
+    "One": "Download a client for your device, then import the server configuration."
+  },
+  "ManageClientResources": {
+    "One": "Client download settings"
+  },
+  "ClientDownloads": {
+    "One": "Client downloads"
+  },
+  "DownloadClient": {
+    "One": "Download"
+  },
+  "DownloadUnavailable": {
+    "One": "Coming soon"
+  },
+  "ClientVersionUnspecified": {
+    "One": "Choose a package for your device"
+  },
+  "DownloadsNotConfigured": {
+    "One": "Client downloads have not been configured yet."
+  },
+  "QuickServerImport": {
+    "One": "Quick server setup"
+  },
+  "QuickServerImportHelp": {
+    "One": "Copy the code, then open RustDesk Settings → Network, unlock, select Import Server Config, and apply."
+  },
+  "CopyServerImportCode": {
+    "One": "Copy import code"
+  },
+  "ServerImportCode": {
+    "One": "Server configuration import code"
+  },
+  "ImportCodeNotConfigured": {
+    "One": "The administrator has not provided an import code yet."
+  },
+  "ClientResourcesLoadFailed": {
+    "One": "Could not load client resources. Please retry."
+  },
+  "DownloadSettingsHelp": {
+    "One": "Use an HTTP / HTTPS URL or a path on this site, such as /downloads/rustdesk.exe. Empty links show Coming soon; disable visibility to hide an entry."
+  },
+  "AddDownload": {
+    "One": "Add download"
+  },
+  "RemoveDownload": {
+    "One": "Remove entry"
+  },
+  "ClientPlatform": {
+    "One": "Platform"
+  },
+  "ClientArchitecture": {
+    "One": "Architecture"
+  },
+  "ClientVersion": {
+    "One": "Version"
+  },
+  "ClientDownloadVisible": {
+    "One": "Show to users"
+  },
+  "DownloadURL": {
+    "One": "Download URL"
+  },
+  "DownloadURLInvalid": {
+    "One": "Enter an HTTP / HTTPS URL or a site path starting with a single /."
+  },
+  "ImportCodeSettingsHelp": {
+    "One": "In a configured RustDesk client, open Settings → Network → Export Server Config, then paste the copied content below. Saving makes it available to users; leave it empty to disable copying. This does not change the running ID, relay or API service settings."
+  },
+  "ImportCodePlaceholder": {
+    "One": "Paste the server configuration exported by the client"
+  },
+  "UnsavedClientResources": {
+    "One": "Unsaved changes"
+  },
+  "ClientResourcesSavedHint": {
+    "One": "Users can reopen or refresh the page to get the latest saved settings."
+  },
+  "SaveClientResources": {
+    "One": "Save settings"
+  },
+  "ClientResourcesSaved": {
+    "One": "Client download and import settings saved"
+  },
+  "ViewUserinfo": {
+    "One": "View user page"
+  },
+  "DiscardClientResources": {
+    "One": "Leave this page and discard your unsaved changes?"
+  },
+  "DiscardChanges": {
+    "One": "Discard changes"
+  },
+  "KeepEditing": {
+    "One": "Keep editing"
+  },
+  "Optional": {
+    "One": "Optional"
+  },
+  "CaptchaPlaceholder": {
+    "One": "Enter the characters shown"
+  },
+  "RefreshCaptcha": {
+    "One": "New image"
+  },
+  "CaptchaLoading": {
+    "One": "Loading…"
+  },
+  "RegistrationCaptchaHint": {
+    "One": "Required to send an email code. Once received, use the email code to register."
+  },
+  "IdentityChecking": {
+    "One": "Checking…"
+  },
+  "IdentityAvailable": {
+    "One": "Available"
+  },
+  "IdentityCheckFailed": {
+    "One": "Unable to check. Please try again."
+  },
+  "RegistrationUsernameUsed": {
+    "One": "This username is already in use. Choose another or sign in."
+  },
+  "RegistrationEmailUsed": {
+    "One": "This email is already in use. Choose another or sign in."
+  },
+  "RegistrationUsernameLength": {
+    "One": "Use 2–32 characters for your username."
   }
 }

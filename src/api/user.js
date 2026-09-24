@@ -1,10 +1,21 @@
 import request from '@/utils/request'
 
+export function reviewRegistration (id, approve) {
+  return request({ url: '/user/review', method: 'post', data: { id, approve } })
+}
+
+export function logout () {
+  return request({ url: '/logout', method: 'post' })
+}
+
 export function login (data) {
   return request({
     url: '/login',
     method: 'post',
     data,
+    // Preserve the API's translated errors and captcha codes while exposing
+    // failed authentication as HTTP 401 to the browser password manager.
+    validateStatus: status => status === 200 || status === 401,
   })
 }
 

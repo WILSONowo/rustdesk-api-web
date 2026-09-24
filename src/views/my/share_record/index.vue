@@ -10,16 +10,16 @@
     </el-card>
     <el-card class="list-body" shadow="hover">
       <el-table :data="listRes.list" v-loading="listRes.loading" border @selection-change="handleSelectionChange">
-        <el-table-column type="selection" align="center" width="50"/>
-        <el-table-column prop="id" label="ID" align="center" width="100"/>
-        <el-table-column prop="peer_id" :label="T('Peer')" align="center"/>
-        <el-table-column prop="created_at" :label="T('CreatedAt')" align="center"/>
-        <el-table-column :label="`${T('ExpireTime')} (${T('Second')})`" prop="expire" align="center">
+        <el-table-column :resizable="false" type="selection" align="center" width="50"/>
+        <el-table-column :resizable="false" prop="id" label="ID" align="center" width="100" show-overflow-tooltip/>
+        <el-table-column min-width="150" :resizable="false" prop="peer_id" :label="T('Peer')" align="center" show-overflow-tooltip/>
+        <el-table-column min-width="180" :resizable="false" prop="created_at" :label="T('CreatedAt')" align="center" show-overflow-tooltip/>
+        <el-table-column min-width="150" :resizable="false" :label="`${T('ExpireTime')} (${T('Second')})`" prop="expire" align="center">
           <template #default="{row}">
             <el-tag :type="expired(row)?'info':'success'">{{ row.expire ? row.expire : T('Forever') }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column :label="T('Actions')" align="center" width="400">
+        <el-table-column :resizable="false" :label="T('Actions')" align="center" width="112" class-name="table-actions">
           <template #default="{row}">
             <el-button type="danger" @click="del(row)">{{ T('Delete') }}</el-button>
           </template>

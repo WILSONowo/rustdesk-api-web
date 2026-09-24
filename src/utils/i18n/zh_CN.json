@@ -547,5 +547,245 @@
   },
   "Remark": {
     "One": "备注"
+  },
+  "RegistrationSubmitted": {
+    "One": "注册申请已提交"
+  },
+  "PendingApprovalHelp": {
+    "One": "请等待管理员审核。审核通过后，可使用此账号登录网页和 RustDesk 客户端。"
+  },
+  "RegistrationApprovalNotice": {
+    "One": "请先验证邮箱，再提交注册申请。管理员审核通过后才能登录。"
+  },
+  "RegistrationPasswordLength": {
+    "One": "密码长度为 8–32 个字符"
+  },
+  "AllStatuses": {
+    "One": "全部状态"
+  },
+  "PendingApproval": {
+    "One": "待审核"
+  },
+  "AccountEnabled": {
+    "One": "已启用"
+  },
+  "AccountDisabled": {
+    "One": "已禁用／已拒绝"
+  },
+  "RegistrationReview": {
+    "One": "注册审核"
+  },
+  "ApproveRegistration": {
+    "One": "通过"
+  },
+  "RejectRegistration": {
+    "One": "拒绝"
+  },
+  "ApproveRegistrationConfirm": {
+    "One": "允许账号 {username} 登录并使用通讯录？"
+  },
+  "RejectRegistrationConfirm": {
+    "One": "拒绝账号 {username} 的注册申请？该账号将保持禁用。"
+  },
+  "EmailCode": {
+    "One": "邮箱验证码"
+  },
+  "SendEmailCode": {
+    "One": "发送验证码"
+  },
+  "EmailCodeRequested": {
+    "One": "如果邮箱可用于本次操作，验证码将发送到该邮箱，请检查收件箱或垃圾邮件。"
+  },
+  "NoEmailBound": {
+    "One": "未填写邮箱"
+  },
+  "EmailVerified": {
+    "One": "已验证"
+  },
+  "EmailUnverified": {
+    "One": "未验证"
+  },
+  "ChangeEmail": {
+    "One": "更换邮箱"
+  },
+  "VerifyEmail": {
+    "One": "验证邮箱"
+  },
+  "EmailBindingTitle": {
+    "One": "绑定或更换邮箱"
+  },
+  "EmailBindingHelp": {
+    "One": "输入当前账号密码，并验证目标邮箱。已有账号无需补验证即可继续登录；邮箱验证后才能用于找回密码。"
+  },
+  "MailUnavailableHint": {
+    "One": "邮件服务尚未配置或暂不可用，请联系管理员。已有账号仍可正常登录。"
+  },
+  "CurrentPassword": {
+    "One": "当前密码"
+  },
+  "ValidEmailRequired": {
+    "One": "请输入有效邮箱地址"
+  },
+  "EmailCodeLength": {
+    "One": "请输入 8 位数字验证码"
+  },
+  "EmailBindingSuccess": {
+    "One": "邮箱已验证并绑定"
+  },
+  "PasswordResetSuccess": {
+    "One": "密码已重置，请重新登录"
+  },
+  "PasswordResetHelp": {
+    "One": "使用已验证的绑定邮箱找回密码。重置成功后，所有设备上的旧登录会话将失效。"
+  },
+  "AccountCenter": {
+    "One": "账号中心"
+  },
+  "LoginAccountHelp": {
+    "One": "登录后管理你的设备与通讯录。"
+  },
+  "ServerCommandsDisabled": {
+    "One": "服务端命令未启用"
+  },
+  "ServerCommandsHelp": {
+    "One": "当前部署提供账号与通讯录服务，未接入 hbbs / hbbr 命令接口。这不影响账号登录、通讯录或客户端远控。该功能需要兼容命令接口的服务端，并与 API 处于同一网络空间。"
+  },
+  "AlreadyHaveAccountLogin": {
+    "One": "已有账号，登录"
+  },
+  "ToggleNavigation": {
+    "One": "展开或收起导航"
+  },
+  "ClientResources": {
+    "One": "客户端下载与配置"
+  },
+  "ClientResourcesIntro": {
+    "One": "下载适合你设备的客户端，然后导入服务器配置。"
+  },
+  "ManageClientResources": {
+    "One": "客户端下载设置"
+  },
+  "ClientDownloads": {
+    "One": "客户端下载"
+  },
+  "DownloadClient": {
+    "One": "下载客户端"
+  },
+  "DownloadUnavailable": {
+    "One": "暂未提供"
+  },
+  "ClientVersionUnspecified": {
+    "One": "选择适合设备的安装包"
+  },
+  "DownloadsNotConfigured": {
+    "One": "管理员尚未提供客户端下载链接。"
+  },
+  "QuickServerImport": {
+    "One": "服务器配置快捷导入"
+  },
+  "QuickServerImportHelp": {
+    "One": "复制后，打开 RustDesk「设置 → 网络」，解锁并选择「导入服务器配置」，然后应用。"
+  },
+  "CopyServerImportCode": {
+    "One": "复制导入代码"
+  },
+  "ServerImportCode": {
+    "One": "服务器配置导入代码"
+  },
+  "ImportCodeNotConfigured": {
+    "One": "管理员尚未配置导入代码，请稍后再试。"
+  },
+  "ClientResourcesLoadFailed": {
+    "One": "暂时无法加载客户端下载配置，请重试。"
+  },
+  "DownloadSettingsHelp": {
+    "One": "可填写完整的 HTTP / HTTPS 下载链接，或本站路径（如 /downloads/rustdesk.exe）。留空时显示“暂未提供”；关闭展示可隐藏该条目。"
+  },
+  "AddDownload": {
+    "One": "添加下载项"
+  },
+  "RemoveDownload": {
+    "One": "移除此项"
+  },
+  "ClientPlatform": {
+    "One": "平台"
+  },
+  "ClientArchitecture": {
+    "One": "架构"
+  },
+  "ClientVersion": {
+    "One": "版本"
+  },
+  "ClientDownloadVisible": {
+    "One": "展示给用户"
+  },
+  "DownloadURL": {
+    "One": "下载链接"
+  },
+  "DownloadURLInvalid": {
+    "One": "请输入 HTTP / HTTPS 链接或以单个 / 开头的本站路径。"
+  },
+  "ImportCodeSettingsHelp": {
+    "One": "在已正确配置的 RustDesk 客户端中，打开「设置 → 网络 → 导出服务器配置」，将复制的内容原样粘贴到下方。保存后用户即可复制；留空则停用复制入口。这里不会修改运行中的 ID、中继或 API 服务配置。"
+  },
+  "ImportCodePlaceholder": {
+    "One": "粘贴客户端导出的服务器配置代码"
+  },
+  "UnsavedClientResources": {
+    "One": "有未保存的修改"
+  },
+  "ClientResourcesSavedHint": {
+    "One": "保存后，用户重新打开或刷新页面即可获取最新配置。"
+  },
+  "SaveClientResources": {
+    "One": "保存设置"
+  },
+  "ClientResourcesSaved": {
+    "One": "客户端下载与导入配置已保存"
+  },
+  "ViewUserinfo": {
+    "One": "查看用户页面"
+  },
+  "DiscardClientResources": {
+    "One": "离开页面会丢失尚未保存的修改，确定离开吗？"
+  },
+  "DiscardChanges": {
+    "One": "放弃修改"
+  },
+  "KeepEditing": {
+    "One": "继续编辑"
+  },
+  "Optional": {
+    "One": "选填"
+  },
+  "CaptchaPlaceholder": {
+    "One": "请输入图中字符"
+  },
+  "RefreshCaptcha": {
+    "One": "换一张"
+  },
+  "CaptchaLoading": {
+    "One": "加载中…"
+  },
+  "RegistrationCaptchaHint": {
+    "One": "发送邮箱验证码前填写；收到邮箱验证码后可直接注册。"
+  },
+  "IdentityChecking": {
+    "One": "正在检查…"
+  },
+  "IdentityAvailable": {
+    "One": "可以使用"
+  },
+  "IdentityCheckFailed": {
+    "One": "暂时无法检查，请重试"
+  },
+  "RegistrationUsernameUsed": {
+    "One": "用户名已被使用，请更换或登录已有账号"
+  },
+  "RegistrationEmailUsed": {
+    "One": "邮箱已被使用，请更换或登录已有账号"
+  },
+  "RegistrationUsernameLength": {
+    "One": "用户名长度为 2–32 个字符"
   }
 }

@@ -12,10 +12,10 @@
       <el-tag type="danger" effect="light" style="margin-bottom: 10px">{{ T('MyAddressBookTips') }}</el-tag>
       <el-table :data="list" v-loading="listRes.loading" border>
         <!--        <el-table-column prop="id" label="ID" align="center"/>-->
-        <el-table-column prop="name" :label="T('Name')" align="center"/>
-        <el-table-column prop="created_at" :label="T('CreatedAt')" align="center"/>
+        <el-table-column min-width="150" :resizable="false" prop="name" :label="T('Name')" align="center" show-overflow-tooltip/>
+        <el-table-column min-width="180" :resizable="false" prop="created_at" :label="T('CreatedAt')" align="center" show-overflow-tooltip/>
         <!--        <el-table-column prop="updated_at" label="更新时间" align="center"/>-->
-        <el-table-column :label="T('Actions')" align="center" class-name="table-actions" width="600" fixed="right">
+        <el-table-column :resizable="false" :label="T('Actions')" align="center" class-name="table-actions" width="260" fixed="right">
           <template #default="{row}">
             <template v-if="row.id>0">
               <el-button type="primary" @click="showRules(row)">{{ T('ShareRules') }}</el-button>

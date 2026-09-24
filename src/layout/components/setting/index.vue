@@ -66,9 +66,8 @@
   const user = userStore
   const appStore = useAppStore()
 
-  const logout = () => {
-    userStore.logout()
-    window.location.reload()
+  const logout = async () => {
+    if (await userStore.logout().catch(() => false)) window.location.reload()
   }
 
   const changePwdVisible = ref(false)
@@ -91,22 +90,34 @@
 
   .menu-item {
     margin-left: 15px;
-
-    * {
-      outline: none;
-    }
   }
 
   .title {
-    color: #fff;
+    color: var(--el-text-color-regular);
     display: flex;
     align-items: center;
     justify-content: space-around;
+    border-radius: 6px;
+    cursor: pointer;
 
+    // Dropdown focuses its trigger on pointer entry. Keep the ring for keyboard navigation.
+    &:focus { outline: none; }
+    &:focus-visible:not(:hover) {
+      outline: 2px solid var(--el-color-primary);
+      outline-offset: 4px;
+    }
 
     .nickname {
       padding: 0 10px;
+      max-width: 120px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
   }
+}
+@media (max-width: 640px) {
+  .setting .menu-item { margin-left: 10px; }
+  .setting .title .nickname { max-width: 72px; padding: 0 4px; }
 }
 </style>
