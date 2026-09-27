@@ -1,7 +1,7 @@
 # RustDesk API Web
 
-本 fork 当前版本：**1.2.0-beta1** · [下载](https://github.com/WILSONowo/rustdesk-api-web/releases/latest) · [版本信息](VERSIONING.md) · [贡献者](CONTRIBUTORS.md)
-> 本 fork 的功能与配套后端见 [FORK_RELEASE.md](FORK_RELEASE.md)。以下保留上游说明；本版本请使用 `npm ci`、`npm test`、`npm run build`。
+当前版本：**1.2.0-beta1** · [下载](https://github.com/WILSONowo/rustdesk-api-web/releases/latest) · [版本信息](VERSIONING.md) · [贡献者](CONTRIBUTORS.md)
+> 提供配套 API 的注册、邮箱和客户端下载页面，并统一后台样式。功能与配套后端见 [项目说明](FORK_RELEASE.md)。下方保留上游说明；本版本使用 `npm ci`、`npm test`、`npm run build`。
 # 基于 Vue3 + Element Plus 的后台, 适用于 [RustDesk API](https://github.com/lejianwen/rustdesk-api)
 
 <a href="https://github.com/vuejs/vue-next">

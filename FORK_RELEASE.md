@@ -1,5 +1,7 @@
-# 账号中心前端 fork
+# 账号中心前端
 
-配套后端为 [WILSONowo/rustdesk-api](https://github.com/WILSONowo/rustdesk-api)。本版本包含注册/邮箱验证/管理员审核、邮箱换绑与找回密码、个人/共享通讯录、客户端下载及配置复制、账号页面统一样式、固定导航布局和表格宽度优化。需要 Node.js 22。
+为配套 [API](https://github.com/WILSONowo/rustdesk-api) 增加了注册审核、邮箱验证与换绑、密码找回、客户端下载和配置复制页面，并统一了登录页与后台样式，调整了导航和表格布局。
 
-部署和邮件说明见后端 [ACCOUNT_V1.md](https://github.com/WILSONowo/rustdesk-api/blob/master/ACCOUNT_V1.md) 和 [EMAIL_SETUP.md](https://github.com/WILSONowo/rustdesk-api/blob/master/EMAIL_SETUP.md)；原许可证和版权声明保持不变。
+个人和共享通讯录沿用上游功能。前端使用 Node.js 22，构建后的页面与 API 配套使用。
+
+部署见后端 [ACCOUNT_V1.md](https://github.com/WILSONowo/rustdesk-api/blob/master/ACCOUNT_V1.md)，发信配置见 [EMAIL_SETUP.md](https://github.com/WILSONowo/rustdesk-api/blob/master/EMAIL_SETUP.md)。
