@@ -1,19 +1,9 @@
 <template>
-  <router-view/>
+  <router-view />
 </template>
-<script>
-  import { defineComponent, ref, onMounted } from 'vue'
+<script setup>
+import { useDark } from '@vueuse/core'
 
-  export default defineComponent({
-    props: {},
-    setup (props) {
-    },
-    created () {
-
-    },
-  })
-
-
+// Apply the saved theme on authentication pages as well as inside the app.
+useDark()
 </script>
-<style>
-</style>

@@ -27,10 +27,11 @@
         ></el-switch>
       </el-form-item>
       <el-form-item :label="T('Status')" prop="status">
-        <el-switch v-model="form.status"
-                   :active-value="ENABLE_STATUS"
-                   :inactive-value="DISABLE_STATUS"
-        ></el-switch>
+        <el-select v-model="form.status">
+          <el-option :value="ENABLE_STATUS" :label="T('AccountEnabled')" />
+          <el-option :value="DISABLE_STATUS" :label="T('AccountDisabled')" />
+          <el-option :value="USER_PENDING_STATUS" :label="T('PendingApproval')" />
+        </el-select>
       </el-form-item>
       <el-form-item :label="T('Remark')" prop="remark">
           <el-input v-model="form.remark"></el-input>
@@ -46,7 +47,7 @@
 <script setup>
   import { useRoute } from 'vue-router'
   import { useGetDetail, useSubmit } from '@/views/user/composables/edit'
-  import { ENABLE_STATUS, DISABLE_STATUS } from '@/utils/common_options'
+  import { ENABLE_STATUS, DISABLE_STATUS, USER_PENDING_STATUS } from '@/utils/common_options'
   import { T } from '@/utils/i18n'
 
   const route = useRoute()

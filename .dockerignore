@@ -1,0 +1,10 @@
+.git
+node_modules
+dist
+*.log
+
+.env.local
+.env.*.local
+artifacts/
+*.pem
+*.key

@@ -2,6 +2,22 @@ import Clipboard from 'clipboard'
 import { ElMessage } from 'element-plus'
 import { T } from '@/utils/i18n'
 
+export async function copyText(text) {
+  if (navigator.clipboard?.writeText) {
+    try { await navigator.clipboard.writeText(text); return } catch { /* Fall back for browser restrictions. */ }
+  }
+  const previous = document.activeElement
+  const input = document.createElement('textarea')
+  input.value = text
+  input.setAttribute('readonly', '')
+  input.style.cssText = 'position:fixed;left:-9999px;top:0;'
+  document.body.appendChild(input)
+  try {
+    input.select()
+    if (!document.execCommand('copy')) throw new Error('Clipboard unavailable')
+  } finally { input.remove(); previous?.focus?.() }
+}
+
 export function handleClipboard (text, event) {
   const clipboard = new Clipboard(event.target.toString(), {
     text: () => text,

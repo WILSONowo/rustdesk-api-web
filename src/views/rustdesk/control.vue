@@ -1,5 +1,10 @@
 <template>
   <div>
+    <el-skeleton v-if="loadingCapabilities" :rows="3" animated />
+    <el-result v-else-if="!commandsEnabled" icon="info" :title="T('ServerCommandsDisabled')" :sub-title="T('ServerCommandsHelp')">
+      <template #extra><el-button @click="loadCapabilities">{{ T('Refresh') }}</el-button></template>
+    </el-result>
+    <template v-else>
     <h4 v-html="T('ServerCmdTips', {wiki: '<a target=\'_blank\' href=\'https://github.com/lejianwen/rustdesk-api/wiki/Rustdesk-Command\'>WIKI</a>'})"></h4>
     <h5>
       <span>ID {{ T('Status') }}: </span>
@@ -42,11 +47,11 @@
         </el-card>
         <el-card class="list-body" shadow="hover">
           <el-table :data="listRes.list" v-loading="listRes.loading" border>
-            <el-table-column prop="cmd" label="cmd" align="center"></el-table-column>
-            <el-table-column prop="alias" label="alias" align="center"></el-table-column>
-            <el-table-column prop="option" label="option" align="center"></el-table-column>
-            <el-table-column prop="explain" label="explain" align="center"></el-table-column>
-            <el-table-column label="actions" align="center">
+            <el-table-column min-width="150" :resizable="false" prop="cmd" label="cmd" align="center"></el-table-column>
+            <el-table-column min-width="150" :resizable="false" prop="alias" label="alias" align="center"></el-table-column>
+            <el-table-column min-width="150" :resizable="false" prop="option" label="option" align="center"></el-table-column>
+            <el-table-column min-width="150" :resizable="false" prop="explain" label="explain" align="center"></el-table-column>
+            <el-table-column min-width="150" :resizable="false" label="actions" align="center">
               <template #default="{row}">
                 <el-button type="success" :disabled="!canSendCmd(row.target)" @click="showCmd(row)">{{ T('Send') }}</el-button>
                 <el-button v-if="row.id" type="primary" @click="toUpdate(row)">{{ T('Edit') }}</el-button>
@@ -110,13 +115,14 @@
         </el-card>
       </el-tab-pane>
     </el-tabs>
+    </template>
 
   </div>
 </template>
 
 
 <script setup>
-  import { create, list, remove, sendCmd, update } from '@/api/rustdesk'
+  import { capabilities, create, list, remove, sendCmd, update } from '@/api/rustdesk'
   import { onMounted, reactive, ref } from 'vue'
   import { T } from '@/utils/i18n'
   import { ElMessage, ElMessageBox } from 'element-plus'
@@ -129,6 +135,17 @@
   import usage from '@/views/rustdesk/usage.vue'
 
   const activeName = ref('Simple')
+  const commandsEnabled = ref(false)
+  const loadingCapabilities = ref(true)
+  const loadCapabilities = async () => {
+    loadingCapabilities.value = true
+    const res = await capabilities().catch(() => null)
+    commandsEnabled.value = res?.data?.enabled === true
+    loadingCapabilities.value = false
+    if (commandsEnabled.value) {
+      await Promise.all([checkCanSendIdServerCmd(), checkCanSendRelayServerCmd(), getList()])
+    }
+  }
 
   const canSendIdServerCmd = ref(false)
   const checkCanSendIdServerCmd = async () => {
@@ -145,7 +162,6 @@
   const refreshCanSendIdServerCmd = () => {
     checkCanSendIdServerCmd()
   }
-  onMounted(refreshCanSendIdServerCmd)
 
   const canSendRelayServerCmd = ref(false)
 
@@ -156,7 +172,6 @@
   const refreshCanSendRelayServerCmd = () => {
     checkCanSendRelayServerCmd()
   }
-  onMounted(refreshCanSendRelayServerCmd)
 
   const rs = ref(null)
   const handleAlwaysUseRelaySuccess = () => {
@@ -196,7 +211,7 @@
       listQuery.page = 1
     }
   }
-  onMounted(getList)
+  onMounted(loadCapabilities)
   const del = async (row) => {
     const cf = await ElMessageBox.confirm(T('Confirm?', { param: T('Delete') }), {
       confirmButtonText: T('Confirm'),

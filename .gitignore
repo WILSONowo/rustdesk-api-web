@@ -17,3 +17,10 @@ yarn-error.log*
 *.local
 
 yarn.lock
+
+# Local credentials and review artifacts
+.env.local
+.env.*.local
+/artifacts/
+*.pem
+*.key

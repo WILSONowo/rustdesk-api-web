@@ -30,31 +30,31 @@
     </el-card>
     <el-card class="list-body" shadow="hover">
       <el-table :data="listRes.list" v-loading="listRes.loading" border size="small" @selection-change="handleSelectionChange">
-        <el-table-column type="selection" width="55" align="center"/>
-        <el-table-column prop="id" label="ID" align="center" width="150">
+        <el-table-column :resizable="false" type="selection" width="55" align="center"/>
+        <el-table-column :resizable="false" prop="id" label="ID" align="center" width="150">
           <template #default="{row}">
             <span>{{ row.id }} <el-icon @click="handleClipboard(row.id, $event)"><CopyDocument/></el-icon></span>
           </template>
         </el-table-column>
-        <el-table-column prop="cpu" label="CPU" align="center" width="100" show-overflow-tooltip/>
-        <el-table-column prop="hostname" :label="T('Hostname')" align="center" width="120"/>
-        <el-table-column prop="memory" :label="T('Memory')" align="center" width="120"/>
-        <el-table-column prop="os" :label="T('Os')" align="center" width="120" show-overflow-tooltip/>
-        <el-table-column prop="last_online_time" :label="T('LastOnlineTime')" align="center" min-width="120">
+        <el-table-column :resizable="false" prop="cpu" label="CPU" align="center" min-width="160" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="hostname" :label="T('Hostname')" align="center" min-width="150" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="memory" :label="T('Memory')" align="center" width="120" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="os" :label="T('Os')" align="center" min-width="160" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="last_online_time" :label="T('LastOnlineTime')" align="center" min-width="120">
           <template #default="{row}">
             <div class="last_oline_time">
               <span> {{ row.last_online_time ? timeAgo(row.last_online_time * 1000) : '-' }}</span> <span class="dot" :class="{red: timeDis(row.last_online_time) >= 60, green: timeDis(row.last_online_time)< 60}"></span>
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="last_online_ip" :label="T('LastOnlineIp')" align="center" min-width="120"/>
-        <el-table-column prop="username" :label="T('Username')" align="center" width="120"/>
-        <el-table-column prop="uuid" :label="T('Uuid')" align="center" width="120" show-overflow-tooltip/>
-        <el-table-column prop="version" :label="T('Version')" align="center" width="80"/>
-        <el-table-column prop="alias" :label="T('Alias')" align="center" width="80"/>
-        <el-table-column prop="created_at" :label="T('CreatedAt')" align="center" width="150"/>
-        <el-table-column prop="updated_at" :label="T('UpdatedAt')" align="center" width="150"/>
-        <el-table-column :label="T('Actions')" align="center" width="500" class-name="table-actions" fixed="right">
+        <el-table-column :resizable="false" prop="last_online_ip" :label="T('LastOnlineIp')" align="center" min-width="170" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="username" :label="T('Username')" align="center" min-width="150" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="uuid" :label="T('Uuid')" align="center" min-width="200" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="version" :label="T('Version')" align="center" width="80" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="alias" :label="T('Alias')" align="center" min-width="150" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="created_at" :label="T('CreatedAt')" align="center" min-width="180" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="updated_at" :label="T('UpdatedAt')" align="center" min-width="180" show-overflow-tooltip/>
+        <el-table-column :resizable="false" :label="T('Actions')" align="center" width="260" class-name="table-actions" fixed="right">
           <template #default="{row}">
             <el-button type="success" @click="connectByClient(row.id)">{{ T('Link') }}</el-button>
             <el-button v-if="appStore.setting.appConfig.web_client" type="success" @click="toWebClientLink(row)">Web Client</el-button>

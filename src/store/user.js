@@ -1,5 +1,5 @@
 import { defineStore, acceptHMRUpdate } from 'pinia'
-import { current, login } from '@/api/user'
+import { current, login, logout } from '@/api/user'
 import { setToken, removeToken, setCode, removeCode } from '@/utils/auth'
 import { useRouteStore } from '@/store/router'
 import { useAppStore } from '@/store/app'
@@ -11,6 +11,7 @@ export const useUserStore = defineStore({
     nickname: '',
     username: '',
     email: '',
+    email_verified: false,
     token: '',
     role: '',
     avatar: '',
@@ -18,13 +19,17 @@ export const useUserStore = defineStore({
   }),
 
   actions: {
-    logout () {
+    clearSession () {
       removeToken()
       removeCode()
-      this.$patch({
-        name: '',
-        role: {},
-      })
+      localStorage.removeItem('user_info')
+      this.$reset()
+    },
+
+    async logout () {
+      await logout()
+      this.clearSession()
+      return true
     },
 
     saveUserData (userData) {
@@ -41,12 +46,11 @@ export const useUserStore = defineStore({
     },
 
     async login (form) {
-      const res = await login(form).catch(e => e)
-      console.log('login', res)
-      if (!res.code) {
-        useAppStore().loadConfig()
+      const res = await login(form)
+      if (res.code === 0 && res.data?.token) {
         const userData = res.data
         this.saveUserData(userData)
+        useAppStore().loadConfig()
         return userData
       } else {
         return Promise.reject(res)

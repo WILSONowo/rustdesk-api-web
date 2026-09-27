@@ -26,20 +26,20 @@
     </el-card>
     <el-card class="list-body" shadow="hover">
       <el-table :data="listRes.list" v-loading="listRes.loading" border>
-        <el-table-column prop="id" label="ID" align="center"/>
-        <el-table-column :label="T('Owner')" align="center">
+        <el-table-column min-width="100" :resizable="false" prop="id" label="ID" align="center" show-overflow-tooltip/>
+        <el-table-column min-width="150" :resizable="false" :label="T('Owner')" align="center">
           <template #default="{row}">
             <span v-if="row.user_id"> <el-tag>{{ allUsers?.find(u => u.id === row.user_id)?.username }}</el-tag> </span>
           </template>
         </el-table-column>
-        <el-table-column prop="collection_id" :label="T('AddressBookName')" align="center" width="150">
+        <el-table-column :resizable="false" prop="collection_id" :label="T('AddressBookName')" align="center" width="150">
           <template #default="{row}">
             <span v-if="row.collection_id === 0">{{ T('MyAddressBook') }}</span>
             <span v-else>{{ row.collection?.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="name" :label="T('Name')" align="center"/>
-        <el-table-column prop="color" :label="T('Color')" align="center">
+        <el-table-column min-width="150" :resizable="false" prop="name" :label="T('Name')" align="center" show-overflow-tooltip/>
+        <el-table-column min-width="100" :resizable="false" prop="color" :label="T('Color')" align="center">
           <template #default="{row}">
             <div class="colors">
               <div style="background-color: var(--tag-bg-color)" class="colorbox">
@@ -49,9 +49,9 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="created_at" :label="T('CreatedAt')" align="center"/>
-        <el-table-column prop="updated_at" :label="T('UpdatedAt')" align="center"/>
-        <el-table-column :label="T('Actions')" align="center" width="250">
+        <el-table-column min-width="180" :resizable="false" prop="created_at" :label="T('CreatedAt')" align="center" show-overflow-tooltip/>
+        <el-table-column min-width="180" :resizable="false" prop="updated_at" :label="T('UpdatedAt')" align="center" show-overflow-tooltip/>
+        <el-table-column :resizable="false" :label="T('Actions')" align="center" width="240" class-name="table-actions">
           <template #default="{row}">
             <el-button @click="toEdit(row)">{{ T('Edit') }}</el-button>
             <el-button type="danger" @click="del(row)">{{ T('Delete') }}</el-button>

@@ -10,15 +10,15 @@
     </el-card>
     <el-card class="list-body" shadow="hover">
       <el-table :data="listRes.list" v-loading="listRes.loading" border>
-        <el-table-column prop="id" label="ID" align="center"/>
-        <el-table-column prop="op" :label="T('IdP')" align="center"/>
-        <el-table-column prop="oauth_type" :label="T('Type')" align="center"/>
-        <el-table-column prop="auto_register" :label="T('AutoRegister')" align="center"/>
-        <el-table-column prop="pkce_enable" :label="T('PkceEnable')" align="center"/>
-        <el-table-column prop="pkce_method" :label="T('PkceMethod')" align="center"/>
-        <el-table-column prop="created_at" :label="T('CreatedAt')" align="center"/>
-        <el-table-column prop="updated_at" :label="T('UpdatedAt')" align="center"/>
-        <el-table-column :label="T('Actions')" align="center">
+        <el-table-column min-width="100" :resizable="false" prop="id" label="ID" align="center" show-overflow-tooltip/>
+        <el-table-column min-width="150" :resizable="false" prop="op" :label="T('IdP')" align="center" show-overflow-tooltip/>
+        <el-table-column min-width="150" :resizable="false" prop="oauth_type" :label="T('Type')" align="center" show-overflow-tooltip/>
+        <el-table-column min-width="150" :resizable="false" prop="auto_register" :label="T('AutoRegister')" align="center" show-overflow-tooltip/>
+        <el-table-column min-width="150" :resizable="false" prop="pkce_enable" :label="T('PkceEnable')" align="center" show-overflow-tooltip/>
+        <el-table-column min-width="150" :resizable="false" prop="pkce_method" :label="T('PkceMethod')" align="center" show-overflow-tooltip/>
+        <el-table-column min-width="180" :resizable="false" prop="created_at" :label="T('CreatedAt')" align="center" show-overflow-tooltip/>
+        <el-table-column min-width="180" :resizable="false" prop="updated_at" :label="T('UpdatedAt')" align="center" show-overflow-tooltip/>
+        <el-table-column :resizable="false" :label="T('Actions')" align="center" width="200" class-name="table-actions">
           <template #default="{row}">
             <el-button @click="toEdit(row)">{{ T('Edit') }}</el-button>
             <el-button type="danger" @click="del(row)">{{ T('Delete') }}</el-button>

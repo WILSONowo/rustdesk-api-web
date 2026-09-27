@@ -1,28 +1,24 @@
 <template>
-  <div class="login-container">
-    <div class="login-card">
-      <img src="@/assets/logo.png" alt="logo" class="login-logo"/>
+  <AuthShell :title="T('Login')" :subtitle="T('LoginAccountHelp')">
 
-      <el-form v-if="!disablePwd" label-position="top" class="login-form">
+      <el-form v-if="!disablePwd" id="login-form" method="post" @submit.prevent="login" label-position="top" class="login-form">
         <el-form-item :label="T('Username')">
-          <el-input v-model="form.username" type="username" class="login-input"></el-input>
+          <el-input v-model="form.username" id="login-username" name="username" autocomplete="username" :readonly="loggingIn" class="login-input"></el-input>
         </el-form-item>
 
         <el-form-item :label="T('Password')">
-          <el-input v-model="form.password" type="password" @keyup.enter.native="login" show-password
+          <el-input v-model="form.password" id="login-password" name="password" type="password" autocomplete="current-password" :readonly="loggingIn" show-password
                     class="login-input"></el-input>
         </el-form-item>
         <el-form-item :label="T('Captcha')" v-if="captchaCode">
-          <el-input v-model="form.captcha" @keyup.enter.native="login"  class="login-input captcha-input">
-            <template #append>
-              <img :src="captchaCode.b64" @click="loadCaptcha" class="captcha" alt="captcha"/>
-            </template>
-          </el-input>
+          <captcha-field v-model="form.captcha" :image="captchaCode.b64" :loading="captchaLoading"
+                         :disabled="loggingIn" @refresh="loadCaptcha" />
         </el-form-item>
-        <el-form-item>
-          <el-button @click="login" type="primary" class="login-button">{{ T('Login') }}</el-button>
-          <el-button v-if="allowRegister" @click="register" class="login-button">{{ T('Register') }}</el-button>
-        </el-form-item>
+        <el-button native-type="submit" :loading="loggingIn" :disabled="captchaLoading" type="primary" class="auth-primary">{{ T('Login') }}</el-button>
+        <div class="auth-links">
+          <el-button v-if="allowRegister" link type="primary" @click="register">{{ T('Register') }}</el-button>
+          <el-button link @click="router.push('/reset-password')">{{ T('ForgotPassword') }}</el-button>
+        </div>
       </el-form>
 
       <div class="divider" v-if="options.length > 0 && !disablePwd">
@@ -37,16 +33,20 @@
           </el-button>
         </div>
       </div>
-    </div>
-  </div>
+  </AuthShell>
 </template>
 
 <script setup>
-  import { reactive, onMounted, ref } from 'vue'
+  import AuthShell from '@/components/authShell.vue'
+  import CaptchaField from '@/components/captchaField.vue'
+  import { reactive, onMounted, onBeforeUnmount, nextTick, ref } from 'vue'
   import { useUserStore } from '@/store/user'
+  import { useAppStore } from '@/store/app'
   import { ElMessage } from 'element-plus'
   import { T } from '@/utils/i18n'
-  import { useRoute, useRouter } from 'vue-router'
+  import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
+  import { offerAuthenticatedPassword } from '@/utils/passwordCredentials.mjs'
+  import { login as authenticate } from '@/api/user'
   import { loginOptions, captcha } from '@/api/login'
   import { getCode, removeCode } from '@/utils/auth'
 
@@ -82,23 +82,58 @@
   })
 
   const captchaCode = ref('')
-  const redirect = route.query?.redirect
+  const captchaLoading = ref(false)
+  const loggingIn = ref(false)
+  let loginSucceeded = false
+  let leaving = false
+  const clearUnsubmittedPassword = () => { form.password = ''; form.captcha = '' }
+  onBeforeRouteLeave(async () => {
+    leaving = true
+    if (!loginSucceeded) {
+      clearUnsubmittedPassword()
+      await nextTick()
+    }
+  })
+  onBeforeUnmount(() => {
+    leaving = true
+    if (!loginSucceeded) clearUnsubmittedPassword()
+  })
   const login = async () => {
-    const res = await userStore.login(form).catch(e => e)
-    if (!res.code) {
+    if (loggingIn.value || captchaLoading.value || leaving || !form.username || !form.password) return
+    loggingIn.value = true
+    const submitted = { ...form }
+    const response = await authenticate(submitted).catch(e => e)
+    loggingIn.value = false
+    if (leaving) { submitted.password = ''; return }
+    const res = response?.code === 0 ? response.data : null
+    if (res?.token) {
+      loginSucceeded = true
+      userStore.saveUserData(res)
+      useAppStore().loadConfig()
+      offerAuthenticatedPassword(res, submitted)
+      submitted.password = ''
       ElMessage.success(T('LoginSuccess'))
-      router.push({ path: redirect || '/', replace: true })
+      const redirect = route.query.redirect
+      const target = typeof redirect === 'string' ? router.resolve(redirect) : null
+      const allowed = target?.name && (res.route_names?.includes('*') || res.route_names?.includes(target.name))
+      router.push({ path: allowed ? redirect : '/', replace: true })
       return
     }
-    if (res.code === 110) {
+    submitted.password = ''
+    clearUnsubmittedPassword()
+    if (response?.code === 110 || captchaCode.value) {
       // need captcha
       loadCaptcha()
     }
   }
 
   const loadCaptcha = async () => {
-    const captchaRes = await captcha().catch(_ => false)
-    console.log(captchaRes)
+    if (captchaLoading.value) return
+    captchaLoading.value = true
+    form.captcha = ''
+    form.captcha_id = ''
+    const captchaRes = await captcha().catch(_ => false).finally(() => { captchaLoading.value = false })
+    if (!captchaRes?.data?.captcha) return
     captchaCode.value = captchaRes.data.captcha
     form.captcha_id = captchaRes.data.captcha.id
   }
@@ -169,129 +204,9 @@
 </script>
 
 <style scoped lang="scss">
-.login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #2d3a4b;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-.login-card {
-  width: 360px;
-  background-color: #283342;
-  padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-h1 {
-  margin-bottom: 20px;
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.login-form {
-  margin-bottom: 20px;
-}
-
-.login-input {
-  width: 100%;
-  .captcha{
-    cursor: pointer;
-    width: 150px;
-  }
-}
-.captcha-input{
-  :deep(.el-input-group__append) {
-    border-radius: 5px;
-    padding: 0;
-    overflow: hidden;
-  }
-}
-
-.login-button {
-  width: 100%;
-  height: 40px;
-  margin-bottom: 20px;
-  margin-left: 0;
-}
-
-.divider {
-  display: flex;
-  align-items: center;
-  margin: 20px 0;
-  font-size: 14px;
-  color: #888;
-
-  &::before,
-  &::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background-color: #ddd;
-  }
-
-  &::before {
-    margin-right: 10px;
-  }
-
-  &::after {
-    margin-left: 10px;
-  }
-}
-
-.oidc-options {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.oidc-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
-  height: 50px;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  color: black;
-  font-size: 14px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.oidc-icon {
-  width: 24px;
-  height: 24px;
-  margin-right: 10px;
-}
-
-.login-logo {
-  width: 80px;
-  height: 80px;
-  margin: 0 auto 20px;
-  display: block;
-}
-
-.el-form-item {
-  ::v-deep(.el-form-item__label) {
-    color: #fff;
-  }
-
-  .el-input {
-    ::v-deep(.el-input__wrapper) {
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      background: transparent;
-    }
-
-    ::v-deep(input) {
-      color: #fff;
-    }
-  }
-}
+.divider { display: flex; align-items: center; gap: 12px; margin: 24px 0; font-size: 12px; color: var(--el-text-color-secondary); }
+.divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--el-border-color); }
+.oidc-options { display: grid; gap: 10px; }
+.oidc-btn { width: 100%; }
+.oidc-icon { width: 20px; height: 20px; margin-right: 10px; }
 </style>

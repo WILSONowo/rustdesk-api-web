@@ -20,16 +20,16 @@
     </el-card>
     <el-card class="list-body" shadow="hover">
       <el-table :data="listRes.list" v-loading="listRes.loading" border>
-        <el-table-column prop="id" label="ID" align="center"/>
-        <el-table-column prop="user_id" :label="T('Owner')" align="center">
+        <el-table-column min-width="100" :resizable="false" prop="id" label="ID" align="center" show-overflow-tooltip/>
+        <el-table-column min-width="150" :resizable="false" prop="user_id" :label="T('Owner')" align="center">
           <template #default="{row}">
             <span v-if="row.user_id"> <el-tag>{{ allUsers?.find(u => u.id === row.user_id)?.username }}</el-tag> </span>
           </template>
         </el-table-column>
-        <el-table-column prop="name" :label="T('AddressBook')" align="center"/>
-        <el-table-column prop="created_at" :label="T('CreatedAt')" align="center"/>
+        <el-table-column min-width="150" :resizable="false" prop="name" :label="T('AddressBook')" align="center" show-overflow-tooltip/>
+        <el-table-column min-width="180" :resizable="false" prop="created_at" :label="T('CreatedAt')" align="center" show-overflow-tooltip/>
         <!--        <el-table-column prop="updated_at" label="更新时间" align="center"/>-->
-        <el-table-column :label="T('Actions')" align="center" class-name="table-actions" width="600" fixed="right">
+        <el-table-column :resizable="false" :label="T('Actions')" align="center" class-name="table-actions" width="260" fixed="right">
           <template #default="{row}">
             <el-button type="primary" @click="showRules(row)">{{ T('ShareRules') }}</el-button>
             <el-button @click="toEdit(row)">{{ T('Edit') }}</el-button>
