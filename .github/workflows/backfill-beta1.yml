@@ -1,0 +1,47 @@
+name: Supplement beta1 assets
+'on':
+  push:
+    branches:
+    - feature/api-rebuild
+    paths:
+    - .github/workflows/backfill-beta1.yml
+  workflow_dispatch: {}
+permissions:
+  contents: read
+concurrency:
+  group: supplement-beta1
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        ref: fea7cb30d71cbf8c687ce7d22765614908764d87
+    - name: Verify immutable beta1 source
+      shell: bash
+      run: |
+        test "$(git rev-parse HEAD)" = fea7cb30d71cbf8c687ce7d22765614908764d87
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 24.19.0
+        cache: npm
+    - name: Check release version
+      env:
+        RELEASE_TAG: v1.2.0-beta1
+      run: |
+        test "$RELEASE_TAG" = "v$(node -p 'require("./package.json").version')"
+    - run: npm ci --registry=https://registry.npmjs.org --replace-registry-host=always
+    - run: npm run build
+    - name: Package deployable frontend
+      run: |
+        test -s dist/index.html
+        mkdir -p release-assets
+        (cd dist && zip -qr ../release-assets/dist.zip .)
+    - uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: web-release-assets
+        path: release-assets/
+        if-no-files-found: error
