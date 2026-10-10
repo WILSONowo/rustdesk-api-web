@@ -1,0 +1,45 @@
+name: Fork release
+on:
+  push:
+    tags: ['v*-beta*']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: fork-release-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.19.0'
+          cache: npm
+      - name: Check release version
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          test "$GITHUB_REF_TYPE" = tag
+          test "$RELEASE_TAG" = "v$(node -p 'require("./package.json").version')"
+      - run: npm ci --registry=https://registry.npmjs.org --replace-registry-host=always
+      - run: npm run build
+      - name: Package deployable frontend
+        run: |
+          test -s dist/index.html
+          mkdir -p release-assets
+          (cd dist && zip -qr ../release-assets/dist.zip .)
+      - name: Prepare draft
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: python3 .github/scripts/draft-release.py --tag "$RELEASE_TAG" --assets release-assets --expected 1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: web-release-assets
+          path: release-assets/
+          if-no-files-found: error
