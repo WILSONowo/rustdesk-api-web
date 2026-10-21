@@ -1,5 +1,6 @@
 <template>
   <div>
+    <device-overview />
     <el-card :title="T('Userinfo')" shadow="hover">
       <el-form class="info-form" ref="form" label-width="120px" label-suffix="：">
         <el-form-item :label="T('Username')">
@@ -40,6 +41,7 @@
 
 <script setup>
   import ClientResources from '@/components/clientResources.vue'
+  import DeviceOverview from '@/components/deviceOverview.vue'
   import EmailBinding from '@/components/emailBinding.vue'
   import changePwdDialog from '@/components/changePwdDialog.vue'
   import { computed, ref } from 'vue'

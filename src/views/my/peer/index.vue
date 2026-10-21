@@ -42,8 +42,8 @@
         <el-table-column :resizable="false" prop="os" :label="T('Os')" align="center" min-width="160" show-overflow-tooltip/>
         <el-table-column :resizable="false" prop="last_online_time" :label="T('LastOnlineTime')" align="center" min-width="120">
           <template #default="{row}">
-            <div class="last_oline_time">
-              <span> {{ row.last_online_time ? timeAgo(row.last_online_time * 1000) : '-' }}</span> <span class="dot" :class="{red: timeDis(row.last_online_time) >= 60, green: timeDis(row.last_online_time)< 60}"></span>
+            <div class="last_online_time">
+              <span>{{ appStore.setting.appConfig.device_telemetry === false ? T('TelemetryUnavailable') : (row.last_online_time ? timeAgo(row.last_online_time * 1000) : T('StatusUnknown')) }}</span>
             </div>
           </template>
         </el-table-column>
@@ -266,12 +266,6 @@
     })
   }
 
-  const timeDis = (time) => {
-    let now = new Date().getTime()
-    let after = new Date(time * 1000).getTime()
-    return (now - after) / 1000
-  }
-
   const timeFilters = computed(() => [
     { text: T('MinutesLess', { param: 1 }, 1), value: -60 },
     { text: T('HoursLess', { param: 1 }, 1), value: -3600 },
@@ -382,7 +376,7 @@
   --el-select-width: 180px;
 }
 
-.last_oline_time {
+.last_online_time {
   display: flex;
   justify-content: center;
   align-items: center;

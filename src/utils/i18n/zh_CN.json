@@ -787,5 +787,161 @@
   },
   "RegistrationUsernameLength": {
     "One": "用户名长度为 2–32 个字符"
+  },
+  "SetupDownload": {
+    "One": "1. 下载对应系统的客户端"
+  },
+  "SetupImport": {
+    "One": "2. 导入服务器配置"
+  },
+  "SetupVerify": {
+    "One": "3. 验证连接"
+  },
+  "AccountPasswordBoundary": {
+    "One": "平台账号密码用于登录本平台；远控密码由被控电脑单独设置。登录账号不代表已获得远控权限。"
+  },
+  "ConnectionScenario": {
+    "One": "使用场景"
+  },
+  "OwnComputer": {
+    "One": "长期连接我的电脑"
+  },
+  "HelpSomeone": {
+    "One": "临时帮助他人"
+  },
+  "UnattendedService": {
+    "One": "在被控电脑安装 RustDesk，启用系统服务和开机启动；macOS 还需允许屏幕录制和辅助功能权限。"
+  },
+  "UnattendedPassword": {
+    "One": "设置独立的高强度固定远控密码，在支持的平台启用双因素认证，妥善保管访问凭据。"
+  },
+  "UnattendedVerify": {
+    "One": "从另一台设备连接，再依次测试锁屏、重启未登录和短暂断网后的恢复，记录实际通过的条件。"
+  },
+  "HelpInstall": {
+    "One": "双方使用相同的服务器配置，在需要帮助的电脑上打开 RustDesk。"
+  },
+  "HelpCode": {
+    "One": "仅向可信的协助者提供设备 ID 和临时密码，或在被控端确认连接请求。"
+  },
+  "HelpFinish": {
+    "One": "协助结束后断开会话，刷新临时密码，并移除不再需要的长期访问设置。"
+  },
+  "EndpointVerificationBoundary": {
+    "One": "本页检查账号服务与配置；被控电脑是否可连接，需要实际发起远控验证。"
+  },
+  "CheckAccountService": {
+    "One": "检查服务与配置"
+  },
+  "ExportDiagnostics": {
+    "One": "导出诊断报告"
+  },
+  "DiagnosticId": {
+    "One": "诊断编号"
+  },
+  "ServiceCheckFailed": {
+    "One": "服务检查失败。请确认网络和登录状态后重试。"
+  },
+  "CheckPassed": {
+    "One": "可用 / 已配置"
+  },
+  "CheckNeedsAttention": {
+    "One": "需要检查"
+  },
+  "AccountService": {
+    "One": "账号服务响应"
+  },
+  "AccountDatabase": {
+    "One": "账号数据库连接"
+  },
+  "ResourceSettings": {
+    "One": "下载配置可读取"
+  },
+  "IdServerSettings": {
+    "One": "ID 服务器地址已配置"
+  },
+  "PublicKeyFormat": {
+    "One": "服务器公钥格式"
+  },
+  "TelemetryMayReport": {
+    "One": "允许接收设备报告，但不代表任何设备当前在线。"
+  },
+  "TelemetryUnavailable": {
+    "One": "仅账号服务模式下，无法提供实时设备状态。"
+  },
+  "IssueConfiguration": {
+    "One": "服务器地址或公钥不匹配"
+  },
+  "IssueConfigurationHelp": {
+    "One": "在两端重新导入当前配置，请管理员核对 ID 服务器地址及公钥。格式正确不代表公钥匹配。"
+  },
+  "IssueOffline": {
+    "One": "设备离线或未获取 ID"
+  },
+  "IssueOfflineHelp": {
+    "One": "确认电脑已开机联网、RustDesk 正在运行，检查休眠、开机服务和防火墙设置。"
+  },
+  "IssueAccount": {
+    "One": "账号待审核或登录被拒绝"
+  },
+  "IssueAccountHelp": {
+    "One": "待审核账号需管理员批准。密码失败过多时需等待限制解除；修改远控密码不会改变平台账号密码。"
+  },
+  "IssueRelay": {
+    "One": "直连或中继连接失败"
+  },
+  "IssueRelayHelp": {
+    "One": "可换一个网络尝试，请管理员检查中继健康、容量和维护状态。切换中继可能需要重新建立连接。"
+  },
+  "IssuePermissions": {
+    "One": "黑屏或无法操作"
+  },
+  "IssuePermissionsHelp": {
+    "One": "检查被控端屏幕录制、辅助功能权限、系统服务和显示器配置；管理员提权弹窗需要单独测试。"
+  },
+  "IssueWake": {
+    "One": "唤醒关机电脑"
+  },
+  "IssueWakeHelp": {
+    "One": "网络唤醒依赖硬件和网络支持，通常需要同一局域网中有在线辅助设备，不能自行恢复断电或断网。"
+  },
+  "DiagnosticsPrivacy": {
+    "One": "报告只包含检查结果和时间，不含密码、令牌、设备 ID 或服务器地址。诊断编号标识本次导出的检查，不代表已采集远控会话日志。"
+  },
+  "DeviceOverview": {
+    "One": "我的设备与共享访问"
+  },
+  "SharedWithMe": {
+    "One": "共享给我"
+  },
+  "SearchDevices": {
+    "One": "搜索设备 ID 或名称"
+  },
+  "DeviceLoadFailed": {
+    "One": "设备加载失败，请重试查询。"
+  },
+  "DeviceStateBoundary": {
+    "One": "最近出现时间来自设备报告，不代表远控一定可用；共享条目可能没有设备状态报告。"
+  },
+  "NoAccessibleDevices": {
+    "One": "当前没有设备。可在客户端地址簿添加设备，或请所有者共享地址簿。"
+  },
+  "DeviceOwner": {
+    "One": "所属用户"
+  },
+  "StatusUnknown": {
+    "One": "尚未观测"
+  },
+  "ShareRevocationBoundary": {
+    "One": "共享权限控制地址簿访问。到期或撤销不会自动作废已知远控密码，也不会终止已有会话；撤回远控权限还需在被控端更换密码并结束会话。"
+  },
+  "ShareRevokeConfirm": {
+    "One": "确定撤销此地址簿共享？如需撤回远控访问，请同时在被控端轮换密码并结束已有会话。"
+  },
+  "ShareExpires": {
+    "One": "共享到期时间"
+  },
+  "NeverExpires": {
+    "One": "长期有效"
   }
 }

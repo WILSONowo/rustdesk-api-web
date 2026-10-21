@@ -15,7 +15,7 @@ export function login (data) {
     data,
     // Preserve the API's translated errors and captcha codes while exposing
     // failed authentication as HTTP 401 to the browser password manager.
-    validateStatus: status => status === 200 || status === 401,
+    validateStatus: status => status === 200 || status === 401 || status === 429,
   })
 }
 

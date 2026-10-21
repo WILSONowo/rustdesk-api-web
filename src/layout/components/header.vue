@@ -1,5 +1,5 @@
 <template>
-  <button class="ex-icon" :aria-label="T('ToggleNavigation')" @click="expandOrFoldSlider">
+  <button class="ex-icon" :aria-expanded="!setting.sideIsCollapse" aria-controls="primary-navigation" :aria-label="T('ToggleNavigation')" @click="expandOrFoldSlider">
     <el-icon>
     <el-icon-expand v-if="setting.sideIsCollapse"></el-icon-expand>
     <el-icon-fold v-else></el-icon-fold>

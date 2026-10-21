@@ -771,5 +771,161 @@
   },
   "RegistrationUsernameLength": {
     "One": "Use 2–32 characters for your username."
+  },
+  "SetupDownload": {
+    "One": "1. Download the client"
+  },
+  "SetupImport": {
+    "One": "2. Import server settings"
+  },
+  "SetupVerify": {
+    "One": "3. Verify your connection"
+  },
+  "AccountPasswordBoundary": {
+    "One": "Your account password signs in to this platform. The remote computer has a separate access password; signing in does not grant remote control."
+  },
+  "ConnectionScenario": {
+    "One": "Connection scenario"
+  },
+  "OwnComputer": {
+    "One": "My unattended computer"
+  },
+  "HelpSomeone": {
+    "One": "Help someone temporarily"
+  },
+  "UnattendedService": {
+    "One": "Install RustDesk on the remote computer and enable its system service/startup option. On macOS, grant screen recording and accessibility permissions."
+  },
+  "UnattendedPassword": {
+    "One": "Set a strong permanent remote password and enable two-factor authentication where supported. Keep access credentials private."
+  },
+  "UnattendedVerify": {
+    "One": "Connect from another device, then test locked screen, restart before login and a short network outage. Record which conditions pass."
+  },
+  "HelpInstall": {
+    "One": "Both people should use the same server configuration. Open RustDesk on the computer receiving help."
+  },
+  "HelpCode": {
+    "One": "Share the device ID and temporary password only with the person you trust, or approve the request locally."
+  },
+  "HelpFinish": {
+    "One": "End the session after support. Refresh the temporary password and remove any permanent access you no longer need."
+  },
+  "EndpointVerificationBoundary": {
+    "One": "This page checks account-service settings. Only a real connection can verify that the remote computer is accessible."
+  },
+  "CheckAccountService": {
+    "One": "Check service and configuration"
+  },
+  "ExportDiagnostics": {
+    "One": "Export diagnostic report"
+  },
+  "DiagnosticId": {
+    "One": "Diagnostic reference"
+  },
+  "ServiceCheckFailed": {
+    "One": "The service check failed. Check your network and login session, then retry."
+  },
+  "CheckPassed": {
+    "One": "Available / configured"
+  },
+  "CheckNeedsAttention": {
+    "One": "Needs attention"
+  },
+  "AccountService": {
+    "One": "Account service response"
+  },
+  "AccountDatabase": {
+    "One": "Account database connection"
+  },
+  "ResourceSettings": {
+    "One": "Resource settings readable"
+  },
+  "IdServerSettings": {
+    "One": "ID server address configured"
+  },
+  "PublicKeyFormat": {
+    "One": "Public key format"
+  },
+  "TelemetryMayReport": {
+    "One": "Device reports are enabled; this does not prove any device is online."
+  },
+  "TelemetryUnavailable": {
+    "One": "Live device status is unavailable in account-only mode."
+  },
+  "IssueConfiguration": {
+    "One": "Server or public key mismatch"
+  },
+  "IssueConfigurationHelp": {
+    "One": "Import the current configuration on both devices. Ask the administrator to confirm the ID server address and public key; a well-formed key can still be the wrong key."
+  },
+  "IssueOffline": {
+    "One": "Device offline or no ID"
+  },
+  "IssueOfflineHelp": {
+    "One": "Confirm the computer has power and network access and RustDesk is running. Check sleep settings, startup service and firewall rules."
+  },
+  "IssueAccount": {
+    "One": "Account pending or login rejected"
+  },
+  "IssueAccountHelp": {
+    "One": "Pending accounts need administrator approval. After too many failed passwords, wait for the limit to expire; changing the remote password does not change your account password."
+  },
+  "IssueRelay": {
+    "One": "Direct connection or relay fails"
+  },
+  "IssueRelayHelp": {
+    "One": "Try from another network. Ask the administrator to inspect relay health, capacity and maintenance state. Switching relays may require a new connection."
+  },
+  "IssuePermissions": {
+    "One": "Black screen or cannot control"
+  },
+  "IssuePermissionsHelp": {
+    "One": "Check screen recording/accessibility permissions, system service and display configuration on the remote computer. Test administrator prompts separately."
+  },
+  "IssueWake": {
+    "One": "Wake a powered-off computer"
+  },
+  "IssueWakeHelp": {
+    "One": "Wake-on-LAN requires supported hardware, network configuration and usually an online helper on the same LAN. It cannot recover a power or Internet outage by itself."
+  },
+  "DiagnosticsPrivacy": {
+    "One": "Reports include check results and timestamps only, without passwords, tokens, device IDs or server addresses. The reference identifies the exported check, not a remote session log."
+  },
+  "DeviceOverview": {
+    "One": "My devices and shared access"
+  },
+  "SharedWithMe": {
+    "One": "Shared with me"
+  },
+  "SearchDevices": {
+    "One": "Search device ID or name"
+  },
+  "DeviceLoadFailed": {
+    "One": "Unable to load devices. Retry the search."
+  },
+  "DeviceStateBoundary": {
+    "One": "Last seen is a device report, not proof that a remote connection will succeed. Shared entries may have no device reports."
+  },
+  "NoAccessibleDevices": {
+    "One": "No devices in this view. Add devices in the client address book or ask the owner to share a collection."
+  },
+  "DeviceOwner": {
+    "One": "Owner"
+  },
+  "StatusUnknown": {
+    "One": "Not observed"
+  },
+  "ShareRevocationBoundary": {
+    "One": "Sharing permissions apply to the address book. Expiry or removal does not invalidate known remote passwords or terminate active sessions. Rotate the device password and end sessions on the remote computer when revoking access."
+  },
+  "ShareRevokeConfirm": {
+    "One": "Remove this address-book grant? Also rotate the remote password and end active sessions if remote access must be revoked."
+  },
+  "ShareExpires": {
+    "One": "Access expires"
+  },
+  "NeverExpires": {
+    "One": "No expiry"
   }
 }
