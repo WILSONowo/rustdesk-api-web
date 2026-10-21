@@ -11,6 +11,7 @@
     </template>
     <el-alert v-if="failed" :title="T('ClientResourcesLoadFailed')" type="error" :closable="false" />
     <template v-else>
+      <h3>{{ T("SetupDownload") }}</h3>
       <div class="download-grid">
         <article v-for="(item, index) in downloads" :key="index" class="download-item">
           <div><h3>{{ item.platform }} <span>{{ item.arch }}</span></h3><p>{{ item.version || T('ClientVersionUnspecified') }}</p></div>
@@ -21,18 +22,20 @@
       <p v-if="!loading && !downloads.length" class="empty-downloads">{{ T('DownloadsNotConfigured') }}</p>
       <div class="import-section">
         <div class="resource-heading">
-          <div><h3>{{ T('QuickServerImport') }}</h3><p>{{ T('QuickServerImportHelp') }}</p></div>
+          <div><h3>{{ T('SetupImport') }}</h3><p>{{ T('QuickServerImportHelp') }}</p></div>
           <el-button type="primary" :disabled="!resources.import_code || loading" @click="copyCode">{{ T('CopyServerImportCode') }}</el-button>
         </div>
         <el-input v-if="resources.import_code" :model-value="resources.import_code" type="textarea" :rows="3" readonly :aria-label="T('ServerImportCode')" class="import-code" />
         <p v-else class="empty-downloads">{{ T('ImportCodeNotConfigured') }}</p>
       </div>
+      <ConnectionGuide />
     </template>
   </el-card>
 </template>
 
 <script setup>
 import { computed, onMounted, ref } from 'vue'
+import ConnectionGuide from './connectionGuide.vue'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { useUserStore } from '@/store/user'

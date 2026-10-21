@@ -38,7 +38,7 @@ export function useRepositories (api_type = 'my') {
   }
 
   const del = async (row) => {
-    const cf = await ElMessageBox.confirm(T('Confirm?', { param: T('Delete') }), {
+    const cf = await ElMessageBox.confirm(T('ShareRevokeConfirm'), {
       confirmButtonText: T('Confirm'),
       cancelButtonText: T('Cancel'),
       type: 'warning',
@@ -75,6 +75,7 @@ export function useRepositories (api_type = 'my') {
     u_id: null,
     to_id: null,
     user_id: null,
+    expires_at: 0,
   })
 
   const toEdit = (row) => {
@@ -96,6 +97,7 @@ export function useRepositories (api_type = 'my') {
     formData.id = 0
     formData.type = TYPE_U
     formData.rule = 1
+    formData.expires_at = 0
     formData.g_id = null
     formData.u_id = null
 

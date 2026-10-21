@@ -1,7 +1,8 @@
 <template>
   <el-config-provider :locale="appStore.setting.locale.value">
-    <el-container class="app-shell" :style="{'--sideBarWidth': sideBarWidth}">
-      <el-aside :width="leftWidth" class="app-left">
+    <el-container class="app-shell" :class="{'mobile-nav-open': !appStore.setting.sideIsCollapse}" :style="{'--sideBarWidth': sideBarWidth}">
+      <button v-if="!appStore.setting.sideIsCollapse" class="mobile-backdrop" :aria-label="T('ToggleNavigation')" @click="appStore.sideCollapse()"></button>
+      <el-aside id="primary-navigation" :width="leftWidth" class="app-left">
         <g-aside></g-aside>
       </el-aside>
       <el-container class="app-container ">
@@ -23,7 +24,7 @@
 
 <script setup>
   import { useAppStore } from '@/store/app'
-  import { computed, ref, watch } from 'vue'
+  import { computed, ref, watch, onMounted, onBeforeUnmount } from 'vue'
   import { useRoute } from 'vue-router'
   import { T } from '@/utils/i18n'
   import GAside from '@/layout/components/aside.vue'
@@ -32,16 +33,27 @@
   const appStore = useAppStore()
   const route = useRoute()
   const mainContent = ref(null)
+  const mobileMedia = window.matchMedia('(max-width: 768px)')
+  const collapseMobileNavigation = () => {
+    if (mobileMedia.matches) appStore.setting.sideIsCollapse = true
+  }
+  onMounted(() => {
+    collapseMobileNavigation()
+    mobileMedia.addEventListener('change', collapseMobileNavigation)
+  })
+  onBeforeUnmount(() => mobileMedia.removeEventListener('change', collapseMobileNavigation))
   const sideBarWidth = computed(() => appStore.setting.locale.sideBarWidth)
   const leftWidth = computed(() => appStore.setting.sideIsCollapse ? '64px' : 'var(--sideBarWidth)')
 
   watch(() => route.path, () => {
+    collapseMobileNavigation()
     mainContent.value?.$el?.scrollTo({ top: 0, left: 0 })
   }, { flush: 'post' })
 
 </script>
 
 <style lang="scss" scoped>
+.mobile-backdrop { display: none; }
 .app-shell {
   height: 100vh;
   height: 100dvh;
@@ -85,6 +97,10 @@
 }
 .page-title { margin: 0 0 24px; font-size: 26px; line-height: 1.3; font-weight: 600; letter-spacing: -.5px; }
 @media (max-width: 768px) {
+  .app-left { position: fixed; top: 68px; left: 0; height: calc(100dvh - 68px); width: var(--sideBarWidth) !important; z-index: 1001; transform: translateX(-100%); visibility: hidden; }
+  .mobile-nav-open .app-left { transform: translateX(0); visibility: visible; }
+  .mobile-backdrop { display: block; position: fixed; inset: 68px 0 0; background: rgba(0,0,0,.35); border: 0; z-index: 1000; }
+
   .app-header { padding: 0 16px; gap: 10px; }
   .app-main { padding: 20px 16px; }
   .page-title { font-size: 22px; margin-bottom: 20px; }

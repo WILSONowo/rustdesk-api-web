@@ -1,5 +1,6 @@
 <template>
   <div>
+    <el-alert :title="T('ShareRevocationBoundary')" type="info" :closable="false" />
     <el-card class="list-query" shadow="hover">
       <el-form inline label-width="80px">
         <el-form-item>
@@ -34,6 +35,7 @@
             </div>
           </template>
         </el-table-column>
+        <el-table-column :label="T('ShareExpires')" min-width="180"><template #default="{row}">{{ row.expires_at ? new Date(row.expires_at * 1000).toLocaleString() : T('NeverExpires') }}</template></el-table-column>
         <el-table-column min-width="180" :resizable="false" prop="created_at" :label="T('CreatedAt')" align="center" show-overflow-tooltip/>
         <!--        <el-table-column prop="updated_at" label="更新时间" align="center"/>-->
         <el-table-column :resizable="false" :label="T('Actions')" align="center" class-name="table-actions" width="240" fixed="right">
@@ -94,6 +96,9 @@
               ></el-option>
             </el-select>
           </div>
+        </el-form-item>
+        <el-form-item :label="T('ShareExpires')">
+          <el-date-picker :model-value="formData.expires_at ? new Date(formData.expires_at * 1000) : null" type="datetime" clearable @update:model-value="value => formData.expires_at = value ? Math.floor(new Date(value).getTime() / 1000) : 0" />
         </el-form-item>
         <el-form-item>
           <el-button @click="formVisible = false">{{ T('Cancel') }}</el-button>
