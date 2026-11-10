@@ -939,5 +939,20 @@
   },
   "More": {
     "One": "More"
+  },
+  "MenuDevices": {
+    "One": "Devices"
+  },
+  "MenuUsers": {
+    "One": "Users & access"
+  },
+  "MenuAddressBooks": {
+    "One": "Address books"
+  },
+  "MenuLogs": {
+    "One": "Logs & audit"
+  },
+  "MenuServer": {
+    "One": "Server"
   }
 }

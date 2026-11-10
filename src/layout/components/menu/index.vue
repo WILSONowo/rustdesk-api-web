@@ -3,6 +3,7 @@
           class="menus"
           :collapse="isCollapse"
           :default-active="activeIndex"
+          :default-openeds="openedSections"
           background-color="var(--el-bg-color-overlay)"
           text-color="var(--el-text-color-regular)"
           active-text-color="var(--el-color-primary)"
@@ -30,11 +31,14 @@
       const app = useAppStore()
       const isCollapse = computed(() => app.setting.sideIsCollapse)
       const activeIndex = computed(() => route.name)
+      // Open the section that contains the current page, e.g. after a reload.
+      const openedSections = computed(() => route.matched.length > 1 && route.matched[0].name ? [route.matched[0].name] : [])
 
       routes.value = useRouteStore().routes
       return {
         routes,
         activeIndex,
+        openedSections,
         isCollapse,
       }
     },
@@ -59,6 +63,12 @@
       line-height: 44px;
       margin: 4px 8px;
       border-radius: 8px;
+    }
+    :deep(.el-menu-item-group__title) {
+      padding: 14px 0 4px 28px !important;
+      font-size: 12px;
+      line-height: 16px;
+      color: var(--el-text-color-placeholder);
     }
     :deep(.el-menu-item.is-active) {
       background: var(--el-color-primary-light-9);

@@ -955,5 +955,20 @@
   },
   "More": {
     "One": "更多"
+  },
+  "MenuDevices": {
+    "One": "设备"
+  },
+  "MenuUsers": {
+    "One": "用户与权限"
+  },
+  "MenuAddressBooks": {
+    "One": "地址簿"
+  },
+  "MenuLogs": {
+    "One": "日志与审计"
+  },
+  "MenuServer": {
+    "One": "服务器"
   }
 }
