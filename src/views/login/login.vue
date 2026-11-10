@@ -81,6 +81,14 @@
     captcha_id: ''
   })
 
+  // Follow ?redirect= only to a route the signed-in user may open; otherwise go to the overview.
+  const allowedRedirect = (routeNames = []) => {
+    const redirect = route.query.redirect
+    const target = typeof redirect === 'string' ? router.resolve(redirect) : null
+    const allowed = target?.name && (routeNames.includes('*') || routeNames.includes(target.name))
+    return allowed ? redirect : '/'
+  }
+
   const captchaCode = ref('')
   const captchaLoading = ref(false)
   const loggingIn = ref(false)
@@ -113,10 +121,7 @@
       offerAuthenticatedPassword(res, submitted)
       submitted.password = ''
       ElMessage.success(T('LoginSuccess'))
-      const redirect = route.query.redirect
-      const target = typeof redirect === 'string' ? router.resolve(redirect) : null
-      const allowed = target?.name && (res.route_names?.includes('*') || res.route_names?.includes(target.name))
-      router.push({ path: allowed ? redirect : '/', replace: true })
+      router.push({ path: allowedRedirect(res.route_names), replace: true })
       return
     }
     submitted.password = ''
@@ -190,7 +195,8 @@
         // 删除code，确保跳转之前对code进行清楚
         removeCode()
         ElMessage.success(T('LoginSuccess'))
-        router.push({ path: redirect || '/', replace: true })
+        // This path previously referenced an undefined `redirect` and threw after OIDC sign-in.
+        router.push({ path: allowedRedirect(res.route_names), replace: true })
       }
     } else {
       // 如果code不存在, 现实登陆页面
