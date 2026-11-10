@@ -215,6 +215,7 @@
 .oidc-options { display: grid; gap: 10px; }
 .oidc-btn { width: 100%; }
 .oidc-icon { width: 18px; height: 18px; margin-right: 8px; }
-// The GitHub mark is a black image; invert it on dark backgrounds.
-:global(html.dark) .oidc-icon[src*="github"] { filter: invert(1); }
+// The GitHub mark is a black image; invert only that icon on dark backgrounds.
+// (A scoped `:global(html.dark) ...` compiles to `html.dark { ... }` and would invert the whole page.)
+html.dark .oidc-icon[src*="github"] { filter: invert(1); }
 </style>
