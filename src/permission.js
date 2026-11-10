@@ -16,7 +16,7 @@ const appStore = useAppStore(pinia)
 appStore.getAdminConfig()
 router.beforeEach(async (to, from, next) => {
 
-  document.title = T(to.meta?.title) + ' - ' + appStore.setting.title
+  document.title = to.meta?.title ? T(to.meta.title) + ' - ' + appStore.setting.title : appStore.setting.title
   NProgress.start()
 
   const token = getToken()

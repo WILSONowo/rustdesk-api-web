@@ -16,6 +16,7 @@ const constantRoutes = [
   },
   {
     path: '/404',
+    meta: { title: 'PageNotFound' },
     component: () => import('@/views/error-page/404.vue'),
     hidden: true,
   },

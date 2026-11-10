@@ -1,27 +1,21 @@
 <template>
-  <div class="oauth">
-    <el-card class="card">
-      <h2>{{ T('OauthBinding') }}</h2>
-      <el-form class="info" label-width="100px">
-        <el-form-item :label="T('Op')">
-          <div class="impt">{{ oauthInfo.op }}</div>
-        </el-form-item>
-        <el-form-item :label="T('ThirdName')">
-          <div class="impt">{{ oauthInfo.third_name }}</div>
-        </el-form-item>
-        <el-form-item label-width="0">
-          <el-button style="width: 100%" v-if="!resStatus" type="success" size="large" @click="toConfirm">{{ T('Bind') }}</el-button>
-        </el-form-item>
-        <el-form-item label-width="0">
-          <el-button style="width: 100%" size="large" @click="out">{{ T('Close') }}</el-button>
-        </el-form-item>
-      </el-form>
-      {{ T('OauthCloseNote') }}
-    </el-card>
-  </div>
+  <AuthShell :title="T('OauthBinding')" :subtitle="T('OauthCloseNote')">
+    <dl class="oauth-details">
+      <dt>{{ T('Op') }}</dt>
+      <dd>{{ oauthInfo.op || '—' }}</dd>
+      <dt>{{ T('ThirdName') }}</dt>
+      <dd>{{ oauthInfo.third_name || '—' }}</dd>
+    </dl>
+    <el-button v-if="!resStatus" type="primary" class="auth-primary" @click="toConfirm">{{ T('Bind') }}</el-button>
+    <el-result v-else icon="success" :title="T('OperationSuccessAndCloseAfter3Seconds')" />
+    <div class="auth-links">
+      <el-button link @click="out">{{ T('Close') }}</el-button>
+    </div>
+  </AuthShell>
 </template>
 
 <script setup>
+  import AuthShell from '@/components/authShell.vue'
   import { ref, onMounted } from 'vue'
   import { info, confirm, bindConfirm } from '@/api/oauth'
   import { useRoute, useRouter } from 'vue-router'
@@ -68,35 +62,16 @@
 </script>
 
 <style scoped lang="scss">
-.oauth {
-  width: 100vw;
-  height: 100vh;
-  background-color: #2d3a4b;
-  padding-top: 25vh;
-  box-sizing: border-box;
-
-  .card {
-    max-width: 500px;
-    background-color: #283342;
-    color: #fff;
-    border: none;
-    margin: 0 auto;
-    text-align: center;
-
-    .info {
-      display: block;
-      line-height: 30px;
-      margin-bottom: 50px;
-
-      ::v-deep(.el-form-item__label) {
-        color: #fff;
-      }
-    }
-
-    .impt {
-      font-weight: bold;
-      font-size: 20px;
-    }
-  }
+.oauth-details {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 12px 16px;
+  margin: 0 0 24px;
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--el-fill-color-light);
+  font-size: 14px;
+  dt { color: var(--el-text-color-secondary); }
+  dd { margin: 0; font-weight: 600; overflow-wrap: anywhere; }
 }
 </style>

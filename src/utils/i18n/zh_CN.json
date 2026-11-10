@@ -1033,5 +1033,17 @@
   },
   "Copy": {
     "One": "复制"
+  },
+  "PageNotFound": {
+    "One": "页面不存在"
+  },
+  "PageNotFoundHelp": {
+    "One": "链接可能已失效，或者你没有访问这个页面的权限。"
+  },
+  "BackToHome": {
+    "One": "返回概览"
+  },
+  "GoBack": {
+    "One": "返回上一页"
   }
 }

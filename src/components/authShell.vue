@@ -1,7 +1,7 @@
 <template>
   <main class="auth-page">
     <section class="auth-card" :aria-label="title">
-      <div class="auth-brand"><img src="@/assets/logo.png" alt="" /><span>RustDesk <span class="brand-caption">{{ T('AccountCenter') }}</span></span></div>
+      <div class="auth-brand"><img :src="appStore.setting.logo" alt="" /><span>{{ appStore.setting.title }} <span class="brand-caption">{{ T('AccountCenter') }}</span></span></div>
       <header class="auth-heading"><h1>{{ title }}</h1><p v-if="subtitle">{{ subtitle }}</p></header>
       <slot />
     </section>
@@ -9,7 +9,10 @@
 </template>
 <script setup>
 import { T } from '@/utils/i18n'
+import { useAppStore } from '@/store/app'
 defineProps({ title: String, subtitle: String })
+// Use the configured admin title and logo, as the header does after sign-in.
+const appStore = useAppStore()
 </script>
 <style scoped lang="scss">
 .auth-page {

@@ -266,7 +266,7 @@
   .aside {
     .aside-tags {
       margin-top: 15px;
-      border: 1px solid #eee;
+      border: 1px solid var(--el-border-color-lighter);
       border-radius: 5px;
       min-height: calc(100vh - 200px);
       padding: 10px;
