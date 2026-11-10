@@ -71,6 +71,18 @@
   // 24px + the 32px buttons' 8px inner space puts icons on the content's 32px edges.
   padding: 0 var(--app-space-6);
 }
+// Short divider between the sidebar brand and the collapse button, matching the one before the avatar.
+.app-header { position: relative; }
+.app-header::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 1px;
+  height: 20px;
+  transform: translateY(-50%);
+  background: var(--app-border);
+}
 
 .app-left {
   height: 100%;
@@ -102,6 +114,7 @@
   .mobile-backdrop { display: block; position: fixed; inset: 56px 0 0; background: var(--el-mask-color-extra-light); border: 0; z-index: 1000; }
 
   .app-header { padding: 0 var(--app-space-3); }
+  .app-header::before { display: none; }
   .app-main { padding: var(--app-space-5) var(--app-space-4); }
   .page-title { font-size: 18px; line-height: 26px; margin-bottom: var(--app-space-4); }
 }
