@@ -51,7 +51,7 @@
             <el-table-column min-width="150" :resizable="false" prop="explain" label="explain"></el-table-column>
             <el-table-column min-width="150" :resizable="false" :label="T('Actions')" align="center" class-name="table-actions">
               <template #default="{row}">
-                <el-button type="primary" size="small" :disabled="!canSendCmd(row.target)" @click="showCmd(row)">{{ T('Send') }}</el-button>
+                <el-button size="small" :disabled="!canSendCmd(row.target)" @click="showCmd(row)">{{ T('Send') }}</el-button>
                 <el-button v-if="row.id" link type="primary" @click="toUpdate(row)">{{ T('Edit') }}</el-button>
                 <el-button v-if="row.id" link type="danger" @click="del(row)">{{ T('Delete') }}</el-button>
               </template>

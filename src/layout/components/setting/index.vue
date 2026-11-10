@@ -3,7 +3,6 @@
     <div class="menu-item">
       <el-switch
           v-model="isDark"
-          style="--el-switch-on-color:#18222c"
           :aria-label="T('DarkMode')"
           :title="T('DarkMode')"
       >

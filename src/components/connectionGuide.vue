@@ -56,9 +56,13 @@ function downloadReport() {
 }
 </script>
 <style scoped>
-.connection-guide { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--el-border-color-lighter); }
-p, li { font-size: 14px; line-height: 1.8; overflow-wrap: anywhere; }
+.connection-guide { margin-top: var(--app-space-6); padding-top: var(--app-space-6); border-top: 1px solid var(--app-border); }
+h3 { margin: 0 0 var(--app-space-1); font-size: var(--app-text-base); line-height: 22px; font-weight: 600; }
+ol, ul { margin: var(--app-space-3) 0; padding-left: 20px; }
+.el-radio-group { margin-top: var(--app-space-3); }
+p, li { font-size: var(--app-text-sm); line-height: 1.7; color: var(--app-text-secondary); overflow-wrap: anywhere; }
+p { margin: 0; }
 .actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0; }
 .actions .el-button { margin-left: 0; }
-.fine-print { margin-top: 16px; font-size: 12px; line-height: 1.7; color: var(--el-text-color-secondary); }
+.fine-print { margin-top: var(--app-space-4); font-size: var(--app-text-xs); line-height: 1.7; color: var(--app-text-muted); }
 </style>

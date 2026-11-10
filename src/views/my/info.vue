@@ -88,55 +88,59 @@
 </script>
 
 <style scoped lang="scss">
+// Every block on the overview is separated by the same 16px gap.
+.overview { display: flex; flex-direction: column; gap: var(--app-space-4); }
+.overview :deep(.device-overview), .overview :deep(.client-resources) { margin: 0; }
 .overview-welcome {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 16px;
-  margin-bottom: 20px;
-  h2 { margin: 0; font-size: 20px; font-weight: 600; }
-  p { margin: 6px 0 0; font-size: 14px; color: var(--el-text-color-secondary); }
+  gap: var(--app-space-4);
+  h2 { margin: 0; font-size: 16px; line-height: 24px; font-weight: 600; color: var(--app-text); }
+  p { margin: 2px 0 0; font-size: var(--app-text-sm); line-height: 20px; color: var(--app-text-muted); }
 }
 .overview-stats, .overview-actions {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
-  gap: 16px;
-  margin-bottom: 20px;
+  gap: var(--app-space-4);
 }
 .stat-card {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 20px;
-  border-radius: var(--account-card-radius);
-  border: 1px solid var(--el-border-color-lighter);
-  background: var(--el-bg-color-overlay);
-  box-shadow: var(--account-card-shadow);
+  gap: var(--app-space-1);
+  padding: var(--app-space-4) var(--app-space-5);
+  border-radius: var(--app-radius);
+  border: 1px solid var(--app-border);
+  background: var(--app-surface);
+  box-shadow: var(--app-shadow-sm);
 }
-.stat-label { font-size: 13px; color: var(--el-text-color-secondary); }
-.stat-value { font-size: 28px; line-height: 1.2; font-weight: 600; font-variant-numeric: tabular-nums; }
-.stat-hint { font-size: 12px; color: var(--el-text-color-placeholder); }
+.stat-label { font-size: var(--app-text-sm); line-height: 20px; color: var(--app-text-muted); }
+.stat-value { font-size: 24px; line-height: 32px; font-weight: 600; letter-spacing: -.3px; color: var(--app-text); font-variant-numeric: tabular-nums; }
+.stat-hint { font-size: var(--app-text-xs); line-height: 18px; color: var(--app-text-placeholder); }
 .action-tile {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
-  padding: 16px;
+  gap: var(--app-space-3);
+  padding: var(--app-space-4);
   text-align: left;
   font: inherit;
-  color: var(--el-text-color-primary);
+  color: var(--app-text);
   cursor: pointer;
-  border-radius: 12px;
-  border: 1px solid var(--el-border-color-lighter);
-  background: var(--el-fill-color-extra-light);
+  border-radius: var(--app-radius);
+  border: 1px solid var(--app-border);
+  background: var(--app-surface);
+  box-shadow: var(--app-shadow-sm);
   transition: border-color .15s, background-color .15s;
-  .el-icon { color: var(--el-color-primary); margin-top: 2px; }
-  strong { display: block; font-size: 14px; font-weight: 600; }
-  small { display: block; margin-top: 4px; font-size: 12px; line-height: 1.5; color: var(--el-text-color-secondary); }
-  &:hover { border-color: var(--el-color-primary-light-5); background: var(--el-color-primary-light-9); }
-  &:focus-visible { outline: 2px solid var(--el-color-primary); outline-offset: 2px; }
+  .el-icon { flex: none; color: var(--app-text-secondary); margin-top: 1px; }
+  strong { display: block; font-size: var(--app-text-base); line-height: 20px; font-weight: 600; }
+  small { display: block; margin-top: 2px; font-size: var(--app-text-xs); line-height: 18px; color: var(--app-text-muted); }
+  &:hover { border-color: var(--app-border-strong); background: var(--app-surface-hover); }
+  &:focus-visible { outline: 2px solid var(--app-accent); outline-offset: 2px; }
 }
-.overview-notice { margin-bottom: 20px; }
+.markdown { font-size: var(--app-text-sm); line-height: 1.7; color: var(--app-text-secondary); }
+.markdown :deep(h1), .markdown :deep(h2), .markdown :deep(h3) { font-size: var(--app-text-lg); line-height: 22px; margin: 0 0 var(--app-space-2); color: var(--app-text); }
+.markdown :deep(p) { margin: 0 0 var(--app-space-2); }
 .markdown :deep(> :first-child) { margin-top: 0; }
 .markdown :deep(> :last-child) { margin-bottom: 0; }
 </style>

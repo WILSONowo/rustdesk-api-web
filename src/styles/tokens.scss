@@ -1,0 +1,171 @@
+// Design tokens: a neutral (zinc) palette with flat surfaces, 8px radii and hairline borders.
+// Element Plus reads its --el-* variables, so overriding them here restyles every component.
+
+:root {
+  // Surfaces
+  --app-bg: #fafafa;
+  --app-surface: #ffffff;
+  --app-surface-muted: #f4f4f5;
+  --app-surface-hover: #f4f4f5;
+  --app-border: #e4e4e7;
+  --app-border-strong: #d4d4d8;
+  // Text
+  --app-text: #18181b;
+  --app-text-secondary: #52525b;
+  --app-text-muted: #71717a;
+  --app-text-placeholder: #a1a1aa;
+  // Accent: the primary action color and the text drawn on top of it
+  --app-accent: #18181b;
+  --app-accent-hover: #3f3f46;
+  --app-accent-contrast: #ffffff;
+  // Shape and depth
+  --app-radius: 8px;
+  --app-radius-sm: 6px;
+  --app-radius-lg: 12px;
+  --app-shadow-sm: 0 1px 2px rgba(15, 23, 42, .06);
+  --app-shadow-pop: 0 4px 16px rgba(15, 23, 42, .08), 0 1px 3px rgba(15, 23, 42, .06);
+  // Type
+  --app-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+  --app-font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --app-text-xs: 12px;
+  --app-text-sm: 13px;
+  --app-text-base: 14px;
+  --app-text-lg: 15px;
+  --app-text-title: 20px;
+  // Spacing scale
+  --app-space-1: 4px;
+  --app-space-2: 8px;
+  --app-space-3: 12px;
+  --app-space-4: 16px;
+  --app-space-5: 20px;
+  --app-space-6: 24px;
+  --app-space-8: 32px;
+
+  // Legacy names still used by components
+  --account-page-background: var(--app-bg);
+  --account-card-radius: var(--app-radius);
+  --account-card-shadow: var(--app-shadow-sm);
+  --tag-bg-color: var(--app-surface-muted);
+  --basicBlack: #000000;
+  --basicWhite: #ffffff;
+  --primaryColor: var(--app-accent);
+
+  // Element Plus
+  --el-font-family: var(--app-font-sans);
+  --el-font-size-base: var(--app-text-base);
+  --el-border-radius-base: var(--app-radius);
+  --el-border-radius-small: var(--app-radius-sm);
+  --el-color-primary: #18181b;
+  --el-color-primary-light-3: #5d5d5f;
+  --el-color-primary-light-5: #8c8c8d;
+  --el-color-primary-light-7: #bababb;
+  --el-color-primary-light-8: #d1d1d1;
+  --el-color-primary-light-9: #f4f4f5;
+  --el-color-primary-dark-2: #3f3f46;
+  --el-bg-color: var(--app-surface);
+  --el-bg-color-page: var(--app-bg);
+  --el-bg-color-overlay: var(--app-surface);
+  --el-text-color-primary: var(--app-text);
+  --el-text-color-regular: var(--app-text-secondary);
+  --el-text-color-secondary: var(--app-text-muted);
+  --el-text-color-placeholder: var(--app-text-placeholder);
+  --el-text-color-disabled: #a1a1aa;
+  --el-border-color-darker: #a1a1aa;
+  --el-border-color-dark: #d4d4d8;
+  --el-border-color: #d4d4d8;
+  --el-border-color-light: #e4e4e7;
+  --el-border-color-lighter: #e4e4e7;
+  --el-border-color-extra-light: #f4f4f5;
+  --el-fill-color-darker: #d4d4d8;
+  --el-fill-color-dark: #e4e4e7;
+  --el-fill-color: #f4f4f5;
+  --el-fill-color-light: #f4f4f5;
+  --el-fill-color-lighter: #fafafa;
+  --el-fill-color-extra-light: #fcfcfc;
+  --el-fill-color-blank: var(--app-surface);
+  --el-box-shadow-light: var(--app-shadow-pop);
+  --el-box-shadow-lighter: var(--app-shadow-sm);
+  --el-box-shadow: 0 12px 32px rgba(15, 23, 42, .12), 0 2px 6px rgba(15, 23, 42, .06);
+}
+
+html.dark {
+  --app-bg: #141416;
+  --app-surface: #1b1b1e;
+  --app-surface-muted: #26262a;
+  --app-surface-hover: #222225;
+  --app-border: #2b2b30;
+  --app-border-strong: #3a3a41;
+  --app-text: #e9e9ea;
+  --app-text-secondary: #c4c4c9;
+  --app-text-muted: #8f8f97;
+  --app-text-placeholder: #6b6b73;
+  --app-accent: #e9e9ea;
+  --app-accent-hover: #d4d4d8;
+  --app-accent-contrast: #141416;
+  --app-shadow-sm: 0 1px 2px rgba(0, 0, 0, .3);
+  --app-shadow-pop: 0 8px 24px rgba(0, 0, 0, .45), 0 0 0 1px #2b2b30;
+
+  --basicBlack: #ffffff;
+
+  --el-color-primary: #e9e9ea;
+  --el-color-primary-light-3: #a9a9aa;
+  --el-color-primary-light-5: #7e7e80;
+  --el-color-primary-light-7: #545456;
+  --el-color-primary-light-8: #3f3f40;
+  --el-color-primary-light-9: #26262a;
+  --el-color-primary-dark-2: #d4d4d8;
+  --el-bg-color: var(--app-surface);
+  --el-bg-color-page: var(--app-bg);
+  --el-bg-color-overlay: var(--app-surface);
+  --el-text-color-primary: var(--app-text);
+  --el-text-color-regular: var(--app-text-secondary);
+  --el-text-color-secondary: var(--app-text-muted);
+  --el-text-color-placeholder: var(--app-text-placeholder);
+  --el-text-color-disabled: #5c5c63;
+  --el-border-color-darker: #5c5c63;
+  --el-border-color-dark: #46464d;
+  --el-border-color: #3a3a41;
+  --el-border-color-light: #2b2b30;
+  --el-border-color-lighter: #2b2b30;
+  --el-border-color-extra-light: #222225;
+  --el-fill-color-darker: #3a3a41;
+  --el-fill-color-dark: #2f2f34;
+  --el-fill-color: #26262a;
+  --el-fill-color-light: #222225;
+  --el-fill-color-lighter: #1d1d20;
+  --el-fill-color-extra-light: #1b1b1e;
+  --el-fill-color-blank: var(--app-surface);
+  --el-box-shadow-light: var(--app-shadow-pop);
+  --el-box-shadow-lighter: var(--app-shadow-sm);
+  --el-box-shadow: 0 12px 32px rgba(0, 0, 0, .5), 0 0 0 1px #2b2b30;
+  --el-mask-color: rgba(0, 0, 0, .7);
+}
+
+// Components that draw white text or marks on the primary color need the accent contrast
+// color instead, because the dark-mode primary is near-white.
+.el-button--primary:not(.is-plain):not(.is-link):not(.is-text) {
+  --el-button-bg-color: var(--app-accent);
+  --el-button-border-color: var(--app-accent);
+  --el-button-text-color: var(--app-accent-contrast);
+  --el-button-hover-bg-color: var(--app-accent-hover);
+  --el-button-hover-border-color: var(--app-accent-hover);
+  --el-button-hover-text-color: var(--app-accent-contrast);
+  --el-button-active-bg-color: var(--app-accent);
+  --el-button-active-border-color: var(--app-accent);
+  --el-button-active-text-color: var(--app-accent-contrast);
+  --el-button-disabled-text-color: var(--app-accent-contrast);
+  --el-button-disabled-bg-color: var(--el-color-primary-light-5);
+  --el-button-disabled-border-color: var(--el-color-primary-light-5);
+}
+.el-checkbox__input.is-checked .el-checkbox__inner::after { border-color: var(--app-accent-contrast); }
+.el-checkbox__input.is-indeterminate .el-checkbox__inner::before { background-color: var(--app-accent-contrast); }
+.el-radio__input.is-checked .el-radio__inner::after { background-color: var(--app-accent-contrast); }
+.el-pagination.is-background .el-pager li.is-active,
+.el-pagination.is-background .el-pager li.is-active:hover { color: var(--app-accent-contrast); }
+.el-date-table td.current:not(.disabled) .el-date-table-cell__text,
+.el-date-table td.today.current .el-date-table-cell__text { color: var(--app-accent-contrast); }
+.el-switch.is-checked .el-switch__core .el-switch__action { background-color: var(--app-accent-contrast); }
+
+#nprogress .bar { background: var(--app-accent) !important; }
+#nprogress .peg { box-shadow: 0 0 10px var(--app-accent), 0 0 5px var(--app-accent) !important; }

@@ -1,112 +1,205 @@
-$basicBlack: #000000;
-$basicWhite: #ffffff;
+@use './tokens';
 
-$primaryColor: #409eff;
-
-:root {
-  --basicBlack: #000000;
-  --basicWhite: #ffffff;
-  --primaryColor: #409eff;
-  --tag-bg-color: #efefef;
-  --account-page-background: radial-gradient(ellipse at 50% 0, rgba(64, 158, 255, .09), transparent 65%), var(--el-fill-color-light);
-  --account-card-radius: 16px;
-  --account-card-shadow: 0 12px 40px rgba(0, 0, 0, .06);
+// ---------------------------------------------------------------------------
+// Base
+// ---------------------------------------------------------------------------
+html, body {
+  background: var(--app-bg);
+  color: var(--app-text);
 }
-
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-    "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  font-family: var(--app-font-sans);
+  font-size: var(--app-text-base);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-.list-body {
-  margin: 10px 0;
+// Section heading with a short accent bar, e.g. "▌Devices".
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: var(--app-space-2);
+  margin: 0;
+  font-size: var(--app-text-lg);
+  line-height: 22px;
+  font-weight: 600;
+  color: var(--app-text);
+  &::before {
+    content: '';
+    flex: 0 0 3px;
+    height: 14px;
+    border-radius: 2px;
+    background: var(--app-accent);
+  }
 }
+
+// Device IDs are read and compared digit by digit.
+.device-id { font-family: var(--app-font-mono); font-size: 0.95em; letter-spacing: 0; }
 
 .dialog-form {
   max-width: 600px;
-  margin: 20px auto;
+  margin: var(--app-space-2) auto 0;
 }
 
-.list-query {
-  .el-select {
-    --el-select-width: 160px;
-  }
-
-  .el-input {
-    --el-input-width: 160px;
-  }
-}
-
-.table-actions {
-  .el-button {
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-left: 5px;
-    margin-right: 5px;
-  }
-}
-
-html.dark {
-  /* 自定义深色背景颜色 */
-  //--el-bg-color: #626aef;
-  --tag-bg-color: #24252b;
-  --basicBlack: #fff;
-}
-
+// ---------------------------------------------------------------------------
+// App shell content
+// ---------------------------------------------------------------------------
 .app-shell {
-  background: var(--account-page-background);
-  color: var(--el-text-color-primary);
+  background: var(--app-bg);
+  color: var(--app-text);
 
   .el-card {
-    --el-card-border-radius: var(--account-card-radius);
-    background: var(--el-bg-color-overlay);
-    border-color: var(--el-border-color-lighter);
-    box-shadow: var(--account-card-shadow);
-    &.is-hover-shadow:hover { box-shadow: var(--account-card-shadow); }
+    --el-card-border-radius: var(--app-radius);
+    --el-card-padding: var(--app-space-5);
+    background: var(--app-surface);
+    border: 1px solid var(--app-border);
+    box-shadow: var(--app-shadow-sm);
+    &.is-hover-shadow:hover, &.is-always-shadow { box-shadow: var(--app-shadow-sm); }
   }
-  .el-card__body { padding: 24px; }
-  .list-body { margin: 20px 0; }
-  .list-body:first-child { margin-top: 0; }
-  .list-query .el-card__body { padding-bottom: 6px; }
+  .el-card__header {
+    padding: var(--app-space-4) var(--app-space-5);
+    border-bottom-color: var(--app-border);
+  }
+  .el-card__body { padding: var(--app-space-5); }
+
+  // List pages: filter card, then table card with toolbar and pagination.
+  .list-query { margin-bottom: var(--app-space-4); }
+  .list-query .el-card__body { padding: var(--app-space-4) var(--app-space-5) 0; }
+  .list-body { margin: 0 0 var(--app-space-4); }
   // Filters wrap as a row of fields; the submit button stays aligned with them.
   .list-query .el-form--inline {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    column-gap: 20px;
-    .el-form-item { margin-right: 0; margin-bottom: 16px; }
-    .el-form-item__label { white-space: nowrap; }
+    column-gap: var(--app-space-5);
+    .el-form-item { margin: 0 0 var(--app-space-4); }
+    .el-form-item__label { white-space: nowrap; padding-right: var(--app-space-2); }
+    .el-select { --el-select-width: 168px; }
+    .el-input { --el-input-width: 168px; }
   }
   .list-pagination {
-    margin-top: 16px;
+    margin-top: var(--app-space-4);
     justify-content: flex-end;
     flex-wrap: wrap;
-    row-gap: 8px;
+    row-gap: var(--app-space-2);
   }
-  .el-table {
-    --el-table-header-bg-color: var(--el-fill-color-light);
-    --el-table-header-text-color: var(--el-text-color-regular);
-    border-radius: 8px;
-    th.el-table__cell { font-weight: 600; }
-    th.el-table__cell > .cell { white-space: nowrap; }
-    .el-table__cell { padding: 12px 0; }
-  }
-  .el-form-item__label { color: var(--el-text-color-regular); }
-  .el-pagination button, .el-pager li { border-radius: 8px; }
+  .el-form-item__label { color: var(--app-text-secondary); font-size: var(--app-text-sm); }
 }
 
+// ---------------------------------------------------------------------------
+// Tables: horizontal rules only, muted compact header.
+// ---------------------------------------------------------------------------
+.el-table {
+  --el-table-border-color: var(--app-border);
+  --el-table-header-bg-color: var(--app-surface-muted);
+  --el-table-header-text-color: var(--app-text-muted);
+  --el-table-row-hover-bg-color: var(--app-surface-hover);
+  --el-table-tr-bg-color: var(--app-surface);
+  --el-table-bg-color: var(--app-surface);
+  --el-table-text-color: var(--app-text);
+  font-size: var(--app-text-sm);
+  border-radius: var(--app-radius);
+  overflow: hidden;
+  th.el-table__cell {
+    font-size: var(--app-text-xs);
+    font-weight: 500;
+    padding: var(--app-space-2) 0;
+    > .cell { white-space: nowrap; line-height: 20px; }
+  }
+  td.el-table__cell { padding: 10px 0; }
+  .cell { line-height: 20px; }
+  // Remove the vertical column rules drawn by the `border` prop; keep row rules and the outline.
+  &.el-table--border {
+    .el-table__cell { border-right: 0; }
+    .el-table__inner-wrapper::after, &::after, &::before { background-color: var(--app-border); }
+  }
+}
 // Keep row actions compact without giving one column most of the viewport.
 .el-table .table-actions > .cell {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 4px 12px;
+  gap: var(--app-space-1) var(--app-space-3);
   .el-button { margin: 0; }
 }
-// Device IDs are read and compared digit by digit.
-.device-id { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 0.95em; }
 
+// ---------------------------------------------------------------------------
+// Controls
+// ---------------------------------------------------------------------------
+.el-button { font-weight: 500; }
+.el-button + .el-button { margin-left: var(--app-space-2); }
+.el-button.is-link { font-weight: 500; }
+.el-button--primary.is-link { --el-button-text-color: var(--app-text); --el-button-hover-link-text-color: var(--app-text-muted); }
+
+.el-input__wrapper, .el-select__wrapper, .el-textarea__inner {
+  box-shadow: 0 0 0 1px var(--app-border-strong) inset;
+}
+.el-input__wrapper:hover, .el-select__wrapper:hover, .el-textarea__inner:hover {
+  box-shadow: 0 0 0 1px var(--el-border-color-darker) inset;
+}
+
+.el-tag {
+  --el-tag-border-radius: var(--app-radius-sm);
+  font-weight: 500;
+}
+.el-tag--small { font-size: 11px; }
+
+.el-alert { border-radius: var(--app-radius); padding: var(--app-space-3); }
+
+// Radio button groups render as a segmented pill control.
+.el-radio-group:has(> .el-radio-button) {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  background: var(--app-surface-muted);
+}
+.el-radio-button .el-radio-button__inner,
+.el-radio-button:first-child .el-radio-button__inner,
+.el-radio-button:last-child .el-radio-button__inner {
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  box-shadow: none;
+  padding: 5px 14px;
+  font-size: var(--app-text-sm);
+  font-weight: 500;
+  color: var(--app-text-muted);
+}
+.el-radio-button {
+  --el-radio-button-checked-bg-color: var(--app-surface);
+  --el-radio-button-checked-text-color: var(--app-text);
+  --el-radio-button-checked-border-color: transparent;
+}
+.el-radio-button .el-radio-button__inner:hover { color: var(--app-text); }
+.el-radio-group .el-radio-button.is-active .el-radio-button__inner,
+.el-radio-group .el-radio-button .el-radio-button__original-radio:checked + .el-radio-button__inner {
+  background: var(--app-surface);
+  color: var(--app-text);
+  box-shadow: 0 0 0 1px var(--app-border) inset, var(--app-shadow-sm);
+}
+
+.el-switch { --el-switch-on-color: var(--app-accent); }
+.el-checkbox { --el-checkbox-border-radius: 4px; }
+
+.el-pagination {
+  --el-pagination-font-size: var(--app-text-sm);
+  --el-pagination-button-bg-color: transparent;
+  .el-pager li, button { border-radius: var(--app-radius-sm); }
+}
+.el-pagination.is-background .el-pager li:not(.is-active):not(.is-disabled) { background: transparent; }
+.el-pagination.is-background .el-pager li:not(.is-active):not(.is-disabled):hover { background: var(--app-surface-muted); color: var(--app-text); }
+.el-pagination.is-background .btn-prev, .el-pagination.is-background .btn-next,
+.el-pagination.is-background .btn-prev:disabled, .el-pagination.is-background .btn-next:disabled { background: transparent; }
+
+// Menus and popovers
+.el-dropdown-menu__item { font-size: var(--app-text-sm); line-height: 20px; padding: 6px 14px; border-radius: var(--app-radius-sm); }
+.el-dropdown-menu { padding: 4px; }
+.el-dropdown-menu__item--divided { margin-top: 4px; }
+.el-popper.is-light, .el-popover.el-popper { border-color: var(--app-border); border-radius: var(--app-radius); }
 // Destructive entries in row "More" menus.
 .el-dropdown-menu__item.is-danger,
 .el-dropdown-menu__item.is-danger:not(.is-disabled):focus,
@@ -117,35 +210,34 @@ html.dark {
   background: var(--el-color-danger-light-9);
 }
 
-:is(.app-shell, .el-dialog, .el-message-box) {
-  .el-input__wrapper, .el-select__wrapper {
-    min-height: 40px;
-    box-sizing: border-box;
-    border-radius: 8px;
-  }
-  .el-textarea__inner { border-radius: 8px; }
-  .el-button:not(.is-link):not(.is-text):not(.is-circle) {
-    min-height: 40px;
-    border-radius: 8px;
-  }
-  .el-button--small:not(.is-link):not(.is-text):not(.is-circle) { min-height: 30px; }
-  .el-alert { border-radius: 8px; padding: 12px; }
-}
-
+// ---------------------------------------------------------------------------
+// Dialogs and drawers
+// ---------------------------------------------------------------------------
 .el-dialog, .el-message-box {
-  border: 1px solid var(--el-border-color-lighter);
-  border-radius: var(--account-card-radius);
-  box-shadow: var(--account-card-shadow);
-  padding: 24px;
+  --el-dialog-border-radius: var(--app-radius-lg);
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius-lg);
+  box-shadow: var(--el-box-shadow);
+  padding: var(--app-space-6);
   max-width: calc(100vw - 32px);
   box-sizing: border-box;
-  .el-form-item { margin-bottom: 22px; }
-  .el-form--label-top .el-form-item__label { padding-bottom: 8px; line-height: 20px; }
+  .el-form-item { margin-bottom: 18px; }
+  .el-form--label-top .el-form-item__label { padding-bottom: 6px; line-height: 20px; }
+  .el-form-item__label { font-size: var(--app-text-sm); color: var(--app-text-secondary); }
 }
-.el-dialog__title, .el-message-box__title { font-weight: 600; }
-.el-dialog__header { padding-bottom: 24px; }
-.el-dialog__footer { padding-top: 16px; }
+.el-dialog__header { padding-bottom: var(--app-space-5); }
+.el-dialog__title, .el-message-box__title { font-size: 16px; font-weight: 600; color: var(--app-text); }
+.el-dialog__footer { padding-top: var(--app-space-4); }
+.el-message-box__message { font-size: var(--app-text-base); color: var(--app-text-secondary); }
+.el-drawer {
+  --el-drawer-padding-primary: var(--app-space-6);
+  background: var(--app-surface);
+  .el-drawer__header { margin-bottom: var(--app-space-4); color: var(--app-text); font-size: 16px; font-weight: 600; }
+}
 
+// ---------------------------------------------------------------------------
+// Responsive
+// ---------------------------------------------------------------------------
 // On phones, put dialog form labels above their fields instead of in a fixed-width column.
 @media (max-width: 640px) {
   .el-dialog .el-form:not(.el-form--inline) .el-form-item { display: block; }
@@ -153,24 +245,25 @@ html.dark {
     display: block;
     width: auto !important;
     height: auto;
-    padding-bottom: 8px;
+    padding-bottom: 6px;
     line-height: 20px;
     text-align: left;
   }
   .el-dialog .el-form:not(.el-form--inline) .el-form-item__content { margin-left: 0 !important; }
-  .el-dialog { padding: 20px 16px; }
+  .el-dialog { padding: var(--app-space-5) var(--app-space-4); }
   // Filters: one full-width field per row, label above.
   .app-shell .list-query .el-form--inline {
-    .el-form-item { width: 100%; display: block; margin-bottom: 12px; }
+    .el-form-item { width: 100%; display: block; margin-bottom: var(--app-space-3); }
     .el-form-item__label { display: block; height: auto; line-height: 20px; padding-bottom: 6px; text-align: left; }
     .el-input, .el-select { --el-input-width: 100%; --el-select-width: 100%; width: 100%; }
+    .query-submit { margin-bottom: var(--app-space-4); }
     .query-submit .el-button { width: 100%; }
   }
 }
 
 @media (max-width: 768px) {
-  .app-shell .el-card__body { padding: 20px 16px; }
-  .app-shell .list-query .el-card__body { padding-bottom: 2px; }
+  .app-shell .el-card__body { padding: var(--app-space-4); }
+  .app-shell .list-query .el-card__body { padding: var(--app-space-4) var(--app-space-4) 0; }
   // On narrow screens a pinned action column can cover every data column.
   :is(.app-shell, .el-dialog) .el-table .el-table__cell:is(.el-table-fixed-column--left, .el-table-fixed-column--right) {
     position: static !important;

@@ -57,7 +57,7 @@
         <el-table-column :resizable="false" prop="hash" :label="T('Hash')" width="150" show-overflow-tooltip/>
         <el-table-column :resizable="false" :label="T('Actions')" align="center" class-name="table-actions" width="170" fixed="right">
           <template #default="{row}">
-            <el-button type="primary" size="small" @click="connectByClient(row.id)">{{ T('Link') }}</el-button>
+            <el-button size="small" @click="connectByClient(row.id)">{{ T('Link') }}</el-button>
             <el-dropdown trigger="click">
               <el-button link type="primary">{{ T('More') }}<el-icon class="el-icon--right"><arrow-down/></el-icon></el-button>
               <template #dropdown>

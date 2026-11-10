@@ -2,7 +2,7 @@
   <el-card class="client-resources" shadow="never" v-loading="loading">
     <template #header>
       <div class="resource-heading">
-        <div><h2>{{ T('ClientResources') }}</h2><p>{{ T('ClientResourcesIntro') }}</p></div>
+        <div><h2 class="section-title">{{ T('ClientResources') }}</h2><p>{{ T('ClientResourcesIntro') }}</p></div>
         <div class="resource-tools">
           <el-button v-if="isAdmin" text @click="router.push('/clientResources')">{{ T('ManageClientResources') }}</el-button>
           <el-button text :disabled="loading" @click="load">{{ T('Refresh') }}</el-button>
@@ -66,24 +66,25 @@ onMounted(load)
 </script>
 
 <style scoped lang="scss">
-.client-resources { margin-top: 20px; }
+.client-resources { margin-top: var(--app-space-4); }
 .resource-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 h2, h3, p { margin: 0; }
-h2 { font-size: 18px; font-weight: 600; }
-h3 { font-size: 15px; font-weight: 600; }
-p { margin-top: 8px; color: var(--el-text-color-secondary); font-size: 13px; line-height: 1.7; }
+
+h3 { font-size: var(--app-text-base); line-height: 22px; font-weight: 600; }
+.client-resources > :deep(.el-card__body) > h3 { margin-bottom: var(--app-space-3); }
+p { margin-top: var(--app-space-1); color: var(--app-text-muted); font-size: var(--app-text-sm); line-height: 1.6; }
 .resource-tools { display: flex; gap: 4px; }
 .resource-tools .el-button { margin-left: 0; }
 .download-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 12px; }
-.download-item { padding: 18px; border: 1px solid var(--el-border-color-lighter); border-radius: 12px; background: var(--el-fill-color-extra-light); display: flex; align-items: center; justify-content: space-between; gap: 12px; min-width: 0; }
+.download-item { padding: var(--app-space-4); border: 1px solid var(--app-border); border-radius: var(--app-radius); background: var(--app-surface); display: flex; align-items: center; justify-content: space-between; gap: 12px; min-width: 0; }
 .download-item h3 { overflow-wrap: anywhere; }
 .download-item h3 span { font-weight: 400; font-size: 12px; color: var(--el-text-color-secondary); }
-.download-link { color: var(--el-color-primary); text-decoration: none; font-size: 13px; white-space: nowrap; padding: 8px 0; }
+.download-link { color: var(--app-text); font-weight: 500; text-decoration: none; font-size: var(--app-text-sm); white-space: nowrap; padding: 8px 0; }
 .download-link:hover { text-decoration: underline; }
 .download-link:focus-visible { outline: 2px solid var(--el-color-primary); outline-offset: 4px; border-radius: 4px; }
 .unavailable { font-size: 12px; color: var(--el-text-color-placeholder); white-space: nowrap; }
-.import-section { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--el-border-color-lighter); }
-.import-code { margin-top: 16px; }
+.import-section { margin-top: var(--app-space-6); padding-top: var(--app-space-6); border-top: 1px solid var(--app-border); }
+.import-code { margin-top: var(--app-space-3); }
 .import-code :deep(textarea) { font-family: ui-monospace, Consolas, monospace; font-size: 12px; line-height: 1.7; word-break: break-all; }
 .empty-downloads { margin-top: 12px; }
 </style>

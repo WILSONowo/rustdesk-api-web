@@ -48,8 +48,8 @@
         <el-table-column :resizable="false" :label="T('RegistrationReview')" width="190" fixed="right">
           <template #default="{row}">
             <template v-if="row.status === USER_PENDING_STATUS">
-              <el-button size="small" type="success" :disabled="reviewing.has(row.id)" @click="review(row, true)">{{ T('ApproveRegistration') }}</el-button>
-              <el-button size="small" type="danger" :disabled="reviewing.has(row.id)" @click="review(row, false)">{{ T('RejectRegistration') }}</el-button>
+              <el-button size="small" type="success" plain :disabled="reviewing.has(row.id)" @click="review(row, true)">{{ T('ApproveRegistration') }}</el-button>
+              <el-button size="small" type="danger" plain :disabled="reviewing.has(row.id)" @click="review(row, false)">{{ T('RejectRegistration') }}</el-button>
             </template>
             <span v-else>—</span>
           </template>

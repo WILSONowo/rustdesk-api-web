@@ -27,17 +27,17 @@ const appStore = useAppStore()
   border: 1px solid var(--el-border-color-lighter); border-radius: var(--account-card-radius);
   box-shadow: var(--account-card-shadow);
 }
-.auth-brand { display: flex; align-items: center; gap: 12px; font-weight: 600; font-size: 16px; }
-.auth-brand img { width: 36px; height: 36px; border-radius: 10px; }
-.brand-caption { display: block; color: var(--el-text-color-secondary); font-size: 12px; font-weight: 400; margin-top: 3px; }
-.auth-heading { margin: 28px 0 24px; }
-h1 { font-size: 26px; line-height: 1.3; letter-spacing: -.5px; margin: 0; font-weight: 600; }
-p { font-size: 14px; line-height: 1.6; color: var(--el-text-color-secondary); margin: 10px 0 0; }
-:deep(.el-form-item) { margin-bottom: 22px; }
-:deep(.el-form-item__label) { padding-bottom: 8px; line-height: 20px; color: var(--el-text-color-regular); }
-:deep(.el-input__wrapper) { min-height: 42px; box-sizing: border-box; border-radius: 8px; padding: 1px 12px; }
+.auth-brand { display: flex; align-items: center; gap: var(--app-space-3); font-weight: 600; font-size: var(--app-text-base); line-height: 20px; }
+.auth-brand img { width: 32px; height: 32px; border-radius: var(--app-radius); }
+.brand-caption { display: block; color: var(--app-text-muted); font-size: var(--app-text-xs); line-height: 16px; font-weight: 400; margin-top: 2px; }
+.auth-heading { margin: var(--app-space-6) 0 var(--app-space-5); }
+h1 { font-size: 22px; line-height: 30px; letter-spacing: -.3px; margin: 0; font-weight: 600; color: var(--app-text); }
+p { font-size: var(--app-text-sm); line-height: 20px; color: var(--app-text-muted); margin: var(--app-space-2) 0 0; }
+:deep(.el-form-item) { margin-bottom: 18px; }
+:deep(.el-form-item__label) { padding-bottom: 6px; line-height: 20px; font-size: var(--app-text-sm); font-weight: 500; color: var(--app-text-secondary); }
+:deep(.el-input__wrapper) { min-height: 40px; box-sizing: border-box; border-radius: var(--app-radius); padding: 1px 12px; }
 :deep(.el-input__inner) { font-size: 14px; }
-:deep(.el-button:not(.is-link)) { min-height: 42px; border-radius: 8px; }
+:deep(.el-button:not(.is-link)) { min-height: 40px; border-radius: var(--app-radius); }
 :deep(.auth-primary) { width: 100%; margin: 2px 0 0; font-weight: 600; }
 :deep(.auth-links) { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 16px; margin-top: 20px; }
 :deep(.auth-links .el-button) { margin: 0; }

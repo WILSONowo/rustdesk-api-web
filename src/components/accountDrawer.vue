@@ -1,7 +1,7 @@
 <template>
   <el-drawer v-model="accountDrawerVisible" :title="T('AccountSettings')" :size="drawerSize" append-to-body @open="loadOauth">
     <section class="account-section">
-      <h3>{{ T('Profile') }}</h3>
+      <h3 class="section-title">{{ T('Profile') }}</h3>
       <dl class="account-fields">
         <dt>{{ T('Username') }}</dt>
         <dd>{{ userStore.username }}</dd>
@@ -12,16 +12,16 @@
       </dl>
     </section>
     <section class="account-section">
-      <h3>{{ T('Email') }}</h3>
+      <h3 class="section-title">{{ T('Email') }}</h3>
       <email-binding />
     </section>
     <section class="account-section">
-      <h3>{{ T('Password') }}</h3>
+      <h3 class="section-title">{{ T('Password') }}</h3>
       <p>{{ T('ChangePasswordHelp') }}</p>
       <el-button @click="changePwdVisible = true">{{ T('ChangePassword') }}</el-button>
     </section>
     <section v-if="oidcData.length" class="account-section">
-      <h3>{{ T('LinkedAccounts') }}</h3>
+      <h3 class="section-title">{{ T('LinkedAccounts') }}</h3>
       <ul class="linked-accounts" v-loading="oauthLoading">
         <li v-for="row in oidcData" :key="row.op">
           <span class="linked-name">{{ T(row.op) }}</span>
@@ -83,19 +83,20 @@ async function toUnBind (row) {
 
 <style scoped lang="scss">
 .account-section {
-  padding: 20px 0;
-  border-top: 1px solid var(--el-border-color-lighter);
+  padding: var(--app-space-5) 0;
+  border-top: 1px solid var(--app-border);
   &:first-child { padding-top: 0; border-top: 0; }
-  h3 { margin: 0 0 12px; font-size: 15px; font-weight: 600; }
-  p { margin: 0 0 12px; font-size: 13px; line-height: 1.6; color: var(--el-text-color-secondary); }
+  h3 { margin-bottom: var(--app-space-3); }
+  p { margin: 0 0 var(--app-space-3); font-size: var(--app-text-sm); line-height: 1.6; color: var(--app-text-muted); }
 }
 .account-fields {
   display: grid;
   grid-template-columns: max-content 1fr;
   gap: 8px 16px;
   margin: 0;
-  font-size: 14px;
-  dt { color: var(--el-text-color-secondary); }
+  font-size: var(--app-text-sm);
+  line-height: 20px;
+  dt { color: var(--app-text-muted); }
   dd { margin: 0; overflow-wrap: anywhere; }
 }
 .linked-accounts {
@@ -103,7 +104,7 @@ async function toUnBind (row) {
   margin: 0;
   padding: 0;
   li { display: flex; align-items: center; gap: 12px; padding: 8px 0; }
-  .linked-name { flex: 1; font-size: 14px; }
+  .linked-name { flex: 1; font-size: var(--app-text-sm); }
 }
 :deep(.email-binding) { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
 </style>

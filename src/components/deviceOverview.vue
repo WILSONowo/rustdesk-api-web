@@ -2,7 +2,7 @@
   <el-card class="device-overview" shadow="never">
     <template #header>
       <div class="overview-heading">
-        <h2>{{ T('DeviceOverview') }}</h2>
+        <h2 class="section-title">{{ T('DeviceOverview') }}</h2>
         <el-popover placement="bottom-end" :width="340" trigger="click">
           <template #reference>
             <el-button link :icon="QuestionFilled" :aria-label="T('AboutDeviceStatus')">{{ T('AboutDeviceStatus') }}</el-button>
@@ -23,7 +23,7 @@
         <el-table-column prop="owner" :label="T('DeviceOwner')" min-width="120" />
         <el-table-column prop="collection" :label="T('AddressBookName')" min-width="130" />
         <el-table-column :label="T('LastOnlineTime')" min-width="170"><template #default="{row}"><online-status :time="row.last_seen > 0 ? row.last_seen : 0" :telemetry="telemetry" /></template></el-table-column>
-        <el-table-column :label="T('Actions')" width="120"><template #default="{row}"><el-button type="primary" size="small" :disabled="loading" @click="connectByClient(row.id)">{{ T('Link') }}</el-button></template></el-table-column>
+        <el-table-column :label="T('Actions')" width="120"><template #default="{row}"><el-button size="small" :disabled="loading" @click="connectByClient(row.id)">{{ T('Link') }}</el-button></template></el-table-column>
       </el-table>
       <el-pagination v-model:current-page="page" :page-size="20" :total="total" layout="prev, pager, next" @current-change="load" />
     </template>
@@ -56,12 +56,13 @@ function reset() { page.value = 1; load() }
 onMounted(load)
 </script>
 <style scoped>
-.device-overview { margin-top: 20px; }
-h2 { font-size: 18px; margin: 0; }
+.device-overview { margin: 0; }
 .overview-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-.help-text { margin: 0 0 8px; font-size: 13px; line-height: 1.7; color: var(--el-text-color-regular); }
+.help-text { margin: 0 0 var(--app-space-2); font-size: var(--app-text-sm); line-height: 1.7; color: var(--app-text-secondary); }
 .help-text:last-child { margin-bottom: 0; }
-p { color: var(--el-text-color-secondary); font-size: 13px; line-height: 1.8; }
-.device-search { display: flex; gap: 12px; margin-top: 16px; max-width: 540px; }
-.el-pagination { margin-top: 16px; }
+p { margin: var(--app-space-3) 0 0; color: var(--app-text-muted); font-size: var(--app-text-sm); line-height: 1.7; }
+.device-search { display: flex; gap: var(--app-space-2); margin: var(--app-space-4) 0; max-width: 480px; }
+.device-search .el-button { margin: 0; }
+.el-pagination { margin-top: var(--app-space-4); justify-content: flex-end; }
+.help-text { margin-top: 0; }
 </style>
