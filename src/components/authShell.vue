@@ -1,5 +1,12 @@
 <template>
   <main class="auth-page">
+    <div class="auth-tools">
+      <el-tooltip :content="T(isDark ? 'LightMode' : 'DarkMode')" placement="bottom">
+        <button type="button" class="tool-button" :aria-label="T(isDark ? 'LightMode' : 'DarkMode')" @click="isDark = !isDark">
+          <el-icon><Sunny v-if="isDark"/><Moon v-else/></el-icon>
+        </button>
+      </el-tooltip>
+    </div>
     <section class="auth-card" :aria-label="title">
       <div class="auth-brand"><img :src="appStore.setting.logo" alt="" /><span>{{ appStore.setting.title }} <span class="brand-caption">{{ T('AccountCenter') }}</span></span></div>
       <header class="auth-heading"><h1>{{ title }}</h1><p v-if="subtitle">{{ subtitle }}</p></header>
@@ -10,16 +17,31 @@
 <script setup>
 import { T } from '@/utils/i18n'
 import { useAppStore } from '@/store/app'
+import { useDark } from '@vueuse/core'
+import { Moon, Sunny } from '@element-plus/icons-vue'
 defineProps({ title: String, subtitle: String })
 // Use the configured admin title and logo, as the header does after sign-in.
 const appStore = useAppStore()
+// Same preference as the toggle in the admin top bar (stored by useDark).
+const isDark = useDark()
 </script>
 <style scoped lang="scss">
 .auth-page {
+  position: relative;
   min-height: 100vh; min-height: 100svh; box-sizing: border-box;
   display: flex; padding: 40px 20px;
   background: var(--account-page-background);
   color: var(--el-text-color-primary);
+}
+.auth-tools { position: absolute; top: var(--app-space-4); right: var(--app-space-4); display: flex; gap: var(--app-space-1); }
+.tool-button {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border: 1px solid var(--app-border); border-radius: var(--app-radius);
+  background: var(--app-surface); color: var(--app-text-secondary); cursor: pointer;
+  box-shadow: var(--app-shadow-sm); transition: background-color .15s, color .15s;
+  .el-icon { font-size: 16px; }
+  &:hover { background: var(--app-surface-muted); color: var(--app-text); }
+  &:focus-visible { outline: 2px solid var(--app-accent); outline-offset: 2px; }
 }
 .auth-card {
   box-sizing: border-box; width: 100%; max-width: 440px; margin: auto;
@@ -45,7 +67,9 @@ p { font-size: var(--app-text-sm); line-height: 20px; color: var(--app-text-mute
 :deep(.el-alert__title) { font-size: 13px; line-height: 1.6; }
 :deep(.el-result) { padding: 12px 0; }
 @media (max-width: 480px) {
-  .auth-page { padding: 20px 12px; }
+  // Leave room above the card for the theme button.
+  .auth-page { padding: 62px 12px 20px; }
+  .auth-tools { top: var(--app-space-3); right: var(--app-space-3); }
   .auth-card { padding: 24px 20px; }
 }
 </style>
