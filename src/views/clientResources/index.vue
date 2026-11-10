@@ -23,7 +23,7 @@
         <p class="config-help">{{ T('ImportCodeSettingsHelp') }}</p>
         <el-form-item :label="T('ServerImportCode')"><el-input v-model="form.import_code" type="textarea" :rows="5" maxlength="16384" show-word-limit :placeholder="T('ImportCodePlaceholder')" /></el-form-item>
       </el-card>
-      <div class="save-bar"><span>{{ dirty ? T('UnsavedClientResources') : T('ClientResourcesSavedHint') }}</span><el-button native-type="submit" type="primary" :loading="saving" :disabled="!ready || !dirty">{{ T('SaveClientResources') }}</el-button><el-button @click="router.push('/')">{{ T('ViewUserinfo') }}</el-button></div>
+      <div class="save-bar"><span>{{ dirty ? T('UnsavedClientResources') : T('ClientResourcesSavedHint') }}</span><el-button native-type="submit" type="primary" :loading="saving" :disabled="!ready || !dirty">{{ T('SaveClientResources') }}</el-button><el-button @click="router.push('/')">{{ T('ViewOverview') }}</el-button></div>
     </el-form>
   </div>
 </template>

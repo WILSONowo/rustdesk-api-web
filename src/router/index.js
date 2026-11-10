@@ -59,7 +59,7 @@ export const asyncRoutes = [
       {
         path: '/',
         name: 'MyInfo',
-        meta: { title: 'Userinfo', icon: 'User' /*keepAlive: true*/ },
+        meta: { title: 'Overview', icon: 'House' /*keepAlive: true*/ },
         component: () => import('@/views/my/info.vue'),
       },
       {

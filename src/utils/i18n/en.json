@@ -954,5 +954,53 @@
   },
   "MenuServer": {
     "One": "Server"
+  },
+  "Overview": {
+    "One": "Overview"
+  },
+  "ViewOverview": {
+    "One": "View overview"
+  },
+  "AccountSettings": {
+    "One": "Account settings"
+  },
+  "Profile": {
+    "One": "Profile"
+  },
+  "ChangePasswordHelp": {
+    "One": "Use a strong password that you do not use elsewhere."
+  },
+  "LinkedAccounts": {
+    "One": "Linked accounts"
+  },
+  "WelcomeBack": {
+    "One": "Welcome back, {name}"
+  },
+  "OverviewIntro": {
+    "One": "Your devices, shared access and client downloads at a glance."
+  },
+  "MyDevicesCount": {
+    "One": "My devices"
+  },
+  "OnlineNow": {
+    "One": "Online now"
+  },
+  "OnlineNowHint": {
+    "One": "Reported in the last minute"
+  },
+  "ConnectDevice": {
+    "One": "Connect to a device"
+  },
+  "ConnectDeviceHelp": {
+    "One": "Find a device and open it in the desktop client."
+  },
+  "GetClient": {
+    "One": "Get the client"
+  },
+  "DownloadClientHelp": {
+    "One": "Downloads and the server import code for new computers."
+  },
+  "AccountSettingsHelp": {
+    "One": "Email, password and linked accounts."
   }
 }

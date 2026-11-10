@@ -970,5 +970,53 @@
   },
   "MenuServer": {
     "One": "服务器"
+  },
+  "Overview": {
+    "One": "概览"
+  },
+  "ViewOverview": {
+    "One": "查看概览"
+  },
+  "AccountSettings": {
+    "One": "账号设置"
+  },
+  "Profile": {
+    "One": "个人资料"
+  },
+  "ChangePasswordHelp": {
+    "One": "建议使用强密码，且不要与其他网站共用。"
+  },
+  "LinkedAccounts": {
+    "One": "第三方账号绑定"
+  },
+  "WelcomeBack": {
+    "One": "欢迎回来，{name}"
+  },
+  "OverviewIntro": {
+    "One": "在这里查看你的设备、共享访问和客户端下载。"
+  },
+  "MyDevicesCount": {
+    "One": "我的设备"
+  },
+  "OnlineNow": {
+    "One": "当前在线"
+  },
+  "OnlineNowHint": {
+    "One": "最近 1 分钟内有上报"
+  },
+  "ConnectDevice": {
+    "One": "连接设备"
+  },
+  "ConnectDeviceHelp": {
+    "One": "找到设备后用桌面客户端发起连接。"
+  },
+  "GetClient": {
+    "One": "下载客户端"
+  },
+  "DownloadClientHelp": {
+    "One": "新电脑的客户端下载和服务器导入码。"
+  },
+  "AccountSettingsHelp": {
+    "One": "邮箱、密码和第三方账号绑定。"
   }
 }

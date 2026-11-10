@@ -44,12 +44,14 @@
 
       <template #dropdown>
         <el-dropdown-menu>
+          <el-dropdown-item @click="openAccountSettings">{{ T('AccountSettings') }}</el-dropdown-item>
           <el-dropdown-item @click="showChangePwd">{{ T('ChangePassword') }}</el-dropdown-item>
-          <el-dropdown-item @click="logout">{{ T('Logout') }}</el-dropdown-item>
+          <el-dropdown-item divided @click="logout">{{ T('Logout') }}</el-dropdown-item>
         </el-dropdown-menu>
       </template>
     </el-dropdown>
     <changePwdDialog v-model:visible="changePwdVisible"></changePwdDialog>
+    <account-drawer />
   </div>
 </template>
 
@@ -57,6 +59,8 @@
   import { useUserStore } from '@/store/user'
   import { useAppStore } from '@/store/app'
   import changePwdDialog from '@/components/changePwdDialog.vue'
+  import AccountDrawer from '@/components/accountDrawer.vue'
+  import { openAccountSettings } from '@/utils/accountDrawer'
   import { ref } from 'vue'
   import { T } from '@/utils/i18n'
   import { useDark } from '@vueuse/core'
