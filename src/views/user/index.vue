@@ -1,24 +1,28 @@
 <template>
   <div>
     <el-card class="list-query" shadow="hover">
-      <el-form inline label-width="80px">
+      <el-form inline @submit.prevent="handlerQuery">
         <el-form-item :label="T('Username')">
-          <el-input v-model="listQuery.username"></el-input>
+          <el-input v-model="listQuery.username" clearable></el-input>
         </el-form-item>
-        <el-form-item>
-          <el-select v-model="listQuery.status" style="width: 150px; margin-right: 12px" :aria-label="T('Status')">
+        <el-form-item :label="T('Status')">
+          <el-select v-model="listQuery.status">
             <el-option :value="0" :label="T('AllStatuses')" />
             <el-option :value="USER_PENDING_STATUS" :label="T('PendingApproval')" />
             <el-option :value="ENABLE_STATUS" :label="T('AccountEnabled')" />
             <el-option :value="DISABLE_STATUS" :label="T('AccountDisabled')" />
           </el-select>
-          <el-button type="primary" @click="handlerQuery">{{ T('Filter') }}</el-button>
-          <el-button type="danger" @click="toAdd">{{ T('Add') }}</el-button>
-          <el-button type="success" @click="toExport">{{ T('Export') }}</el-button>
+        </el-form-item>
+        <el-form-item class="query-submit">
+          <el-button type="primary" native-type="submit" :icon="Search">{{ T('Filter') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
     <el-card class="list-body" shadow="hover">
+      <list-toolbar>
+        <el-button type="primary" :icon="Plus" @click="toAdd">{{ T('Add') }}</el-button>
+        <el-button :icon="Download" @click="toExport">{{ T('Export') }}</el-button>
+      </list-toolbar>
       <el-table :data="listRes.list" v-loading="listRes.loading" border>
         <el-table-column :resizable="false" prop="id" label="ID" align="center" width="65"></el-table-column>
         <el-table-column :resizable="false" prop="username" :label="T('Username')" align="center" min-width="180" show-overflow-tooltip/>
@@ -76,6 +80,8 @@
 </template>
 
 <script setup>
+  import ListToolbar from '@/components/listToolbar.vue'
+  import { Download, Plus, Search } from '@element-plus/icons-vue'
   import { useRepositories, useDel, useToEditOrAdd, useChangePwd } from '@/views/user/composables'
   import { T } from '@/utils/i18n'
   import { DISABLE_STATUS, ENABLE_STATUS, USER_PENDING_STATUS } from '@/utils/common_options'

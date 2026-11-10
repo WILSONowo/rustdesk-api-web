@@ -1,14 +1,12 @@
 <template>
   <div>
-    <el-card class="list-query" shadow="hover">
-      <el-form inline label-width="80px">
-        <el-form-item>
-          <el-button type="primary" @click="handlerQuery">{{ T('Filter') }}</el-button>
-          <el-button type="danger" @click="toAdd">{{ T('Add') }}</el-button>
-        </el-form-item>
-      </el-form>
-    </el-card>
     <el-card class="list-body" shadow="hover">
+      <list-toolbar>
+        <el-button type="primary" :icon="Plus" @click="toAdd">{{ T('Add') }}</el-button>
+        <template #extra>
+          <el-button :icon="Refresh" @click="handlerQuery">{{ T('Refresh') }}</el-button>
+        </template>
+      </list-toolbar>
       <el-tag type="danger" effect="light" style="margin-bottom: 10px">{{ T('MyAddressBookTips') }}</el-tag>
       <el-table :data="list" v-loading="listRes.loading" border>
         <!--        <el-table-column prop="id" label="ID" align="center"/>-->
@@ -54,6 +52,8 @@
 </template>
 
 <script setup>
+  import ListToolbar from '@/components/listToolbar.vue'
+  import { Plus, Refresh } from '@element-plus/icons-vue'
   import { T } from '@/utils/i18n'
   import { computed, ref } from 'vue'
   import { useRepositories } from '@/views/address_book/collection'

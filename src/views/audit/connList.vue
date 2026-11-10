@@ -1,21 +1,25 @@
 <template>
   <div>
     <el-card class="list-query" shadow="hover">
-      <el-form inline label-width="80px">
+      <el-form inline label-width="80px" @submit.prevent="handlerQuery">
         <el-form-item :label="T('Peer')">
           <el-input v-model="listQuery.peer_id" clearable></el-input>
         </el-form-item>
         <el-form-item :label="T('FromPeer')">
           <el-input v-model="listQuery.from_peer" clearable></el-input>
         </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="handlerQuery">{{ T('Filter') }}</el-button>
-          <el-button type="danger" @click="toBatchDelete">{{ T('BatchDelete') }}</el-button>
-          <el-button type="success" @click="toExport">{{ T('Export') }}</el-button>
+        <el-form-item class="query-submit">
+          <el-button type="primary" native-type="submit" :icon="Search">{{ T('Filter') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
     <el-card class="list-body" shadow="hover">
+      <list-toolbar :selected="multipleSelection.length">
+        <el-button :icon="Download" @click="toExport">{{ T('Export') }}</el-button>
+        <template #selection>
+          <el-button type="danger" plain @click="toBatchDelete">{{ T('BatchDelete') }}</el-button>
+        </template>
+      </list-toolbar>
       <el-table :data="listRes.list" v-loading="listRes.loading" border @selection-change="handleSelectionChange">
         <el-table-column :resizable="false" type="selection" align="center" width="50"/>
         <el-table-column :resizable="false" prop="id" label="ID" align="center" width="100" show-overflow-tooltip/>
@@ -52,6 +56,8 @@
 </template>
 
 <script setup>
+  import ListToolbar from '@/components/listToolbar.vue'
+  import { Download, Search } from '@element-plus/icons-vue'
   import { onActivated, onMounted, ref, watch } from 'vue'
   import { useRepositories } from '@/views/audit/reponsitories'
   import { T } from '@/utils/i18n'

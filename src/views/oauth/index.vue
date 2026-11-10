@@ -1,14 +1,12 @@
 <template>
   <div>
-    <el-card class="list-query" shadow="hover">
-      <el-form inline label-width="80px">
-        <el-form-item>
-          <el-button type="primary" @click="handlerQuery">{{ T('Filter') }}</el-button>
-          <el-button type="danger" @click="toAdd">{{ T('Add') }}</el-button>
-        </el-form-item>
-      </el-form>
-    </el-card>
     <el-card class="list-body" shadow="hover">
+      <list-toolbar>
+        <el-button type="primary" :icon="Plus" @click="toAdd">{{ T('Add') }}</el-button>
+        <template #extra>
+          <el-button :icon="Refresh" @click="handlerQuery">{{ T('Refresh') }}</el-button>
+        </template>
+      </list-toolbar>
       <el-table :data="listRes.list" v-loading="listRes.loading" border>
         <el-table-column min-width="100" :resizable="false" prop="id" label="ID" align="center" show-overflow-tooltip/>
         <el-table-column min-width="150" :resizable="false" prop="op" :label="T('IdP')" align="center" show-overflow-tooltip/>
@@ -101,6 +99,8 @@
 </template>
 
 <script setup>
+  import ListToolbar from '@/components/listToolbar.vue'
+  import { Plus, Refresh } from '@element-plus/icons-vue'
   import { onMounted, reactive, watch, ref, onActivated } from 'vue'
   import { list, create, update, detail, remove } from '@/api/oauth'
   import { ElMessage, ElMessageBox } from 'element-plus'

@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card class="list-query" shadow="hover">
-      <el-form inline label-width="80px">
+      <el-form inline label-width="80px" @submit.prevent="handlerQuery">
         <el-form-item :label="T('User')">
           <el-select v-model="listQuery.user_id" clearable>
             <el-option
@@ -12,13 +12,17 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="handlerQuery">{{ T('Filter') }}</el-button>
-          <el-button type="danger" @click="toBatchDelete">{{ T('BatchDelete') }}</el-button>
+        <el-form-item class="query-submit">
+          <el-button type="primary" native-type="submit" :icon="Search">{{ T('Filter') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
     <el-card class="list-body" shadow="hover">
+      <list-toolbar :selected="multipleSelection.length">
+        <template #selection>
+          <el-button type="danger" plain @click="toBatchDelete">{{ T('BatchDelete') }}</el-button>
+        </template>
+      </list-toolbar>
       <el-table :data="listRes.list" v-loading="listRes.loading" border @selection-change="handleSelectionChange">
         <el-table-column :resizable="false" type="selection" align="center" width="50"/>
         <el-table-column :resizable="false" prop="id" label="id" align="center" width="100" show-overflow-tooltip/>
@@ -58,6 +62,8 @@
 </template>
 
 <script setup>
+  import ListToolbar from '@/components/listToolbar.vue'
+  import { Search } from '@element-plus/icons-vue'
   import { onActivated, onMounted, ref, watch } from 'vue'
   import { loadAllUsers } from '@/global'
   import { useRepositories } from '@/views/user/token.js'

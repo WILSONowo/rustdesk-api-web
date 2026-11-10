@@ -1,20 +1,22 @@
 <template>
   <div>
     <el-card class="list-query" shadow="hover">
-      <el-form inline label-width="120px">
+      <el-form inline label-width="120px" @submit.prevent="handlerQuery">
         <el-form-item :label="T('AddressBookName')">
           <el-select v-model="listQuery.collection_id" clearable>
             <el-option :value="0" :label="T('MyAddressBook')"></el-option>
             <el-option v-for="c in collectionListRes.list" :key="c.id" :label="c.name" :value="c.id"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="handlerQuery">{{ T('Filter') }}</el-button>
-          <el-button type="danger" @click="toAdd">{{ T('Add') }}</el-button>
+        <el-form-item class="query-submit">
+          <el-button type="primary" native-type="submit" :icon="Search">{{ T('Filter') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
     <el-card class="list-body" shadow="hover">
+      <list-toolbar>
+        <el-button type="primary" :icon="Plus" @click="toAdd">{{ T('Add') }}</el-button>
+      </list-toolbar>
       <el-table :data="listRes.list" v-loading="listRes.loading" border>
         <el-table-column min-width="100" :resizable="false" prop="id" label="ID" align="center" show-overflow-tooltip/>
         <el-table-column :resizable="false" prop="collection_id" :label="T('AddressBook')" align="center" width="150">
@@ -83,6 +85,8 @@
 </template>
 
 <script setup>
+  import ListToolbar from '@/components/listToolbar.vue'
+  import { Plus, Search } from '@element-plus/icons-vue'
   import { onMounted, watch, onActivated } from 'vue'
   import { useRepositories } from '@/views/tag'
   import { T } from '@/utils/i18n'

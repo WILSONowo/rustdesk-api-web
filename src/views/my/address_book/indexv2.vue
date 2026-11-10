@@ -21,7 +21,7 @@
 
     <el-main class="con">
       <el-card class="list-query" shadow="hover">
-        <el-form inline label-width="80px">
+        <el-form inline label-width="80px" @submit.prevent="handlerQuery">
 <!--          <el-form-item :label="T('Name')">
             <el-select v-model="listQuery.collection_id" clearable>
               <el-option :value="0" :label="T('MyAddressBook')"></el-option>
@@ -37,13 +37,15 @@
           <el-form-item :label="T('Hostname')">
             <el-input v-model="listQuery.hostname" clearable></el-input>
           </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="handlerQuery">{{ T('Filter') }}</el-button>
-            <el-button type="danger" @click="toAdd">{{ T('Add') }}</el-button>
+          <el-form-item class="query-submit">
+            <el-button type="primary" native-type="submit" :icon="Search">{{ T('Filter') }}</el-button>
           </el-form-item>
         </el-form>
       </el-card>
       <el-card class="list-body" shadow="hover">
+        <list-toolbar>
+          <el-button type="primary" :icon="Plus" @click="toAdd">{{ T('Add') }}</el-button>
+        </list-toolbar>
         <!--      <el-tag type="danger" style="margin-bottom: 10px">不建议在此操作地址簿，可能会造成数据不同步</el-tag>-->
         <el-table :data="listRes.list" v-loading="listRes.loading" border>
           <el-table-column :resizable="false" prop="id" label="ID" align="center" width="200">
@@ -165,6 +167,8 @@
 </template>
 
 <script setup>
+  import ListToolbar from '@/components/listToolbar.vue'
+  import { Plus, Search } from '@element-plus/icons-vue'
   import { onActivated, onMounted, reactive, ref, watch } from 'vue'
   import { list as fetchTagList } from '@/api/tag'
   import { useRepositories } from '@/views/address_book'

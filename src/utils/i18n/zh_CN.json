@@ -943,5 +943,17 @@
   },
   "NeverExpires": {
     "One": "长期有效"
+  },
+  "SelectedCount": {
+    "One": "已选 {count} 项"
+  },
+  "SelectRowsHint": {
+    "One": "勾选表格行后可批量操作"
+  },
+  "ColumnSettings": {
+    "One": "列设置"
+  },
+  "More": {
+    "One": "更多"
   }
 }

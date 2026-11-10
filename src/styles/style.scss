@@ -66,7 +66,17 @@ html.dark {
   }
   .el-card__body { padding: 24px; }
   .list-body { margin: 20px 0; }
+  .list-body:first-child { margin-top: 0; }
   .list-query .el-card__body { padding-bottom: 6px; }
+  // Filters wrap as a row of fields; the submit button stays aligned with them.
+  .list-query .el-form--inline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: 20px;
+    .el-form-item { margin-right: 0; margin-bottom: 16px; }
+    .el-form-item__label { white-space: nowrap; }
+  }
   .list-page .el-card__body { overflow-x: auto; }
   .el-table {
     --el-table-header-bg-color: var(--el-fill-color-light);

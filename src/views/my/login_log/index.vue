@@ -1,14 +1,14 @@
 <template>
   <div>
-    <el-card class="list-query" shadow="hover">
-      <el-form inline label-width="80px">
-        <el-form-item>
-          <el-button type="primary" @click="handlerQuery">{{ T('Filter') }}</el-button>
-          <el-button type="danger" @click="toBatchDelete">{{ T('BatchDelete') }}</el-button>
-        </el-form-item>
-      </el-form>
-    </el-card>
     <el-card class="list-body" shadow="hover">
+      <list-toolbar :selected="multipleSelection.length">
+        <template #selection>
+          <el-button type="danger" plain @click="toBatchDelete">{{ T('BatchDelete') }}</el-button>
+        </template>
+        <template #extra>
+          <el-button :icon="Refresh" @click="handlerQuery">{{ T('Refresh') }}</el-button>
+        </template>
+      </list-toolbar>
       <el-table :data="listRes.list" v-loading="listRes.loading" border @selection-change="handleSelectionChange">
         <el-table-column :resizable="false" type="selection" align="center" width="50"/>
         <el-table-column :resizable="false" prop="client" label="client" align="center" width="120" show-overflow-tooltip/>
@@ -42,6 +42,8 @@
 </template>
 
 <script setup>
+  import ListToolbar from '@/components/listToolbar.vue'
+  import { Refresh } from '@element-plus/icons-vue'
   import { onActivated, onMounted, ref, watch } from 'vue'
   import { useRepositories } from '@/views/login/log.js'
   import { T } from '@/utils/i18n'

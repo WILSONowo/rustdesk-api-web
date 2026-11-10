@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card class="list-query" shadow="hover">
-      <el-form inline label-width="120px">
+      <el-form inline label-width="120px" @submit.prevent="handlerQuery">
         <el-form-item :label="T('AddressBookName')">
           <el-select v-model="listQuery.collection_id" clearable>
             <el-option :value="0" :label="T('MyAddressBook')"></el-option>
@@ -17,14 +17,18 @@
         <el-form-item :label="T('Hostname')">
           <el-input v-model="listQuery.hostname" clearable></el-input>
         </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="handlerQuery">{{ T('Filter') }}</el-button>
-          <el-button type="danger" @click="toAdd">{{ T('Add') }}</el-button>
-          <el-button type="primary" @click="showBatchEditTags">{{ T('BatchEditTags') }}</el-button>
+        <el-form-item class="query-submit">
+          <el-button type="primary" native-type="submit" :icon="Search">{{ T('Filter') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
     <el-card class="list-body" shadow="hover">
+      <list-toolbar :selected="multipleSelection.length">
+        <el-button type="primary" :icon="Plus" @click="toAdd">{{ T('Add') }}</el-button>
+        <template #selection>
+          <el-button @click="showBatchEditTags">{{ T('BatchEditTags') }}</el-button>
+        </template>
+      </list-toolbar>
       <el-table :data="listRes.list" v-loading="listRes.loading" border @selection-change="handleSelectionChange">
         <el-table-column :resizable="false" type="selection" width="50" align="center"></el-table-column>
         <el-table-column :resizable="false" prop="id" label="ID" align="center" width="200">
@@ -174,6 +178,8 @@
 </template>
 
 <script setup>
+  import ListToolbar from '@/components/listToolbar.vue'
+  import { Plus, Search } from '@element-plus/icons-vue'
   import { onActivated, onMounted, reactive, ref, watch } from 'vue'
   import { useBatchUpdateTagsRepositories, useRepositories } from '@/views/address_book'
   import { toWebClientLink } from '@/utils/webclient'

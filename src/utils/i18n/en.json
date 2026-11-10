@@ -927,5 +927,17 @@
   },
   "NeverExpires": {
     "One": "No expiry"
+  },
+  "SelectedCount": {
+    "One": "{count} selected"
+  },
+  "SelectRowsHint": {
+    "One": "Select rows for batch actions"
+  },
+  "ColumnSettings": {
+    "One": "Column settings"
+  },
+  "More": {
+    "One": "More"
   }
 }

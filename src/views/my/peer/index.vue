@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card class="list-query" shadow="hover">
-      <el-form inline label-width="150px">
+      <el-form inline @submit.prevent="handlerQuery">
         <el-form-item label="ID">
           <el-input v-model="listQuery.id" clearable/>
         </el-form-item>
@@ -19,16 +19,18 @@
             ></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="handlerQuery">{{ T('Filter') }}</el-button>
-          <el-button type="success" @click="toExport">{{ T('Export') }}</el-button>
-          <!--          <el-button type="danger" @click="toBatchDelete">{{ T('BatchDelete') }}</el-button>-->
-          <el-button type="primary" @click="toBatchAddToAB">{{ T('BatchAddToAB') }}</el-button>
-
+        <el-form-item class="query-submit">
+          <el-button type="primary" native-type="submit" :icon="Search">{{ T('Filter') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
     <el-card class="list-body" shadow="hover">
+      <list-toolbar :selected="multipleSelection.length">
+        <el-button :icon="Download" @click="toExport">{{ T('Export') }}</el-button>
+        <template #selection>
+          <el-button @click="toBatchAddToAB">{{ T('BatchAddToAB') }}</el-button>
+        </template>
+      </list-toolbar>
       <el-table :data="listRes.list" v-loading="listRes.loading" border size="small" @selection-change="handleSelectionChange">
         <el-table-column :resizable="false" type="selection" width="55" align="center"/>
         <el-table-column :resizable="false" prop="id" label="ID" align="center" width="150">
@@ -179,6 +181,8 @@
 </template>
 
 <script setup>
+  import ListToolbar from '@/components/listToolbar.vue'
+  import { Download, Search } from '@element-plus/icons-vue'
   import { computed, onActivated, onMounted, reactive, ref, watch } from 'vue'
   import { list } from '@/api/my/peer'
   import { ElMessage, ElMessageBox } from 'element-plus'

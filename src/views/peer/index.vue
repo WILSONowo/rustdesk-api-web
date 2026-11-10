@@ -1,14 +1,14 @@
 <template>
   <div>
     <el-card class="list-query" shadow="hover">
-      <el-form inline label-width="60px">
+      <el-form inline @submit.prevent="handlerQuery">
         <el-form-item label="ID">
           <el-input v-model="listQuery.id" clearable/>
         </el-form-item>
         <el-form-item :label="T('Hostname')">
           <el-input v-model="listQuery.hostname" clearable/>
         </el-form-item>
-        <el-form-item :label="T('LastOnlineTime')" label-width="100px">
+        <el-form-item :label="T('LastOnlineTime')">
           <el-select v-model="listQuery.time_ago" clearable>
             <el-option
                 v-for="item in timeFilters"
@@ -25,46 +25,26 @@
         <el-form-item label="IP">
           <el-input v-model="listQuery.ip" clearable/>
         </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="handlerQuery">{{ T('Filter') }}</el-button>
-          <el-button type="danger" @click="toAdd">{{ T('Add') }}</el-button>
-          <el-button type="success" @click="toExport">{{ T('Export') }}</el-button>
-          <el-popover :visible="showImport" placement="bottom" :width="600">
-            <el-upload
-                class="upload-demo"
-                drag
-                accept=".csv"
-                :before-upload="parseCsv"
-            >
-              <el-icon class="el-icon--upload">
-                <upload-filled/>
-              </el-icon>
-              <div class="el-upload__text">
-                {{ T('Drop file here or click to upload') }}
-              </div>
-              <template #tip>
-                <div class="el-upload__tip">
-                  {{ T('Please upload csv file') }} <br>
-                  {{ T('Columns') }}: <span style="font-weight: bold;font-size: 15px">id,cpu,hostname,memory,os,username,uuid,version,group_id</span>
-                  <br>
-                  <span>{{ T('You can reference export file') }}</span>
-                </div>
-              </template>
-            </el-upload>
-            <el-button @click="showImport=false" type="primary">{{ T('Cancel') }}</el-button>
-            <template #reference>
-              <el-button @click="showImport=true" type="danger" :icon="ArrowDown">{{ T('Import') }}</el-button>
-            </template>
-          </el-popover>
-          <el-button type="danger" @click="toBatchDelete">{{ T('BatchDelete') }}</el-button>
-          <el-button type="primary" @click="toBatchAddToAB">{{ T('BatchAddToAB') }}</el-button>
+        <el-form-item class="query-submit">
+          <el-button type="primary" native-type="submit" :icon="Search">{{ T('Filter') }}</el-button>
         </el-form-item>
       </el-form>
     </el-card>
     <el-card class="list-body" shadow="hover">
-      <div style="text-align: right; margin-bottom: 10px">
-        <el-button :icon="Setting" @click="showColumnSetting"></el-button>
-      </div>
+      <list-toolbar :selected="multipleSelection.length">
+        <el-button type="primary" :icon="Plus" @click="toAdd">{{ T('Add') }}</el-button>
+        <el-button :icon="Upload" @click="showImport=true">{{ T('Import') }}</el-button>
+        <el-button :icon="Download" @click="toExport">{{ T('Export') }}</el-button>
+        <template #selection>
+          <el-button @click="toBatchAddToAB">{{ T('BatchAddToAB') }}</el-button>
+          <el-button type="danger" plain @click="toBatchDelete">{{ T('BatchDelete') }}</el-button>
+        </template>
+        <template #extra>
+          <el-tooltip :content="T('ColumnSettings')" placement="top">
+            <el-button :icon="Setting" :aria-label="T('ColumnSettings')" @click="showColumnSetting"></el-button>
+          </el-tooltip>
+        </template>
+      </list-toolbar>
 
       <el-table :data="listRes.list" v-loading="listRes.loading" border size="small" @selection-change="handleSelectionChange">
         <el-table-column :resizable="false" type="selection" width="55" align="center"/>
@@ -166,6 +146,23 @@
       </el-form>
     </el-dialog>
 
+    <el-dialog v-model="showImport" width="600" :title="T('Import')">
+      <el-upload drag accept=".csv" :before-upload="parseCsv">
+        <el-icon class="el-icon--upload"><upload-filled/></el-icon>
+        <div class="el-upload__text">{{ T('Drop file here or click to upload') }}</div>
+        <template #tip>
+          <div class="el-upload__tip">
+            {{ T('Please upload csv file') }}<br>
+            {{ T('Columns') }}: <code class="csv-columns">id,cpu,hostname,memory,os,username,uuid,version,group_id</code><br>
+            {{ T('You can reference export file') }}
+          </div>
+        </template>
+      </el-upload>
+      <template #footer>
+        <el-button @click="showImport=false">{{ T('Cancel') }}</el-button>
+      </template>
+    </el-dialog>
+
     <el-dialog v-model="ABFormVisible" width="800" :title="T('Create')" destroy-on-close>
       <createABForm :peer="clickRow" @success="ABFormVisible=false" @cancel="ABFormVisible=false"></createABForm>
     </el-dialog>
@@ -242,6 +239,8 @@
   import { useAppStore } from '@/store/app'
   import { connectByClient } from '@/utils/peer'
   import { ArrowDown, ArrowUp, CopyDocument, Setting } from '@element-plus/icons'
+  import { Download, Plus, Search, Upload } from '@element-plus/icons-vue'
+  import ListToolbar from '@/components/listToolbar.vue'
   import { handleClipboard } from '@/utils/clipboard'
   import { batchCreateFromPeers } from '@/api/address_book'
   import { useRepositories as useCollectionRepositories } from '@/views/address_book/collection'
@@ -571,6 +570,11 @@
 <style scoped lang="scss">
 .list-query .el-select {
   --el-select-width: 180px;
+}
+
+.csv-columns {
+  font-family: ui-monospace, Consolas, monospace;
+  font-weight: 600;
 }
 
 .last_oline_time {
