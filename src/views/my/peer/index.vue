@@ -56,13 +56,19 @@
         <el-table-column :resizable="false" prop="alias" :label="T('Alias')" align="center" min-width="150" show-overflow-tooltip/>
         <el-table-column :resizable="false" prop="created_at" :label="T('CreatedAt')" align="center" min-width="180" show-overflow-tooltip/>
         <el-table-column :resizable="false" prop="updated_at" :label="T('UpdatedAt')" align="center" min-width="180" show-overflow-tooltip/>
-        <el-table-column :resizable="false" :label="T('Actions')" align="center" width="260" class-name="table-actions" fixed="right">
+        <el-table-column :resizable="false" :label="T('Actions')" align="center" width="170" class-name="table-actions" fixed="right">
           <template #default="{row}">
-            <el-button type="success" @click="connectByClient(row.id)">{{ T('Link') }}</el-button>
-            <el-button v-if="appStore.setting.appConfig.web_client" type="success" @click="toWebClientLink(row)">Web Client</el-button>
-            <el-button type="primary" @click="toAddressBook(row)">{{ T('AddToAddressBook') }}</el-button>
-            <el-button @click="toView(row)">{{ T('View') }}</el-button>
-            <!--            <el-button type="danger" @click="del(row)">{{ T('Delete') }}</el-button>-->
+            <el-button type="primary" size="small" @click="connectByClient(row.id)">{{ T('Link') }}</el-button>
+            <el-dropdown trigger="click">
+              <el-button link type="primary">{{ T('More') }}<el-icon class="el-icon--right"><arrow-down/></el-icon></el-button>
+              <template #dropdown>
+                <el-dropdown-menu>
+                  <el-dropdown-item v-if="appStore.setting.appConfig.web_client" @click="toWebClientLink(row)">Web Client</el-dropdown-item>
+                  <el-dropdown-item @click="toAddressBook(row)">{{ T('AddToAddressBook') }}</el-dropdown-item>
+                  <el-dropdown-item @click="toView(row)">{{ T('View') }}</el-dropdown-item>
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
           </template>
         </el-table-column>
       </el-table>
@@ -181,6 +187,7 @@
 </template>
 
 <script setup>
+  import { ArrowDown } from '@element-plus/icons-vue'
   import ListToolbar from '@/components/listToolbar.vue'
   import { Download, Search } from '@element-plus/icons-vue'
   import { computed, onActivated, onMounted, reactive, ref, watch } from 'vue'

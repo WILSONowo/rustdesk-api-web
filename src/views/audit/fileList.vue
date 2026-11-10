@@ -68,9 +68,9 @@
         <el-table-column :resizable="false" prop="path" :label="T('Path')" align="center" min-width="200" show-overflow-tooltip/>
         <el-table-column :resizable="false" prop="uuid" label="uuid" align="center" min-width="200" show-overflow-tooltip/>
         <el-table-column :resizable="false" prop="created_at" :label="T('CreatedAt')" align="center" min-width="180" show-overflow-tooltip/>
-        <el-table-column :resizable="false" :label="T('Actions')" align="center" width="150" fixed="right" class-name="table-actions">
+        <el-table-column :resizable="false" :label="T('Actions')" align="center" width="90" fixed="right" class-name="table-actions">
           <template #default="{row}">
-            <el-button type="danger" @click="del(row)">{{ T('Delete') }}</el-button>
+            <el-button link type="danger" @click="del(row)">{{ T('Delete') }}</el-button>
           </template>
         </el-table-column>
       </el-table>

@@ -67,13 +67,20 @@
           <!--        <el-table-column prop="updated_at" label="更新时间" align="center"/>-->
           <el-table-column :resizable="false" prop="alias" :label="T('Alias')" align="center" min-width="150" show-overflow-tooltip/>
           <el-table-column :resizable="false" prop="hash" :label="T('Hash')" align="center" width="150" show-overflow-tooltip/>
-          <el-table-column :resizable="false" :label="T('Actions')" align="center" class-name="table-actions" width="260" fixed="right">
+          <el-table-column :resizable="false" :label="T('Actions')" align="center" class-name="table-actions" width="170" fixed="right">
             <template #default="{row}">
-              <el-button type="success" @click="connectByClient(row.id)">{{ T('Link') }}</el-button>
-              <el-button v-if="appStore.setting.appConfig.web_client" type="success" @click="toWebClientLink(row)">Web Client</el-button>
-              <el-button v-if="appStore.setting.appConfig.web_client" type="primary" @click="toShowShare(row)">{{ T('ShareByWebClient') }}</el-button>
-              <el-button @click="toEdit(row)">{{ T('Edit') }}</el-button>
-              <el-button type="danger" @click="del(row)">{{ T('Delete') }}</el-button>
+              <el-button type="primary" size="small" @click="connectByClient(row.id)">{{ T('Link') }}</el-button>
+              <el-dropdown trigger="click">
+                <el-button link type="primary">{{ T('More') }}<el-icon class="el-icon--right"><arrow-down/></el-icon></el-button>
+                <template #dropdown>
+                  <el-dropdown-menu>
+                    <el-dropdown-item v-if="appStore.setting.appConfig.web_client" @click="toWebClientLink(row)">Web Client</el-dropdown-item>
+                    <el-dropdown-item v-if="appStore.setting.appConfig.web_client" @click="toShowShare(row)">{{ T('ShareByWebClient') }}</el-dropdown-item>
+                    <el-dropdown-item @click="toEdit(row)">{{ T('Edit') }}</el-dropdown-item>
+                    <el-dropdown-item @click="del(row)" divided class="is-danger">{{ T('Delete') }}</el-dropdown-item>
+                  </el-dropdown-menu>
+                </template>
+              </el-dropdown>
             </template>
           </el-table-column>
         </el-table>
@@ -167,6 +174,7 @@
 </template>
 
 <script setup>
+  import { ArrowDown } from '@element-plus/icons-vue'
   import ListToolbar from '@/components/listToolbar.vue'
   import { Plus, Search } from '@element-plus/icons-vue'
   import { onActivated, onMounted, reactive, ref, watch } from 'vue'

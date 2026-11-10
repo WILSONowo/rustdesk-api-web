@@ -96,8 +96,17 @@ html.dark {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 4px 12px;
   .el-button { margin: 0; }
+}
+// Destructive entries in row "More" menus.
+.el-dropdown-menu__item.is-danger,
+.el-dropdown-menu__item.is-danger:not(.is-disabled):focus,
+.el-dropdown-menu__item.is-danger:not(.is-disabled):hover {
+  color: var(--el-color-danger);
+}
+.el-dropdown-menu__item.is-danger:not(.is-disabled):hover {
+  background: var(--el-color-danger-light-9);
 }
 
 :is(.app-shell, .el-dialog, .el-message-box) {

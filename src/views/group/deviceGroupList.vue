@@ -12,10 +12,10 @@
         <el-table-column min-width="150" :resizable="false" prop="name" :label="T('Name')" align="center" show-overflow-tooltip/>
         <el-table-column min-width="180" :resizable="false" prop="created_at" :label="T('CreatedAt')" align="center" show-overflow-tooltip/>
         <el-table-column min-width="180" :resizable="false" prop="updated_at" :label="T('UpdatedAt')" align="center" show-overflow-tooltip/>
-        <el-table-column :resizable="false" :label="T('Actions')" align="center" width="200" class-name="table-actions">
+        <el-table-column :resizable="false" :label="T('Actions')" align="center" width="130" class-name="table-actions">
           <template #default="{row}">
-            <el-button @click="toEdit(row)">{{ T('Edit') }}</el-button>
-            <el-button type="danger" @click="del(row)">{{ T('Delete') }}</el-button>
+            <el-button link type="primary" @click="toEdit(row)">{{ T('Edit') }}</el-button>
+            <el-button link type="danger" @click="del(row)">{{ T('Delete') }}</el-button>
           </template>
         </el-table-column>
       </el-table>

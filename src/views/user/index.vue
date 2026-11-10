@@ -56,13 +56,20 @@
         </el-table-column>
         <el-table-column :resizable="false" prop="created_at" :label="T('CreatedAt')" align="center" min-width="180" show-overflow-tooltip/>
         <el-table-column :resizable="false" prop="updated_at" :label="T('UpdatedAt')" align="center" min-width="180" show-overflow-tooltip/>
-        <el-table-column :resizable="false" :label="T('Actions')" align="center" width="320" class-name="table-actions">
+        <el-table-column :resizable="false" :label="T('Actions')" align="center" width="150" class-name="table-actions">
           <template #default="{row}">
-            <el-button @click="toTag(row)">{{ T('UserTags') }}</el-button>
-            <el-button @click="toAddressBook(row)">{{ T('UserAddressBook') }}</el-button>
-            <el-button @click="toEdit(row)">{{ T('Edit') }}</el-button>
-            <el-button type="warning" @click="changePass(row)">{{ T('ResetPassword') }}</el-button>
-            <el-button type="danger" @click="remove(row)">{{ T('Delete') }}</el-button>
+            <el-button link type="primary" @click="toEdit(row)">{{ T('Edit') }}</el-button>
+            <el-dropdown trigger="click">
+              <el-button link type="primary">{{ T('More') }}<el-icon class="el-icon--right"><arrow-down/></el-icon></el-button>
+              <template #dropdown>
+                <el-dropdown-menu>
+                  <el-dropdown-item @click="toTag(row)">{{ T('UserTags') }}</el-dropdown-item>
+                  <el-dropdown-item @click="toAddressBook(row)">{{ T('UserAddressBook') }}</el-dropdown-item>
+                  <el-dropdown-item @click="changePass(row)">{{ T('ResetPassword') }}</el-dropdown-item>
+                  <el-dropdown-item @click="remove(row)" divided class="is-danger">{{ T('Delete') }}</el-dropdown-item>
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
           </template>
         </el-table-column>
       </el-table>
@@ -80,6 +87,7 @@
 </template>
 
 <script setup>
+  import { ArrowDown } from '@element-plus/icons-vue'
   import ListToolbar from '@/components/listToolbar.vue'
   import { Download, Plus, Search } from '@element-plus/icons-vue'
   import { useRepositories, useDel, useToEditOrAdd, useChangePwd } from '@/views/user/composables'

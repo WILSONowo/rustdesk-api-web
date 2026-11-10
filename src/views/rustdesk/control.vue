@@ -49,11 +49,11 @@
             <el-table-column min-width="150" :resizable="false" prop="alias" label="alias" align="center"></el-table-column>
             <el-table-column min-width="150" :resizable="false" prop="option" label="option" align="center"></el-table-column>
             <el-table-column min-width="150" :resizable="false" prop="explain" label="explain" align="center"></el-table-column>
-            <el-table-column min-width="150" :resizable="false" label="actions" align="center">
+            <el-table-column min-width="150" :resizable="false" :label="T('Actions')" align="center" class-name="table-actions">
               <template #default="{row}">
-                <el-button type="success" :disabled="!canSendCmd(row.target)" @click="showCmd(row)">{{ T('Send') }}</el-button>
-                <el-button v-if="row.id" type="primary" @click="toUpdate(row)">{{ T('Edit') }}</el-button>
-                <el-button v-if="row.id" type="danger" @click="del(row)">{{ T('Delete') }}</el-button>
+                <el-button type="primary" size="small" :disabled="!canSendCmd(row.target)" @click="showCmd(row)">{{ T('Send') }}</el-button>
+                <el-button v-if="row.id" link type="primary" @click="toUpdate(row)">{{ T('Edit') }}</el-button>
+                <el-button v-if="row.id" link type="danger" @click="del(row)">{{ T('Delete') }}</el-button>
               </template>
             </el-table-column>
           </el-table>

@@ -36,10 +36,10 @@
         <el-table-column :label="T('ShareExpires')" min-width="180"><template #default="{row}">{{ row.expires_at ? new Date(row.expires_at * 1000).toLocaleString() : T('NeverExpires') }}</template></el-table-column>
         <el-table-column min-width="180" :resizable="false" prop="created_at" :label="T('CreatedAt')" align="center" show-overflow-tooltip/>
         <!--        <el-table-column prop="updated_at" label="更新时间" align="center"/>-->
-        <el-table-column :resizable="false" :label="T('Actions')" align="center" class-name="table-actions" width="240" fixed="right">
+        <el-table-column :resizable="false" :label="T('Actions')" align="center" class-name="table-actions" width="130" fixed="right">
           <template #default="{row}">
-            <el-button @click="toEdit(row)">{{ T('Edit') }}</el-button>
-            <el-button type="danger" @click="del(row)">{{ T('Delete') }}</el-button>
+            <el-button link type="primary" @click="toEdit(row)">{{ T('Edit') }}</el-button>
+            <el-button link type="danger" @click="del(row)">{{ T('Delete') }}</el-button>
           </template>
         </el-table-column>
       </el-table>

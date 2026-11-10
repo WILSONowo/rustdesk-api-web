@@ -12,7 +12,7 @@
         <el-table-column prop="owner" :label="T('DeviceOwner')" min-width="120" />
         <el-table-column prop="collection" :label="T('AddressBookName')" min-width="130" />
         <el-table-column :label="T('LastOnlineTime')" min-width="170"><template #default="{row}">{{ telemetry && row.last_seen > 0 ? new Date(row.last_seen * 1000).toLocaleString() : T('StatusUnknown') }}</template></el-table-column>
-        <el-table-column :label="T('Actions')" width="120"><template #default="{row}"><el-button :disabled="loading" @click="connectByClient(row.id)">{{ T('Link') }}</el-button></template></el-table-column>
+        <el-table-column :label="T('Actions')" width="120"><template #default="{row}"><el-button type="primary" size="small" :disabled="loading" @click="connectByClient(row.id)">{{ T('Link') }}</el-button></template></el-table-column>
       </el-table>
       <el-pagination v-model:current-page="page" :page-size="20" :total="total" layout="prev, pager, next" @current-change="load" />
     </template>
