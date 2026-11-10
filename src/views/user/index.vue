@@ -24,17 +24,17 @@
         <el-button :icon="Download" @click="toExport">{{ T('Export') }}</el-button>
       </list-toolbar>
       <el-table :data="listRes.list" v-loading="listRes.loading" border>
-        <el-table-column :resizable="false" prop="id" label="ID" align="center" width="65"></el-table-column>
-        <el-table-column :resizable="false" prop="username" :label="T('Username')" align="center" min-width="180" show-overflow-tooltip/>
-        <el-table-column :resizable="false" prop="email" :label="T('Email')" align="center" min-width="210" show-overflow-tooltip/>
-        <el-table-column :resizable="false" prop="nickname" :label="T('Nickname')" align="center" min-width="150" show-overflow-tooltip/>
-        <el-table-column :resizable="false" :label="T('Group')" align="center" min-width="120">
+        <el-table-column :resizable="false" prop="id" label="ID" width="65"></el-table-column>
+        <el-table-column :resizable="false" prop="username" :label="T('Username')" min-width="180" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="email" :label="T('Email')" min-width="210" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="nickname" :label="T('Nickname')" min-width="150" show-overflow-tooltip/>
+        <el-table-column :resizable="false" :label="T('Group')" min-width="120">
           <template #default="{row}">
             <span v-if="row.group_id"> <el-tag>{{ listRes.groups?.find(g => g.id === row.group_id)?.name }} </el-tag> </span>
             <span v-else> - </span>
           </template>
         </el-table-column>
-        <el-table-column :resizable="false" :label="T('Status')" align="center" min-width="150">
+        <el-table-column :resizable="false" :label="T('Status')" min-width="150">
           <template #default="{row}">
             <el-tag v-if="row.status === USER_PENDING_STATUS" type="warning">{{ T('PendingApproval') }}</el-tag>
             <el-switch v-else v-model="row.status"
@@ -44,8 +44,8 @@
             ></el-switch>
           </template>
         </el-table-column>
-        <el-table-column :resizable="false" prop="remark" :label="T('Remark')" align="center" min-width="200" show-overflow-tooltip/>
-        <el-table-column :resizable="false" :label="T('RegistrationReview')" align="center" width="190" fixed="right">
+        <el-table-column :resizable="false" prop="remark" :label="T('Remark')" min-width="200" show-overflow-tooltip/>
+        <el-table-column :resizable="false" :label="T('RegistrationReview')" width="190" fixed="right">
           <template #default="{row}">
             <template v-if="row.status === USER_PENDING_STATUS">
               <el-button size="small" type="success" :disabled="reviewing.has(row.id)" @click="review(row, true)">{{ T('ApproveRegistration') }}</el-button>
@@ -54,8 +54,8 @@
             <span v-else>—</span>
           </template>
         </el-table-column>
-        <el-table-column :resizable="false" prop="created_at" :label="T('CreatedAt')" align="center" min-width="180" show-overflow-tooltip/>
-        <el-table-column :resizable="false" prop="updated_at" :label="T('UpdatedAt')" align="center" min-width="180" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="created_at" :label="T('CreatedAt')" min-width="180" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="updated_at" :label="T('UpdatedAt')" min-width="180" show-overflow-tooltip/>
         <el-table-column :resizable="false" :label="T('Actions')" align="center" width="150" class-name="table-actions">
           <template #default="{row}">
             <el-button link type="primary" @click="toEdit(row)">{{ T('Edit') }}</el-button>
@@ -73,10 +73,8 @@
           </template>
         </el-table-column>
       </el-table>
-    </el-card>
-    <el-card class="list-page" shadow="hover">
-      <el-pagination background
-                     layout="prev, pager, next, sizes, jumper"
+      <el-pagination class="list-pagination" background
+                     layout="total, sizes, prev, pager, next, jumper"
                      :page-sizes="[10,20,50,100]"
                      v-model:page-size="listQuery.page_size"
                      v-model:current-page="listQuery.page"

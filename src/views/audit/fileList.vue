@@ -22,12 +22,12 @@
       </list-toolbar>
       <el-table :data="listRes.list" v-loading="listRes.loading" border max-height="750" @selection-change="handleSelectionChange">
         <el-table-column :resizable="false" type="selection" align="center" width="50"/>
-        <el-table-column :resizable="false" prop="id" label="ID" align="center" width="100" show-overflow-tooltip/>
-        <el-table-column :resizable="false" :label="T('Peer')" prop="peer_id" align="center" min-width="150" show-overflow-tooltip/>
-        <el-table-column :resizable="false" :label="T('FromPeer')" prop="from_peer" align="center" width="120" show-overflow-tooltip/>
-        <el-table-column :resizable="false" :label="T('FromName')" prop="from_name" align="center" width="120" show-overflow-tooltip/>
-        <el-table-column :resizable="false" :label="T('Ip')" prop="ip" align="center" min-width="170" show-overflow-tooltip/>
-        <el-table-column :resizable="false" prop="type" :label="T('Type')" align="center" width="200">
+        <el-table-column :resizable="false" prop="id" label="ID" width="100" show-overflow-tooltip/>
+        <el-table-column :resizable="false" :label="T('Peer')" prop="peer_id" min-width="150" show-overflow-tooltip/>
+        <el-table-column :resizable="false" :label="T('FromPeer')" prop="from_peer" width="120" show-overflow-tooltip/>
+        <el-table-column :resizable="false" :label="T('FromName')" prop="from_name" width="120" show-overflow-tooltip/>
+        <el-table-column :resizable="false" :label="T('Ip')" prop="ip" min-width="170" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="type" :label="T('Type')" width="200">
           <template #default="{row}">
             <el-tag v-if="row.type === 1" type="warning"> {{ T('ToRemote') }}:
               <el-icon>
@@ -43,13 +43,13 @@
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column :resizable="false" prop="num" :label="T('Num')" align="center" width="100" show-overflow-tooltip/>
-        <el-table-column :resizable="false" :label="T('FileInfo')" align="center" width="300">
+        <el-table-column :resizable="false" prop="num" :label="T('Num')" width="100" show-overflow-tooltip/>
+        <el-table-column :resizable="false" :label="T('FileInfo')" width="300">
           <template #default="{row}">
             <template v-if="!row.is_file">
               <el-table size="small" :data="row.info?.files?.filter((v,k) => k<showDirFileNum)" fit>
-                <el-table-column :resizable="false" prop="0" :label="T('FileName')" align="center" width="150" show-overflow-tooltip></el-table-column>
-                <el-table-column min-width="150" :resizable="false" prop="1" :label="T('Size')" align="center">
+                <el-table-column :resizable="false" prop="0" :label="T('FileName')" width="150" show-overflow-tooltip></el-table-column>
+                <el-table-column min-width="150" :resizable="false" prop="1" :label="T('Size')">
                   <template #default="{row:_row}">
                     {{ sizeFormat(_row[1]) }}
                   </template>
@@ -65,19 +65,17 @@
 
           </template>
         </el-table-column>
-        <el-table-column :resizable="false" prop="path" :label="T('Path')" align="center" min-width="200" show-overflow-tooltip/>
-        <el-table-column :resizable="false" prop="uuid" label="uuid" align="center" min-width="200" show-overflow-tooltip/>
-        <el-table-column :resizable="false" prop="created_at" :label="T('CreatedAt')" align="center" min-width="180" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="path" :label="T('Path')" min-width="200" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="uuid" label="uuid" min-width="200" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="created_at" :label="T('CreatedAt')" min-width="180" show-overflow-tooltip/>
         <el-table-column :resizable="false" :label="T('Actions')" align="center" width="90" fixed="right" class-name="table-actions">
           <template #default="{row}">
             <el-button link type="danger" @click="del(row)">{{ T('Delete') }}</el-button>
           </template>
         </el-table-column>
       </el-table>
-    </el-card>
-    <el-card class="list-page" shadow="hover">
-      <el-pagination background
-                     layout="prev, pager, next, sizes, jumper"
+      <el-pagination class="list-pagination" background
+                     layout="total, sizes, prev, pager, next, jumper"
                      :page-sizes="[10,20,50,100]"
                      v-model:page-size="listQuery.page_size"
                      v-model:current-page="listQuery.page"
@@ -86,9 +84,9 @@
     </el-card>
     <el-dialog v-model="allFilesVisible" :title="T('File')">
       <el-table :data="showFiles" max-height="800px">
-        <el-table-column :resizable="false" type="index" :label="T('IndexNum')" width="120" align="center"></el-table-column>
-        <el-table-column min-width="150" :resizable="false" prop="0" :label="T('FileName')" align="center"></el-table-column>
-        <el-table-column min-width="150" :resizable="false" prop="1" :label="T('Size')" align="center">
+        <el-table-column :resizable="false" type="index" :label="T('IndexNum')" width="120"></el-table-column>
+        <el-table-column min-width="150" :resizable="false" prop="0" :label="T('FileName')"></el-table-column>
+        <el-table-column min-width="150" :resizable="false" prop="1" :label="T('Size')">
           <template #default="{row:_row}">
             {{ sizeFormat(_row[1]) }}
           </template>

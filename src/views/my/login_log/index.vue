@@ -11,27 +11,25 @@
       </list-toolbar>
       <el-table :data="listRes.list" v-loading="listRes.loading" border @selection-change="handleSelectionChange">
         <el-table-column :resizable="false" type="selection" align="center" width="50"/>
-        <el-table-column :resizable="false" prop="client" label="client" align="center" width="120" show-overflow-tooltip/>
-        <el-table-column min-width="150" :resizable="false" prop="peer.id" :label="T('Peer')" align="center">
+        <el-table-column :resizable="false" prop="client" label="client" width="120" show-overflow-tooltip/>
+        <el-table-column min-width="150" :resizable="false" prop="peer.id" :label="T('Peer')">
           <template #default="{row}">
             {{ row.device_id ? row.device_id : peer?.id }}
           </template>
         </el-table-column>
-        <el-table-column min-width="200" :resizable="false" prop="uuid" label="uuid" align="center" show-overflow-tooltip/>
-        <el-table-column :resizable="false" prop="ip" label="ip" align="center" min-width="170" show-overflow-tooltip/>
-        <el-table-column :resizable="false" prop="type" label="type" align="center" width="100" show-overflow-tooltip/>
-        <el-table-column :resizable="false" prop="platform" label="Platform/UA" align="center" min-width="160" show-overflow-tooltip/>
-        <el-table-column min-width="180" :resizable="false" prop="created_at" :label="T('CreatedAt')" align="center" show-overflow-tooltip/>
+        <el-table-column min-width="200" :resizable="false" prop="uuid" label="uuid" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="ip" label="ip" min-width="170" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="type" label="type" width="100" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="platform" label="Platform/UA" min-width="160" show-overflow-tooltip/>
+        <el-table-column min-width="180" :resizable="false" prop="created_at" :label="T('CreatedAt')" show-overflow-tooltip/>
         <el-table-column :resizable="false" :label="T('Actions')" align="center" width="90" class-name="table-actions">
           <template #default="{row}">
             <el-button link type="danger" @click="del(row)">{{ T('Delete') }}</el-button>
           </template>
         </el-table-column>
       </el-table>
-    </el-card>
-    <el-card class="list-page" shadow="hover">
-      <el-pagination background
-                     layout="prev, pager, next, sizes, jumper"
+      <el-pagination class="list-pagination" background
+                     layout="total, sizes, prev, pager, next, jumper"
                      :page-sizes="[10,20,50,100]"
                      v-model:page-size="listQuery.page_size"
                      v-model:current-page="listQuery.page"

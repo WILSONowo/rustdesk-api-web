@@ -1018,5 +1018,20 @@
   },
   "AccountSettingsHelp": {
     "One": "邮箱、密码和第三方账号绑定。"
+  },
+  "Online": {
+    "One": "在线"
+  },
+  "Offline": {
+    "One": "离线"
+  },
+  "MoveUp": {
+    "One": "上移"
+  },
+  "MoveDown": {
+    "One": "下移"
+  },
+  "Copy": {
+    "One": "复制"
   }
 }

@@ -49,35 +49,33 @@
       <el-table :data="listRes.list" v-loading="listRes.loading" border size="small" @selection-change="handleSelectionChange">
         <el-table-column :resizable="false" type="selection" width="55" align="center"/>
         <template v-for="c in visibleColumns.filter(cc => cc.visible)" :key="c">
-          <el-table-column :resizable="false" v-if="c.name==='id'" prop="id" label="ID" align="center" width="150">
+          <el-table-column :resizable="false" v-if="c.name==='id'" prop="id" label="ID" width="150">
             <template #default="{row}">
-              <span>{{ row.id }} <el-icon @click="handleClipboard(row.id, $event)"><CopyDocument/></el-icon></span>
+              <span class="device-id">{{ row.id }}</span><copy-button :text="row.id" />
             </template>
           </el-table-column>
-          <el-table-column :resizable="false" v-if="c.name==='cpu'" prop="cpu" label="CPU" align="center" min-width="160" show-overflow-tooltip/>
-          <el-table-column :resizable="false" v-if="c.name==='hostname'" prop="hostname" :label="T('Hostname')" align="center" min-width="150" show-overflow-tooltip/>
-          <el-table-column :resizable="false" v-if="c.name==='memory'" prop="memory" :label="T('Memory')" align="center" width="120" show-overflow-tooltip/>
-          <el-table-column :resizable="false" v-if="c.name==='os'" prop="os" :label="T('Os')" align="center" min-width="160" show-overflow-tooltip/>
-          <el-table-column :resizable="false" v-if="c.name==='last_online_time'" prop="last_online_time" :label="T('LastOnlineTime')" align="center" min-width="120">
+          <el-table-column :resizable="false" v-if="c.name==='cpu'" prop="cpu" label="CPU" min-width="160" show-overflow-tooltip/>
+          <el-table-column :resizable="false" v-if="c.name==='hostname'" prop="hostname" :label="T('Hostname')" min-width="150" show-overflow-tooltip/>
+          <el-table-column :resizable="false" v-if="c.name==='memory'" prop="memory" :label="T('Memory')" width="120" show-overflow-tooltip/>
+          <el-table-column :resizable="false" v-if="c.name==='os'" prop="os" :label="T('Os')" min-width="160" show-overflow-tooltip/>
+          <el-table-column :resizable="false" v-if="c.name==='last_online_time'" prop="last_online_time" :label="T('LastOnlineTime')" min-width="170">
             <template #default="{row}">
-              <div class="last_oline_time">
-                <span> {{ row.last_online_time ? timeAgo(row.last_online_time * 1000) : '-' }}</span> <span class="dot" :class="{red: timeDis(row.last_online_time) >= 60, green: timeDis(row.last_online_time)< 60}"></span>
-              </div>
+              <online-status :time="row.last_online_time" :telemetry="appStore.setting.appConfig.device_telemetry !== false" />
             </template>
           </el-table-column>
-          <el-table-column :resizable="false" v-if="c.name==='last_online_ip'" prop="last_online_ip" :label="T('LastOnlineIp')" align="center" min-width="170" show-overflow-tooltip/>
-          <el-table-column :resizable="false" v-if="c.name==='username'" prop="username" :label="T('Username')" align="center" min-width="150" show-overflow-tooltip/>
-          <el-table-column :resizable="false" v-if="c.name==='group_id'" prop="group_id" :label="T('Group')" align="center" width="120">
+          <el-table-column :resizable="false" v-if="c.name==='last_online_ip'" prop="last_online_ip" :label="T('LastOnlineIp')" min-width="170" show-overflow-tooltip/>
+          <el-table-column :resizable="false" v-if="c.name==='username'" prop="username" :label="T('Username')" min-width="150" show-overflow-tooltip/>
+          <el-table-column :resizable="false" v-if="c.name==='group_id'" prop="group_id" :label="T('Group')" width="120">
             <template #default="{row}">
               <span v-if="row.group_id"> <el-tag>{{ groupListRes.list?.find(g => g.id === row.group_id)?.name }} </el-tag> </span>
               <span v-else> - </span>
             </template>
           </el-table-column>
-          <el-table-column :resizable="false" v-if="c.name==='uuid'" prop="uuid" :label="T('Uuid')" align="center" min-width="200" show-overflow-tooltip/>
-          <el-table-column :resizable="false" v-if="c.name==='version'" prop="version" :label="T('Version')" align="center" width="80" show-overflow-tooltip/>
-          <el-table-column :resizable="false" v-if="c.name==='alias'" prop="alias" :label="T('Alias')" align="center" min-width="150" show-overflow-tooltip/>
-          <el-table-column :resizable="false" v-if="c.name==='created_at'" prop="created_at" :label="T('CreatedAt')" align="center" min-width="180" show-overflow-tooltip/>
-          <el-table-column :resizable="false" v-if="c.name==='updated_at'" prop="updated_at" :label="T('UpdatedAt')" align="center" min-width="180" show-overflow-tooltip/>
+          <el-table-column :resizable="false" v-if="c.name==='uuid'" prop="uuid" :label="T('Uuid')" min-width="200" show-overflow-tooltip/>
+          <el-table-column :resizable="false" v-if="c.name==='version'" prop="version" :label="T('Version')" width="80" show-overflow-tooltip/>
+          <el-table-column :resizable="false" v-if="c.name==='alias'" prop="alias" :label="T('Alias')" min-width="150" show-overflow-tooltip/>
+          <el-table-column :resizable="false" v-if="c.name==='created_at'" prop="created_at" :label="T('CreatedAt')" min-width="180" show-overflow-tooltip/>
+          <el-table-column :resizable="false" v-if="c.name==='updated_at'" prop="updated_at" :label="T('UpdatedAt')" min-width="180" show-overflow-tooltip/>
         </template>
 
         <el-table-column :resizable="false" :label="T('Actions')" align="center" width="170" class-name="table-actions" fixed="right">
@@ -97,10 +95,8 @@
           </template>
         </el-table-column>
       </el-table>
-    </el-card>
-    <el-card class="list-page" shadow="hover">
-      <el-pagination background
-                     layout="prev, pager, next, sizes, jumper"
+      <el-pagination class="list-pagination" background
+                     layout="total, sizes, prev, pager, next, jumper"
                      :page-sizes="[10,20,50,100]"
                      v-model:page-size="listQuery.page_size"
                      v-model:current-page="listQuery.page"
@@ -209,46 +205,36 @@
       </el-form>
     </el-dialog>
 
-    <el-dialog v-model="columnSettingVisible" title="Column Setting">
-      <div v-for="(row, key) in visibleColumns" :key="key" style="margin-bottom: 10px;display: flex;align-items: center">
-        <div style="width: 200px">
-          <el-checkbox v-model="row.visible" :label="true">{{ T(row.label) }}</el-checkbox>
-        </div>
-        <div @click="upColumn(key)" style="width: 100px;cursor: pointer">
-          <el-icon :size="20">
-            <ArrowUp/>
-          </el-icon>
-        </div>
-        <div @click="downColumn(key)" style="width: 100px;cursor: pointer">
-          <el-icon :size="20">
-            <ArrowDown/>
-          </el-icon>
-        </div>
+    <el-dialog v-model="columnSettingVisible" :title="T('ColumnSettings')" width="min(420px, 94vw)">
+      <div v-for="(row, key) in visibleColumns" :key="row.name" class="column-setting">
+        <el-checkbox v-model="row.visible">{{ T(row.label) }}</el-checkbox>
+        <el-button link :icon="ArrowUp" :disabled="key === 0" :aria-label="T('MoveUp')" @click="upColumn(key)"></el-button>
+        <el-button link :icon="ArrowDown" :disabled="key === visibleColumns.length - 1" :aria-label="T('MoveDown')" @click="downColumn(key)"></el-button>
       </div>
-      <span slot="footer" class="dialog-footer">
+      <template #footer>
         <el-button @click="columnSettingVisible = false">{{ T('Cancel') }}</el-button>
         <el-button type="primary" @click="saveColumnSetting">{{ T('Save') }}</el-button>
-      </span>
+      </template>
     </el-dialog>
   </div>
 </template>
 
 <script setup>
+  import CopyButton from '@/components/copyButton.vue'
   import { computed, onActivated, onMounted, reactive, ref, watch } from 'vue'
   import { batchRemove, create, list, remove, update } from '@/api/peer'
   import { list as groupList } from '@/api/device_group'
   import { ElMessage, ElMessageBox } from 'element-plus'
   import { toWebClientLink } from '@/utils/webclient'
   import { T } from '@/utils/i18n'
-  import { timeAgo } from '@/utils/time'
   import { jsonToCsv, downBlob } from '@/utils/file'
   import { loadAllUsers } from '@/global'
   import { useAppStore } from '@/store/app'
   import { connectByClient } from '@/utils/peer'
-  import { ArrowDown, ArrowUp, CopyDocument, Setting } from '@element-plus/icons'
+  import { ArrowDown, ArrowUp, Setting } from '@element-plus/icons'
   import { Download, Plus, Search, Upload } from '@element-plus/icons-vue'
   import ListToolbar from '@/components/listToolbar.vue'
-  import { handleClipboard } from '@/utils/clipboard'
+  import OnlineStatus from '@/components/onlineStatus.vue'
   import { batchCreateFromPeers } from '@/api/address_book'
   import { useRepositories as useCollectionRepositories } from '@/views/address_book/collection'
   import createABForm from '@/views/peer/createABForm.vue'
@@ -371,12 +357,6 @@
       formVisible.value = false
       getList()
     }
-  }
-
-  const timeDis = (time) => {
-    let now = new Date().getTime()
-    let after = new Date(time * 1000).getTime()
-    return (now - after) / 1000
   }
 
   const timeFilters = computed(() => [
@@ -532,21 +512,22 @@
   // 批量添加到地址簿 end
 
   const columnSettingVisible = ref(false)
+  // Default view: identity, status and ownership first; hardware and audit columns can be enabled in column settings.
   const allColumns = ref([
     { name: 'id', visible: true, label: 'Id' },
-    { name: 'cpu', visible: true, label: 'Cpu' },
     { name: 'hostname', visible: true, label: 'Hostname' },
-    { name: 'memory', visible: true, label: 'Memory' },
-    { name: 'os', visible: true, label: 'Os' },
+    { name: 'alias', visible: true, label: 'Alias' },
     { name: 'last_online_time', visible: true, label: 'LastOnlineTime' },
-    { name: 'last_online_ip', visible: true, label: 'LastOnlineIp' },
+    { name: 'os', visible: true, label: 'Os' },
+    { name: 'version', visible: true, label: 'Version' },
     { name: 'username', visible: true, label: 'Username' },
     { name: 'group_id', visible: true, label: 'Group' },
-    { name: 'uuid', visible: true, label: 'Uuid' },
-    { name: 'version', visible: true, label: 'Version' },
-    { name: 'alias', visible: true, label: 'Alias' },
-    { name: 'created_at', visible: true, label: 'CreatedAt' },
-    { name: 'updated_at', visible: true, label: 'UpdatedAt' },
+    { name: 'last_online_ip', visible: false, label: 'LastOnlineIp' },
+    { name: 'cpu', visible: false, label: 'Cpu' },
+    { name: 'memory', visible: false, label: 'Memory' },
+    { name: 'uuid', visible: false, label: 'Uuid' },
+    { name: 'created_at', visible: false, label: 'CreatedAt' },
+    { name: 'updated_at', visible: false, label: 'UpdatedAt' },
   ])
   const visibleColumns = ref(JSON.parse(localStorage.getItem('peer_visible_columns')) || allColumns.value)
   const showColumnSetting = () => {
@@ -584,25 +565,11 @@
   font-weight: 600;
 }
 
-.last_oline_time {
+.column-setting {
   display: flex;
-  justify-content: center;
   align-items: center;
-}
-
-.dot {
-  width: 6px;
-  height: 6px;
-  display: block;
-  border-radius: 50%;
-  margin-left: 10px;
-
-  &.red {
-    background-color: red;
-  }
-
-  &.green {
-    background-color: green;
-  }
+  gap: 8px;
+  padding: 4px 0;
+  .el-checkbox { flex: 1; }
 }
 </style>

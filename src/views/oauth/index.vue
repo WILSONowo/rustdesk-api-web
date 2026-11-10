@@ -8,14 +8,14 @@
         </template>
       </list-toolbar>
       <el-table :data="listRes.list" v-loading="listRes.loading" border>
-        <el-table-column min-width="100" :resizable="false" prop="id" label="ID" align="center" show-overflow-tooltip/>
-        <el-table-column min-width="150" :resizable="false" prop="op" :label="T('IdP')" align="center" show-overflow-tooltip/>
-        <el-table-column min-width="150" :resizable="false" prop="oauth_type" :label="T('Type')" align="center" show-overflow-tooltip/>
-        <el-table-column min-width="150" :resizable="false" prop="auto_register" :label="T('AutoRegister')" align="center" show-overflow-tooltip/>
-        <el-table-column min-width="150" :resizable="false" prop="pkce_enable" :label="T('PkceEnable')" align="center" show-overflow-tooltip/>
-        <el-table-column min-width="150" :resizable="false" prop="pkce_method" :label="T('PkceMethod')" align="center" show-overflow-tooltip/>
-        <el-table-column min-width="180" :resizable="false" prop="created_at" :label="T('CreatedAt')" align="center" show-overflow-tooltip/>
-        <el-table-column min-width="180" :resizable="false" prop="updated_at" :label="T('UpdatedAt')" align="center" show-overflow-tooltip/>
+        <el-table-column min-width="100" :resizable="false" prop="id" label="ID" show-overflow-tooltip/>
+        <el-table-column min-width="150" :resizable="false" prop="op" :label="T('IdP')" show-overflow-tooltip/>
+        <el-table-column min-width="150" :resizable="false" prop="oauth_type" :label="T('Type')" show-overflow-tooltip/>
+        <el-table-column min-width="150" :resizable="false" prop="auto_register" :label="T('AutoRegister')" show-overflow-tooltip/>
+        <el-table-column min-width="150" :resizable="false" prop="pkce_enable" :label="T('PkceEnable')" show-overflow-tooltip/>
+        <el-table-column min-width="150" :resizable="false" prop="pkce_method" :label="T('PkceMethod')" show-overflow-tooltip/>
+        <el-table-column min-width="180" :resizable="false" prop="created_at" :label="T('CreatedAt')" show-overflow-tooltip/>
+        <el-table-column min-width="180" :resizable="false" prop="updated_at" :label="T('UpdatedAt')" show-overflow-tooltip/>
         <el-table-column :resizable="false" :label="T('Actions')" align="center" width="130" class-name="table-actions">
           <template #default="{row}">
             <el-button link type="primary" @click="toEdit(row)">{{ T('Edit') }}</el-button>
@@ -23,10 +23,8 @@
           </template>
         </el-table-column>
       </el-table>
-    </el-card>
-    <el-card class="list-page" shadow="hover">
-      <el-pagination background
-                     layout="prev, pager, next, sizes, jumper"
+      <el-pagination class="list-pagination" background
+                     layout="total, sizes, prev, pager, next, jumper"
                      :page-sizes="[10,20,50,100]"
                      v-model:page-size="listQuery.page_size"
                      v-model:current-page="listQuery.page"

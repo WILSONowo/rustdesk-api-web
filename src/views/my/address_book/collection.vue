@@ -9,10 +9,10 @@
       </list-toolbar>
       <el-tag type="danger" effect="light" style="margin-bottom: 10px">{{ T('MyAddressBookTips') }}</el-tag>
       <el-table :data="list" v-loading="listRes.loading" border>
-        <!--        <el-table-column prop="id" label="ID" align="center"/>-->
-        <el-table-column min-width="150" :resizable="false" prop="name" :label="T('Name')" align="center" show-overflow-tooltip/>
-        <el-table-column min-width="180" :resizable="false" prop="created_at" :label="T('CreatedAt')" align="center" show-overflow-tooltip/>
-        <!--        <el-table-column prop="updated_at" label="更新时间" align="center"/>-->
+        <!--        <el-table-column prop="id" label="ID"/>-->
+        <el-table-column min-width="150" :resizable="false" prop="name" :label="T('Name')" show-overflow-tooltip/>
+        <el-table-column min-width="180" :resizable="false" prop="created_at" :label="T('CreatedAt')" show-overflow-tooltip/>
+        <!--        <el-table-column prop="updated_at" label="更新时间"/>-->
         <el-table-column :resizable="false" :label="T('Actions')" align="center" class-name="table-actions" width="210" fixed="right">
           <template #default="{row}">
             <el-button link type="primary" @click="showRules(row)">{{ T('ShareRules') }}</el-button>
@@ -21,10 +21,8 @@
           </template>
         </el-table-column>
       </el-table>
-    </el-card>
-    <el-card class="list-page" shadow="hover">
-      <el-pagination background
-                     layout="prev, pager, next, sizes, jumper"
+      <el-pagination class="list-pagination" background
+                     layout="total, sizes, prev, pager, next, jumper"
                      :page-sizes="[10,20,50,100]"
                      v-model:page-size="listQuery.page_size"
                      v-model:current-page="listQuery.page"

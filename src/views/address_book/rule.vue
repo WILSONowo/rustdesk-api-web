@@ -9,21 +9,21 @@
         </template>
       </list-toolbar>
       <el-table :data="listRes.list" v-loading="listRes.loading" border>
-        <el-table-column min-width="150" :resizable="false" prop="rule" :label="T('Rule')" align="center">
+        <el-table-column min-width="150" :resizable="false" prop="rule" :label="T('Rule')">
           <template #default="{row}">
             <div>
               {{ rules.find(r => r.value === row.rule)?.label }}
             </div>
           </template>
         </el-table-column>
-        <el-table-column min-width="100" :resizable="false" prop="type" :label="T('Type')" align="center">
+        <el-table-column min-width="100" :resizable="false" prop="type" :label="T('Type')">
           <template #default="{row}">
             <div>
               {{ types.find(t => t.value === row.type)?.label }}
             </div>
           </template>
         </el-table-column>
-        <el-table-column min-width="150" :resizable="false" prop="to_id" :label="T('ShareTo')" align="center">
+        <el-table-column min-width="150" :resizable="false" prop="to_id" :label="T('ShareTo')">
           <template #default="{row}">
             <div v-if="row.type===TYPE_U">
               {{ users.find(u => u.id === row.to_id)?.username }}
@@ -34,8 +34,8 @@
           </template>
         </el-table-column>
         <el-table-column :label="T('ShareExpires')" min-width="180"><template #default="{row}">{{ row.expires_at ? new Date(row.expires_at * 1000).toLocaleString() : T('NeverExpires') }}</template></el-table-column>
-        <el-table-column min-width="180" :resizable="false" prop="created_at" :label="T('CreatedAt')" align="center" show-overflow-tooltip/>
-        <!--        <el-table-column prop="updated_at" label="更新时间" align="center"/>-->
+        <el-table-column min-width="180" :resizable="false" prop="created_at" :label="T('CreatedAt')" show-overflow-tooltip/>
+        <!--        <el-table-column prop="updated_at" label="更新时间"/>-->
         <el-table-column :resizable="false" :label="T('Actions')" align="center" class-name="table-actions" width="130" fixed="right">
           <template #default="{row}">
             <el-button link type="primary" @click="toEdit(row)">{{ T('Edit') }}</el-button>
@@ -43,10 +43,8 @@
           </template>
         </el-table-column>
       </el-table>
-    </el-card>
-    <el-card class="list-page" shadow="hover">
-      <el-pagination background
-                     layout="prev, pager, next, sizes, jumper"
+      <el-pagination class="list-pagination" background
+                     layout="total, sizes, prev, pager, next, jumper"
                      :page-sizes="[10,20,50,100]"
                      v-model:page-size="listQuery.page_size"
                      v-model:current-page="listQuery.page"

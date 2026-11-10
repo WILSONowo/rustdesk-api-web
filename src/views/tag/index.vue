@@ -28,20 +28,20 @@
         <el-button type="primary" :icon="Plus" @click="toAdd">{{ T('Add') }}</el-button>
       </list-toolbar>
       <el-table :data="listRes.list" v-loading="listRes.loading" border>
-        <el-table-column min-width="100" :resizable="false" prop="id" label="ID" align="center" show-overflow-tooltip/>
-        <el-table-column min-width="150" :resizable="false" :label="T('Owner')" align="center">
+        <el-table-column min-width="100" :resizable="false" prop="id" label="ID" show-overflow-tooltip/>
+        <el-table-column min-width="150" :resizable="false" :label="T('Owner')">
           <template #default="{row}">
             <span v-if="row.user_id"> <el-tag>{{ allUsers?.find(u => u.id === row.user_id)?.username }}</el-tag> </span>
           </template>
         </el-table-column>
-        <el-table-column :resizable="false" prop="collection_id" :label="T('AddressBookName')" align="center" width="150">
+        <el-table-column :resizable="false" prop="collection_id" :label="T('AddressBookName')" width="150">
           <template #default="{row}">
             <span v-if="row.collection_id === 0">{{ T('MyAddressBook') }}</span>
             <span v-else>{{ row.collection?.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column min-width="150" :resizable="false" prop="name" :label="T('Name')" align="center" show-overflow-tooltip/>
-        <el-table-column min-width="100" :resizable="false" prop="color" :label="T('Color')" align="center">
+        <el-table-column min-width="150" :resizable="false" prop="name" :label="T('Name')" show-overflow-tooltip/>
+        <el-table-column min-width="100" :resizable="false" prop="color" :label="T('Color')">
           <template #default="{row}">
             <div class="colors">
               <div style="background-color: var(--tag-bg-color)" class="colorbox">
@@ -51,8 +51,8 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column min-width="180" :resizable="false" prop="created_at" :label="T('CreatedAt')" align="center" show-overflow-tooltip/>
-        <el-table-column min-width="180" :resizable="false" prop="updated_at" :label="T('UpdatedAt')" align="center" show-overflow-tooltip/>
+        <el-table-column min-width="180" :resizable="false" prop="created_at" :label="T('CreatedAt')" show-overflow-tooltip/>
+        <el-table-column min-width="180" :resizable="false" prop="updated_at" :label="T('UpdatedAt')" show-overflow-tooltip/>
         <el-table-column :resizable="false" :label="T('Actions')" align="center" width="130" class-name="table-actions">
           <template #default="{row}">
             <el-button link type="primary" @click="toEdit(row)">{{ T('Edit') }}</el-button>
@@ -60,10 +60,8 @@
           </template>
         </el-table-column>
       </el-table>
-    </el-card>
-    <el-card class="list-page" shadow="hover">
-      <el-pagination background
-                     layout="prev, pager, next, sizes, jumper"
+      <el-pagination class="list-pagination" background
+                     layout="total, sizes, prev, pager, next, jumper"
                      :page-sizes="[10,20,50,100]"
                      v-model:page-size="listQuery.page_size"
                      v-model:current-page="listQuery.page"

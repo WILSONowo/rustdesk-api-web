@@ -45,10 +45,10 @@
             </template>
           </list-toolbar>
           <el-table :data="listRes.list" v-loading="listRes.loading" border>
-            <el-table-column min-width="150" :resizable="false" prop="cmd" label="cmd" align="center"></el-table-column>
-            <el-table-column min-width="150" :resizable="false" prop="alias" label="alias" align="center"></el-table-column>
-            <el-table-column min-width="150" :resizable="false" prop="option" label="option" align="center"></el-table-column>
-            <el-table-column min-width="150" :resizable="false" prop="explain" label="explain" align="center"></el-table-column>
+            <el-table-column min-width="150" :resizable="false" prop="cmd" label="cmd"></el-table-column>
+            <el-table-column min-width="150" :resizable="false" prop="alias" label="alias"></el-table-column>
+            <el-table-column min-width="150" :resizable="false" prop="option" label="option"></el-table-column>
+            <el-table-column min-width="150" :resizable="false" prop="explain" label="explain"></el-table-column>
             <el-table-column min-width="150" :resizable="false" :label="T('Actions')" align="center" class-name="table-actions">
               <template #default="{row}">
                 <el-button type="primary" size="small" :disabled="!canSendCmd(row.target)" @click="showCmd(row)">{{ T('Send') }}</el-button>

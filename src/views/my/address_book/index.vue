@@ -31,32 +31,30 @@
       </list-toolbar>
       <el-table :data="listRes.list" v-loading="listRes.loading" border @selection-change="handleSelectionChange">
         <el-table-column :resizable="false" type="selection" width="50" align="center"></el-table-column>
-        <el-table-column :resizable="false" prop="id" label="ID" align="center" width="200">
+        <el-table-column :resizable="false" prop="id" label="ID" width="200">
           <template #default="{row}">
             <div>
               <PlatformIcons :name="platformList.find(p=>p.label===row.platform)?.icon" style="width: 20px;height: 20px;display: inline-block" color="var(--basicBlack)"/>
               {{ row.id }}
-              <el-icon @click="handleClipboard(row.id, $event)">
-                <CopyDocument/>
-              </el-icon>
+              <copy-button :text="row.id" />
             </div>
           </template>
         </el-table-column>
-        <el-table-column :resizable="false" prop="collection_id" :label="T('AddressBookName')" align="center" width="150">
+        <el-table-column :resizable="false" prop="collection_id" :label="T('AddressBookName')" width="150">
           <template #default="{row}">
             <span v-if="row.collection_id === 0">{{ T('MyAddressBook') }}</span>
             <span v-else>{{ collectionListRes.list.find(c => c.id === row.collection_id)?.name }}</span>
           </template>
         </el-table-column>
-        <el-table-column :resizable="false" prop="username" :label="T('Username')" align="center" min-width="150" show-overflow-tooltip/>
-        <el-table-column :resizable="false" prop="hostname" :label="T('Hostname')" align="center" min-width="150" show-overflow-tooltip/>
-        <!--        <el-table-column prop="platform" :label="T('Platform')" align="center" width="120"/>-->
-        <el-table-column min-width="150" :resizable="false" prop="tags" :label="T('Tags')" align="center" show-overflow-tooltip/>
-        <!--        <el-table-column prop="created_at" label="创建时间" align="center"/>-->
-        <!--        <el-table-column prop="updated_at" label="更新时间" align="center"/>-->
-        <el-table-column :resizable="false" prop="alias" :label="T('Alias')" align="center" min-width="150" show-overflow-tooltip/>
-        <el-table-column :resizable="false" prop="peer.version" :label="T('Version')" align="center" width="100" show-overflow-tooltip/>
-        <el-table-column :resizable="false" prop="hash" :label="T('Hash')" align="center" width="150" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="username" :label="T('Username')" min-width="150" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="hostname" :label="T('Hostname')" min-width="150" show-overflow-tooltip/>
+        <!--        <el-table-column prop="platform" :label="T('Platform')" width="120"/>-->
+        <el-table-column min-width="150" :resizable="false" prop="tags" :label="T('Tags')" show-overflow-tooltip/>
+        <!--        <el-table-column prop="created_at" label="创建时间"/>-->
+        <!--        <el-table-column prop="updated_at" label="更新时间"/>-->
+        <el-table-column :resizable="false" prop="alias" :label="T('Alias')" min-width="150" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="peer.version" :label="T('Version')" width="100" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="hash" :label="T('Hash')" width="150" show-overflow-tooltip/>
         <el-table-column :resizable="false" :label="T('Actions')" align="center" class-name="table-actions" width="170" fixed="right">
           <template #default="{row}">
             <el-button type="primary" size="small" @click="connectByClient(row.id)">{{ T('Link') }}</el-button>
@@ -74,10 +72,8 @@
           </template>
         </el-table-column>
       </el-table>
-    </el-card>
-    <el-card class="list-page" shadow="hover">
-      <el-pagination background
-                     layout="prev, pager, next, sizes, jumper"
+      <el-pagination class="list-pagination" background
+                     layout="total, sizes, prev, pager, next, jumper"
                      :page-sizes="[10,20,50,100]"
                      v-model:page-size="listQuery.page_size"
                      v-model:current-page="listQuery.page"
@@ -185,6 +181,7 @@
 </template>
 
 <script setup>
+  import CopyButton from '@/components/copyButton.vue'
   import { ArrowDown } from '@element-plus/icons-vue'
   import ListToolbar from '@/components/listToolbar.vue'
   import { Plus, Search } from '@element-plus/icons-vue'
@@ -195,8 +192,6 @@
   import shareByWebClient from '@/views/address_book/components/shareByWebClient.vue'
   import { useAppStore } from '@/store/app'
   import { connectByClient } from '@/utils/peer'
-  import { handleClipboard } from '@/utils/clipboard'
-  import { CopyDocument } from '@element-plus/icons'
   import PlatformIcons from '@/components/icons/platform.vue'
 
   const appStore = useAppStore()

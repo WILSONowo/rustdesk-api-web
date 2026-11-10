@@ -25,15 +25,15 @@
       </list-toolbar>
       <el-table :data="listRes.list" v-loading="listRes.loading" border @selection-change="handleSelectionChange">
         <el-table-column :resizable="false" type="selection" align="center" width="50"/>
-        <el-table-column :resizable="false" prop="id" label="ID" align="center" width="100" show-overflow-tooltip/>
-        <el-table-column :resizable="false" :label="T('User')" align="center" width="120">
+        <el-table-column :resizable="false" prop="id" label="ID" width="100" show-overflow-tooltip/>
+        <el-table-column :resizable="false" :label="T('User')" width="120">
           <template #default="{row}">
             <span v-if="row.user_id"> <el-tag>{{ allUsers?.find(u => u.id === row.user_id)?.username }}</el-tag> </span>
           </template>
         </el-table-column>
-        <el-table-column min-width="150" :resizable="false" prop="peer_id" :label="T('Peer')" align="center" show-overflow-tooltip/>
-        <el-table-column min-width="180" :resizable="false" prop="created_at" :label="T('CreatedAt')" align="center" show-overflow-tooltip/>
-        <el-table-column min-width="150" :resizable="false" :label="`${T('ExpireTime')} (${T('Second')})`" prop="expire" align="center">
+        <el-table-column min-width="150" :resizable="false" prop="peer_id" :label="T('Peer')" show-overflow-tooltip/>
+        <el-table-column min-width="180" :resizable="false" prop="created_at" :label="T('CreatedAt')" show-overflow-tooltip/>
+        <el-table-column min-width="150" :resizable="false" :label="`${T('ExpireTime')} (${T('Second')})`" prop="expire">
           <template #default="{row}">
             <el-tag :type="expired(row)?'info':'success'">{{ row.expire ? row.expire : T('Forever') }}</el-tag>
           </template>
@@ -44,10 +44,8 @@
           </template>
         </el-table-column>
       </el-table>
-    </el-card>
-    <el-card class="list-page" shadow="hover">
-      <el-pagination background
-                     layout="prev, pager, next, sizes, jumper"
+      <el-pagination class="list-pagination" background
+                     layout="total, sizes, prev, pager, next, jumper"
                      :page-sizes="[10,20,50,100]"
                      v-model:page-size="listQuery.page_size"
                      v-model:current-page="listQuery.page"

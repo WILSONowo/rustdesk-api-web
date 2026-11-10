@@ -33,29 +33,22 @@
       </list-toolbar>
       <el-table :data="listRes.list" v-loading="listRes.loading" border size="small" @selection-change="handleSelectionChange">
         <el-table-column :resizable="false" type="selection" width="55" align="center"/>
-        <el-table-column :resizable="false" prop="id" label="ID" align="center" width="150">
+        <el-table-column :resizable="false" prop="id" label="ID" width="150">
           <template #default="{row}">
-            <span>{{ row.id }} <el-icon @click="handleClipboard(row.id, $event)"><CopyDocument/></el-icon></span>
+            <span class="device-id">{{ row.id }}</span><copy-button :text="row.id" />
           </template>
         </el-table-column>
-        <el-table-column :resizable="false" prop="cpu" label="CPU" align="center" min-width="160" show-overflow-tooltip/>
-        <el-table-column :resizable="false" prop="hostname" :label="T('Hostname')" align="center" min-width="150" show-overflow-tooltip/>
-        <el-table-column :resizable="false" prop="memory" :label="T('Memory')" align="center" width="120" show-overflow-tooltip/>
-        <el-table-column :resizable="false" prop="os" :label="T('Os')" align="center" min-width="160" show-overflow-tooltip/>
-        <el-table-column :resizable="false" prop="last_online_time" :label="T('LastOnlineTime')" align="center" min-width="120">
+        <el-table-column :resizable="false" prop="hostname" :label="T('Hostname')" min-width="150" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="alias" :label="T('Alias')" min-width="150" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="last_online_time" :label="T('LastOnlineTime')" min-width="170">
           <template #default="{row}">
-            <div class="last_online_time">
-              <span>{{ appStore.setting.appConfig.device_telemetry === false ? T('TelemetryUnavailable') : (row.last_online_time ? timeAgo(row.last_online_time * 1000) : T('StatusUnknown')) }}</span>
-            </div>
+            <online-status :time="row.last_online_time" :telemetry="appStore.setting.appConfig.device_telemetry !== false" />
           </template>
         </el-table-column>
-        <el-table-column :resizable="false" prop="last_online_ip" :label="T('LastOnlineIp')" align="center" min-width="170" show-overflow-tooltip/>
-        <el-table-column :resizable="false" prop="username" :label="T('Username')" align="center" min-width="150" show-overflow-tooltip/>
-        <el-table-column :resizable="false" prop="uuid" :label="T('Uuid')" align="center" min-width="200" show-overflow-tooltip/>
-        <el-table-column :resizable="false" prop="version" :label="T('Version')" align="center" width="80" show-overflow-tooltip/>
-        <el-table-column :resizable="false" prop="alias" :label="T('Alias')" align="center" min-width="150" show-overflow-tooltip/>
-        <el-table-column :resizable="false" prop="created_at" :label="T('CreatedAt')" align="center" min-width="180" show-overflow-tooltip/>
-        <el-table-column :resizable="false" prop="updated_at" :label="T('UpdatedAt')" align="center" min-width="180" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="os" :label="T('Os')" min-width="160" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="version" :label="T('Version')" width="80" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="username" :label="T('Username')" min-width="150" show-overflow-tooltip/>
+        <el-table-column :resizable="false" prop="last_online_ip" :label="T('LastOnlineIp')" min-width="170" show-overflow-tooltip/>
         <el-table-column :resizable="false" :label="T('Actions')" align="center" width="170" class-name="table-actions" fixed="right">
           <template #default="{row}">
             <el-button type="primary" size="small" @click="connectByClient(row.id)">{{ T('Link') }}</el-button>
@@ -72,10 +65,8 @@
           </template>
         </el-table-column>
       </el-table>
-    </el-card>
-    <el-card class="list-page" shadow="hover">
-      <el-pagination background
-                     layout="prev, pager, next, sizes, jumper"
+      <el-pagination class="list-pagination" background
+                     layout="total, sizes, prev, pager, next, jumper"
                      :page-sizes="[10,20,50,100]"
                      v-model:page-size="listQuery.page_size"
                      v-model:current-page="listQuery.page"
@@ -187,21 +178,20 @@
 </template>
 
 <script setup>
+  import CopyButton from '@/components/copyButton.vue'
   import { ArrowDown } from '@element-plus/icons-vue'
   import ListToolbar from '@/components/listToolbar.vue'
+  import OnlineStatus from '@/components/onlineStatus.vue'
   import { Download, Search } from '@element-plus/icons-vue'
   import { computed, onActivated, onMounted, reactive, ref, watch } from 'vue'
   import { list } from '@/api/my/peer'
   import { ElMessage, ElMessageBox } from 'element-plus'
   import { toWebClientLink } from '@/utils/webclient'
   import { T } from '@/utils/i18n'
-  import { timeAgo } from '@/utils/time'
   import { jsonToCsv, downBlob } from '@/utils/file'
   import { useRepositories as useABRepositories } from '@/views/address_book/index'
   import { useAppStore } from '@/store/app'
   import { connectByClient } from '@/utils/peer'
-  import { CopyDocument } from '@element-plus/icons'
-  import { handleClipboard } from '@/utils/clipboard'
   import { batchCreateFromPeers } from '@/api/my/address_book'
 
   const appStore = useAppStore()
@@ -387,25 +377,4 @@
   --el-select-width: 180px;
 }
 
-.last_online_time {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.dot {
-  width: 6px;
-  height: 6px;
-  display: block;
-  border-radius: 50%;
-  margin-left: 10px;
-
-  &.red {
-    background-color: red;
-  }
-
-  &.green {
-    background-color: green;
-  }
-}
 </style>

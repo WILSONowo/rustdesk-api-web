@@ -1002,5 +1002,20 @@
   },
   "AccountSettingsHelp": {
     "One": "Email, password and linked accounts."
+  },
+  "Online": {
+    "One": "Online"
+  },
+  "Offline": {
+    "One": "Offline"
+  },
+  "MoveUp": {
+    "One": "Move up"
+  },
+  "MoveDown": {
+    "One": "Move down"
+  },
+  "Copy": {
+    "One": "Copy"
   }
 }
