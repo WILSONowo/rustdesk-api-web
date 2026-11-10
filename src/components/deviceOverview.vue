@@ -1,22 +1,32 @@
 <template>
   <el-card class="device-overview" shadow="never">
-    <template #header><h2>{{ T('DeviceOverview') }}</h2></template>
+    <template #header>
+      <div class="overview-heading">
+        <h2>{{ T('DeviceOverview') }}</h2>
+        <el-popover placement="bottom-end" :width="340" trigger="click">
+          <template #reference>
+            <el-button link :icon="QuestionFilled" :aria-label="T('AboutDeviceStatus')">{{ T('AboutDeviceStatus') }}</el-button>
+          </template>
+          <p class="help-text">{{ T('DeviceStateBoundary') }}</p>
+          <p class="help-text">{{ T('ShareRevocationBoundary') }}</p>
+        </el-popover>
+      </div>
+    </template>
     <el-radio-group v-model="scope" @change="reset"><el-radio-button value="mine">{{ T('MyPeer') }}</el-radio-button><el-radio-button value="shared">{{ T('SharedWithMe') }}</el-radio-button></el-radio-group>
     <form class="device-search" @submit.prevent="reset"><el-input v-model="search" maxlength="100" :placeholder="T('SearchDevices')" :aria-label="T('SearchDevices')" clearable /><el-button native-type="submit" :loading="loading">{{ T('Filter') }}</el-button></form>
     <el-alert v-if="failed" :title="T('DeviceLoadFailed')" type="error" :closable="false" />
     <template v-else>
-      <p>{{ T(telemetry ? 'DeviceStateBoundary' : 'TelemetryUnavailable') }}</p>
+      <p v-if="!telemetry && !loading">{{ T('TelemetryUnavailable') }}</p>
       <el-table :data="devices" v-loading="loading" :empty-text="T('NoAccessibleDevices')">
         <el-table-column prop="name" :label="T('Hostname')" min-width="150" />
         <el-table-column prop="id" label="ID" min-width="130" />
         <el-table-column prop="owner" :label="T('DeviceOwner')" min-width="120" />
         <el-table-column prop="collection" :label="T('AddressBookName')" min-width="130" />
-        <el-table-column :label="T('LastOnlineTime')" min-width="170"><template #default="{row}">{{ telemetry && row.last_seen > 0 ? new Date(row.last_seen * 1000).toLocaleString() : T('StatusUnknown') }}</template></el-table-column>
+        <el-table-column :label="T('LastOnlineTime')" min-width="170"><template #default="{row}"><online-status :time="row.last_seen > 0 ? row.last_seen : 0" :telemetry="telemetry" /></template></el-table-column>
         <el-table-column :label="T('Actions')" width="120"><template #default="{row}"><el-button type="primary" size="small" :disabled="loading" @click="connectByClient(row.id)">{{ T('Link') }}</el-button></template></el-table-column>
       </el-table>
       <el-pagination v-model:current-page="page" :page-size="20" :total="total" layout="prev, pager, next" @current-change="load" />
     </template>
-    <p>{{ T('ShareRevocationBoundary') }}</p>
   </el-card>
 </template>
 <script setup>
@@ -24,6 +34,8 @@ import { onMounted, ref } from 'vue'
 import { T } from '@/utils/i18n'
 import { getDeviceOverview } from '@/api/connection'
 import { connectByClient } from '@/utils/peer'
+import { QuestionFilled } from '@element-plus/icons-vue'
+import OnlineStatus from '@/components/onlineStatus.vue'
 const scope = ref('mine'), search = ref(''), page = ref(1), total = ref(0), devices = ref([]), telemetry = ref(false), loading = ref(false), failed = ref(false)
 let requestNumber = 0
 async function load() {
@@ -46,6 +58,9 @@ onMounted(load)
 <style scoped>
 .device-overview { margin-top: 20px; }
 h2 { font-size: 18px; margin: 0; }
+.overview-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.help-text { margin: 0 0 8px; font-size: 13px; line-height: 1.7; color: var(--el-text-color-regular); }
+.help-text:last-child { margin-bottom: 0; }
 p { color: var(--el-text-color-secondary); font-size: 13px; line-height: 1.8; }
 .device-search { display: flex; gap: 12px; margin-top: 16px; max-width: 540px; }
 .el-pagination { margin-top: 16px; }

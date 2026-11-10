@@ -146,6 +146,28 @@ html.dark {
 .el-dialog__header { padding-bottom: 24px; }
 .el-dialog__footer { padding-top: 16px; }
 
+// On phones, put dialog form labels above their fields instead of in a fixed-width column.
+@media (max-width: 640px) {
+  .el-dialog .el-form:not(.el-form--inline) .el-form-item { display: block; }
+  .el-dialog .el-form:not(.el-form--inline) .el-form-item__label {
+    display: block;
+    width: auto !important;
+    height: auto;
+    padding-bottom: 8px;
+    line-height: 20px;
+    text-align: left;
+  }
+  .el-dialog .el-form:not(.el-form--inline) .el-form-item__content { margin-left: 0 !important; }
+  .el-dialog { padding: 20px 16px; }
+  // Filters: one full-width field per row, label above.
+  .app-shell .list-query .el-form--inline {
+    .el-form-item { width: 100%; display: block; margin-bottom: 12px; }
+    .el-form-item__label { display: block; height: auto; line-height: 20px; padding-bottom: 6px; text-align: left; }
+    .el-input, .el-select { --el-input-width: 100%; --el-select-width: 100%; width: 100%; }
+    .query-submit .el-button { width: 100%; }
+  }
+}
+
 @media (max-width: 768px) {
   .app-shell .el-card__body { padding: 20px 16px; }
   .app-shell .list-query .el-card__body { padding-bottom: 2px; }

@@ -1045,5 +1045,14 @@
   },
   "GoBack": {
     "One": "返回上一页"
+  },
+  "DarkMode": {
+    "One": "深色模式"
+  },
+  "Language": {
+    "One": "语言"
+  },
+  "AboutDeviceStatus": {
+    "One": "关于设备状态"
   }
 }

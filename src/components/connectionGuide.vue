@@ -10,7 +10,6 @@
       <li>{{ T('UnattendedService') }}</li><li>{{ T('UnattendedPassword') }}</li><li>{{ T('UnattendedVerify') }}</li>
     </ol>
     <ol v-else><li>{{ T('HelpInstall') }}</li><li>{{ T('HelpCode') }}</li><li>{{ T('HelpFinish') }}</li></ol>
-    <el-alert :title="T('EndpointVerificationBoundary')" type="info" :closable="false" />
     <div class="actions">
       <el-button :loading="checking" @click="check">{{ T('CheckAccountService') }}</el-button>
       <el-button :disabled="!report" @click="downloadReport">{{ T('ExportDiagnostics') }}</el-button>
@@ -26,7 +25,7 @@
     <el-collapse>
       <el-collapse-item v-for="issue in issues" :key="issue" :title="T(issue)"><p>{{ T(issue + 'Help') }}</p></el-collapse-item>
     </el-collapse>
-    <p>{{ T('DiagnosticsPrivacy') }}</p>
+    <p class="fine-print">{{ T('EndpointVerificationBoundary') }} {{ T('DiagnosticsPrivacy') }}</p>
   </section>
 </template>
 <script setup>
@@ -61,4 +60,5 @@ function downloadReport() {
 p, li { font-size: 14px; line-height: 1.8; overflow-wrap: anywhere; }
 .actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0; }
 .actions .el-button { margin-left: 0; }
+.fine-print { margin-top: 16px; font-size: 12px; line-height: 1.7; color: var(--el-text-color-secondary); }
 </style>

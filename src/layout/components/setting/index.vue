@@ -4,6 +4,8 @@
       <el-switch
           v-model="isDark"
           style="--el-switch-on-color:#18222c"
+          :aria-label="T('DarkMode')"
+          :title="T('DarkMode')"
       >
         <template #active-action>
           <el-icon>
@@ -18,7 +20,7 @@
       </el-switch>
     </div>
     <el-dropdown class="menu-item">
-      <div class="title">
+      <div class="title" role="button" tabindex="0" :aria-label="T('Language')" :title="T('Language')">
         <i class="el-icon el-tooltip__trigger" style="font-size: 24px;">
           <svg preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" width="1.2em" height="1.2em">
             <path fill="currentColor"
@@ -28,7 +30,11 @@
       </div>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item v-for="(v, k) in appStore.setting.langs" @click="changeLang(k)" :key="k">{{ v.name }}</el-dropdown-item>
+          <el-dropdown-item v-for="(v, k) in appStore.setting.langs" @click="changeLang(k)" :key="k"
+                            :class="{ 'is-current': k === currentLang }" :aria-current="k === currentLang ? 'true' : undefined">
+            <span class="lang-name">{{ v.name }}</span>
+            <el-icon v-if="k === currentLang" class="lang-check"><Check/></el-icon>
+          </el-dropdown-item>
         </el-dropdown-menu>
       </template>
     </el-dropdown>
@@ -61,14 +67,16 @@
   import changePwdDialog from '@/components/changePwdDialog.vue'
   import AccountDrawer from '@/components/accountDrawer.vue'
   import { openAccountSettings } from '@/utils/accountDrawer'
-  import { ref } from 'vue'
+  import { computed, ref } from 'vue'
   import { T } from '@/utils/i18n'
   import { useDark } from '@vueuse/core'
-  import { Sunny, Moon } from '@element-plus/icons'
+  import { Sunny, Moon, Check } from '@element-plus/icons'
 
   const userStore = useUserStore()
   const user = userStore
   const appStore = useAppStore()
+  // A browser locale such as en-US is not in the list; translations then fall back to English.
+  const currentLang = computed(() => appStore.setting.langs[appStore.setting.lang] ? appStore.setting.lang : 'en')
 
   const logout = async () => {
     if (await userStore.logout().catch(() => false)) window.location.reload()
@@ -120,6 +128,9 @@
     }
   }
 }
+.lang-name { min-width: 96px; }
+.lang-check { margin: 0 0 0 12px; color: var(--el-color-primary); }
+.is-current { font-weight: 600; color: var(--el-color-primary); }
 @media (max-width: 640px) {
   .setting .menu-item { margin-left: 10px; }
   .setting .title .nickname { max-width: 72px; padding: 0 4px; }

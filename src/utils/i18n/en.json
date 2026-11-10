@@ -1029,5 +1029,14 @@
   },
   "GoBack": {
     "One": "Go back"
+  },
+  "DarkMode": {
+    "One": "Dark mode"
+  },
+  "Language": {
+    "One": "Language"
+  },
+  "AboutDeviceStatus": {
+    "One": "About device status"
   }
 }

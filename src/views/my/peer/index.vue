@@ -73,7 +73,7 @@
                      :total="listRes.total">
       </el-pagination>
     </el-card>
-    <el-dialog v-model="formVisible" :title="T('Information')" width="800" :style="{ textAlign: 'center' }">
+    <el-dialog v-model="formVisible" :title="T('Information')" width="800">
       <el-form class="dialog-form" ref="form" :model="formData" label-width="120px">
         <el-form-item label="ID" prop="id">
           <el-input v-model="formData.id" disabled></el-input>

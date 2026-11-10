@@ -14,17 +14,15 @@
 
 <script>
   import { defineComponent, computed } from 'vue'
-  import HeaderMenu from '@/layout/components/menu/index.vue'
   import Setting from '@/layout/components/setting/index.vue'
   import { useAppStore } from '@/store/app'
   import { T } from '@/utils/i18n'
-  import GTags from '@/layout/components/tags/index.vue'
 
   export default defineComponent({
     name: 'LayerHeader',
     created () {
     },
-    components: { HeaderMenu, Setting, GTags },
+    components: { Setting },
     watch: {},
     setup (props) {
       const appStore = useAppStore()
