@@ -1,30 +1,35 @@
 <template>
-  <button class="ex-icon" :aria-expanded="!setting.sideIsCollapse" aria-controls="primary-navigation" :aria-label="T('ToggleNavigation')" @click="appStore.sideCollapse()">
-    <el-icon>
-      <el-icon-expand v-if="setting.sideIsCollapse"></el-icon-expand>
-      <el-icon-fold v-else></el-icon-fold>
-    </el-icon>
-  </button>
+  <el-tooltip :content="toggleLabel" placement="bottom" :show-after="400">
+    <button class="ex-icon" :aria-expanded="!setting.sideIsCollapse" aria-controls="primary-navigation" :aria-label="toggleLabel" @click="appStore.sideCollapse()">
+      <el-icon>
+        <el-icon-expand v-if="setting.sideIsCollapse"></el-icon-expand>
+        <el-icon-fold v-else></el-icon-fold>
+      </el-icon>
+    </button>
+  </el-tooltip>
+  <!-- On wider screens the brand sits at the top of the sidebar. -->
   <router-link to="/" class="header-logo">
     <img :src="setting.logo" alt="" class="logo">
     <span class="title">{{ setting.title }}</span>
   </router-link>
+  <header-actions />
 </template>
 
 <script setup>
-  // Top bar shown on phones only; on wider screens the brand and controls live in the sidebar.
   import { computed } from 'vue'
   import { useAppStore } from '@/store/app'
   import { T } from '@/utils/i18n'
+  import HeaderActions from '@/layout/components/headerActions.vue'
 
   const appStore = useAppStore()
   const setting = computed(() => appStore.setting)
+  const toggleLabel = computed(() => T(setting.value.sideIsCollapse ? 'ExpandSidebar' : 'CollapseSidebar'))
 </script>
 
 <style scoped lang="scss">
   .ex-icon {
-    width: 34px;
-    height: 34px;
+    width: 32px;
+    height: 32px;
     flex-shrink: 0;
     border: none;
     border-radius: var(--app-radius);
@@ -40,7 +45,7 @@
   }
 
   .header-logo {
-    display: flex;
+    display: none;
     align-items: center;
     gap: 10px;
     min-width: 0;
@@ -63,5 +68,9 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+  }
+
+  @media (max-width: 768px) {
+    .header-logo { display: flex; }
   }
 </style>

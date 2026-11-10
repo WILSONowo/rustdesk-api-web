@@ -65,7 +65,7 @@
     min-height: 100%;
     width: 100%;
     border-right: none;
-    padding: var(--app-space-1) 0 var(--app-space-3);
+    padding: var(--app-space-2) 0 var(--app-space-4);
     box-sizing: border-box;
     background: transparent;
 

@@ -7,7 +7,6 @@
     <el-scrollbar class="sidebar-scroll">
       <menus></menus>
     </el-scrollbar>
-    <sidebar-footer />
   </div>
 </template>
 
@@ -15,7 +14,6 @@
   import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
   import { useRoute } from 'vue-router'
   import Menus from '@/layout/components/menu/index.vue'
-  import SidebarFooter from '@/layout/components/sidebarFooter.vue'
   import { useAppStore } from '@/store/app'
 
   const appStore = useAppStore()
@@ -27,7 +25,7 @@
   onBeforeUnmount(() => mobileMedia.removeEventListener('change', updateMobile))
   const collapsed = computed(() => !mobile.value && setting.value.sideIsCollapse)
 
-  // Keep the current page's menu item visible above the footer, e.g. after a reload deep in the list.
+  // Keep the current page's menu item visible, e.g. after a reload deep in the list.
   const route = useRoute()
   const revealActive = () => nextTick(() => {
     document.querySelector('.sidebar-scroll .el-menu-item.is-active')?.scrollIntoView({ block: 'nearest' })
@@ -48,11 +46,12 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  height: 72px;
+  height: 56px;
   padding: 0 var(--app-space-4);
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--app-border);
   color: var(--app-text);
   text-decoration: none;
-  border-radius: var(--app-radius);
   &:focus-visible { outline: 2px solid var(--app-accent); outline-offset: -4px; }
 }
 .brand-logo { flex: none; width: 28px; height: 28px; border-radius: var(--app-radius); }

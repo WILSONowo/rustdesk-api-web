@@ -64,12 +64,12 @@
   background: var(--app-bg);
   color: var(--app-text);
   border-bottom: 1px solid var(--app-border);
-  // Desktop shows the brand and controls in the sidebar; the top bar is for phones only.
-  display: none;
+  display: flex;
   align-items: center;
   height: 56px;
   gap: var(--app-space-3);
-  padding: 0 var(--app-space-4);
+  // 24px + the 32px buttons' 8px inner space puts icons on the content's 32px edges.
+  padding: 0 var(--app-space-6);
 }
 
 .app-left {
@@ -88,8 +88,7 @@
   overflow: hidden;
 }
 .app-main {
-  // 22px top + 28px title line keeps the page title on the sidebar brand's center line (36px).
-  padding: 22px var(--app-space-8) var(--app-space-8);
+  padding: var(--app-space-6) var(--app-space-8) var(--app-space-8);
   min-width: 0;
   min-height: 0;
   overflow: auto;
@@ -102,7 +101,7 @@
   .mobile-nav-open .app-left { transform: translateX(0); visibility: visible; }
   .mobile-backdrop { display: block; position: fixed; inset: 56px 0 0; background: var(--el-mask-color-extra-light); border: 0; z-index: 1000; }
 
-  .app-header { display: flex; }
+  .app-header { padding: 0 var(--app-space-3); }
   .app-main { padding: var(--app-space-5) var(--app-space-4); }
   .page-title { font-size: 18px; line-height: 26px; margin-bottom: var(--app-space-4); }
 }
