@@ -40,9 +40,9 @@
       <el-table :data="listRes.list" v-loading="listRes.loading" border>
         <el-table-column :resizable="false" prop="id" label="ID" width="200">
           <template #default="{row}">
-            <div>
-              <PlatformIcons :name="platformList.find(p=>p.label===row.platform)?.icon" style="width: 20px;height: 20px;display: inline-block" color="var(--basicBlack)"/>
-              {{ row.id }}
+            <div class="peer-id-cell">
+              <PlatformIcons :name="platformList.find(p=>p.label===row.platform)?.icon" class="peer-platform" color="var(--basicBlack)"/>
+              <span class="device-id">{{ row.id }}</span>
               <copy-button :text="row.id" />
             </div>
           </template>

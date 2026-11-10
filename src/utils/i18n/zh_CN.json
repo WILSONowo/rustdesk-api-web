@@ -1054,5 +1054,17 @@
   },
   "AboutDeviceStatus": {
     "One": "关于设备状态"
+  },
+  "AccountMenu": {
+    "One": "账号菜单"
+  },
+  "LightMode": {
+    "One": "浅色模式"
+  },
+  "CollapseSidebar": {
+    "One": "收起侧栏"
+  },
+  "ExpandSidebar": {
+    "One": "展开侧栏"
   }
 }

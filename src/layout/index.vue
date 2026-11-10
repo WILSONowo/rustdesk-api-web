@@ -64,11 +64,12 @@
   background: var(--app-bg);
   color: var(--app-text);
   border-bottom: 1px solid var(--app-border);
-  display: flex;
+  // Desktop shows the brand and controls in the sidebar; the top bar is for phones only.
+  display: none;
   align-items: center;
-  height: 68px;
-  gap: 16px;
-  padding: 0 28px;
+  height: 56px;
+  gap: var(--app-space-3);
+  padding: 0 var(--app-space-4);
 }
 
 .app-left {
@@ -77,7 +78,6 @@
   box-sizing: border-box;
   flex-shrink: 0;
   transition: width 0.2s;
-  border-right: 1px solid var(--app-border);
   background: var(--app-bg);
 }
 
@@ -88,7 +88,8 @@
   overflow: hidden;
 }
 .app-main {
-  padding: var(--app-space-6) var(--app-space-8);
+  // 22px top + 28px title line keeps the page title on the sidebar brand's center line (36px).
+  padding: 22px var(--app-space-8) var(--app-space-8);
   min-width: 0;
   min-height: 0;
   overflow: auto;
@@ -97,11 +98,11 @@
 }
 .page-title { margin: 0 0 var(--app-space-5); font-size: var(--app-text-title); line-height: 28px; font-weight: 600; letter-spacing: -.2px; color: var(--app-text); }
 @media (max-width: 768px) {
-  .app-left { position: fixed; top: 68px; left: 0; height: calc(100dvh - 68px); width: var(--sideBarWidth) !important; z-index: 1001; transform: translateX(-100%); visibility: hidden; }
+  .app-left { position: fixed; top: 56px; left: 0; height: calc(100dvh - 56px); width: var(--sideBarWidth) !important; z-index: 1001; transform: translateX(-100%); visibility: hidden; border-right: 1px solid var(--app-border); box-shadow: var(--el-box-shadow); }
   .mobile-nav-open .app-left { transform: translateX(0); visibility: visible; }
-  .mobile-backdrop { display: block; position: fixed; inset: 68px 0 0; background: rgba(0,0,0,.35); border: 0; z-index: 1000; }
+  .mobile-backdrop { display: block; position: fixed; inset: 56px 0 0; background: var(--el-mask-color-extra-light); border: 0; z-index: 1000; }
 
-  .app-header { padding: 0 16px; gap: 10px; }
+  .app-header { display: flex; }
   .app-main { padding: var(--app-space-5) var(--app-space-4); }
   .page-title { font-size: 18px; line-height: 26px; margin-bottom: var(--app-space-4); }
 }

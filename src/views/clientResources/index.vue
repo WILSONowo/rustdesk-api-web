@@ -3,7 +3,7 @@
     <el-alert v-if="failed" :title="T('ClientResourcesLoadFailed')" type="error" :closable="false"><el-button text @click="load">{{ T('Refresh') }}</el-button></el-alert>
     <el-form v-else ref="formRef" :model="form" label-position="top" :disabled="saving || !ready" @submit.prevent="save">
       <el-card shadow="never">
-        <template #header><div class="section-heading"><div><h2>{{ T('ClientDownloads') }}</h2><p>{{ T('DownloadSettingsHelp') }}</p></div><el-button :disabled="form.downloads.length >= 24" @click="addDownload">{{ T('AddDownload') }}</el-button></div></template>
+        <template #header><div class="section-heading"><div><h2 class="section-title">{{ T('ClientDownloads') }}</h2><p>{{ T('DownloadSettingsHelp') }}</p></div><el-button :disabled="form.downloads.length >= 24" @click="addDownload">{{ T('AddDownload') }}</el-button></div></template>
         <el-empty v-if="!form.downloads.length" :description="T('DownloadsNotConfigured')" :image-size="60" />
         <section v-for="(item, index) in form.downloads" :key="item._key" class="download-editor">
           <div class="download-fields">
@@ -19,7 +19,7 @@
         </section>
       </el-card>
       <el-card shadow="never" class="config-card">
-        <template #header><h2>{{ T('QuickServerImport') }}</h2></template>
+        <template #header><h2 class="section-title">{{ T('QuickServerImport') }}</h2></template>
         <p class="config-help">{{ T('ImportCodeSettingsHelp') }}</p>
         <el-form-item :label="T('ServerImportCode')"><el-input v-model="form.import_code" type="textarea" :rows="5" maxlength="16384" show-word-limit :placeholder="T('ImportCodePlaceholder')" /></el-form-item>
       </el-card>
@@ -85,7 +85,7 @@ onMounted(load)
 
 <style scoped lang="scss">
 h2, p { margin: 0; }
-h2 { font-size: 18px; font-weight: 600; }
+
 p, .save-bar span { color: var(--el-text-color-secondary); font-size: 13px; line-height: 1.7; }
 .section-heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
 .section-heading p { margin-top: 8px; max-width: 680px; }

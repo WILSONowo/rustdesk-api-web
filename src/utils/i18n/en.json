@@ -1038,5 +1038,17 @@
   },
   "AboutDeviceStatus": {
     "One": "About device status"
+  },
+  "AccountMenu": {
+    "One": "Account menu"
+  },
+  "LightMode": {
+    "One": "Light mode"
+  },
+  "CollapseSidebar": {
+    "One": "Collapse sidebar"
+  },
+  "ExpandSidebar": {
+    "One": "Expand sidebar"
   }
 }

@@ -33,9 +33,9 @@
         <el-table-column :resizable="false" type="selection" width="50" align="center"></el-table-column>
         <el-table-column :resizable="false" prop="id" label="ID" width="200">
           <template #default="{row}">
-            <div>
-              <PlatformIcons :name="platformList.find(p=>p.label===row.platform)?.icon" style="width: 20px;height: 20px;display: inline-block" color="var(--basicBlack)"/>
-              {{ row.id }}
+            <div class="peer-id-cell">
+              <PlatformIcons :name="platformList.find(p=>p.label===row.platform)?.icon" class="peer-platform" color="var(--basicBlack)"/>
+              <span class="device-id">{{ row.id }}</span>
               <copy-button :text="row.id" />
             </div>
           </template>

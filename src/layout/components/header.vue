@@ -1,92 +1,67 @@
 <template>
-  <button class="ex-icon" :aria-expanded="!setting.sideIsCollapse" aria-controls="primary-navigation" :aria-label="T('ToggleNavigation')" @click="expandOrFoldSlider">
+  <button class="ex-icon" :aria-expanded="!setting.sideIsCollapse" aria-controls="primary-navigation" :aria-label="T('ToggleNavigation')" @click="appStore.sideCollapse()">
     <el-icon>
-    <el-icon-expand v-if="setting.sideIsCollapse"></el-icon-expand>
-    <el-icon-fold v-else></el-icon-fold>
+      <el-icon-expand v-if="setting.sideIsCollapse"></el-icon-expand>
+      <el-icon-fold v-else></el-icon-fold>
     </el-icon>
   </button>
-  <div class="header-logo">
+  <router-link to="/" class="header-logo">
     <img :src="setting.logo" alt="" class="logo">
-    <div class="title">{{setting.title}}</div>
-  </div>
-  <Setting></Setting>
+    <span class="title">{{ setting.title }}</span>
+  </router-link>
 </template>
 
-<script>
-  import { defineComponent, computed } from 'vue'
-  import Setting from '@/layout/components/setting/index.vue'
+<script setup>
+  // Top bar shown on phones only; on wider screens the brand and controls live in the sidebar.
+  import { computed } from 'vue'
   import { useAppStore } from '@/store/app'
   import { T } from '@/utils/i18n'
 
-  export default defineComponent({
-    name: 'LayerHeader',
-    created () {
-    },
-    components: { Setting },
-    watch: {},
-    setup (props) {
-      const appStore = useAppStore()
-      const setting = computed(() => appStore.setting)
-      const expandOrFoldSlider = () => {
-        appStore.sideCollapse()
-      }
-      return {
-        T,
-        setting,
-        expandOrFoldSlider,
-      }
-    },
-
-  })
+  const appStore = useAppStore()
+  const setting = computed(() => appStore.setting)
 </script>
 
 <style scoped lang="scss">
   .ex-icon {
-    width: 36px;
-    height: 36px;
+    width: 34px;
+    height: 34px;
     flex-shrink: 0;
     border: none;
-    border-radius: 8px;
-    color: var(--el-text-color-regular);
+    border-radius: var(--app-radius);
+    color: var(--app-text-secondary);
     background: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 16px;
     cursor: pointer;
-    &:hover { background: var(--el-fill-color-light); }
-    &:focus-visible { outline: 2px solid var(--el-color-primary); outline-offset: 2px; }
+    &:hover { background: var(--app-surface-muted); color: var(--app-text); }
+    &:focus-visible { outline: 2px solid var(--app-accent); outline-offset: 2px; }
   }
 
   .header-logo {
     display: flex;
-    height: 100%;
     align-items: center;
+    gap: 10px;
     min-width: 0;
+    height: 100%;
+    color: var(--app-text);
+    text-decoration: none;
+
+    .logo {
+      flex: none;
+      width: 28px;
+      height: 28px;
+      border-radius: var(--app-radius);
+    }
 
     .title {
-      display: block;
-      margin-left: 10px;
       font-weight: 600;
-      font-size: 16px;
+      font-size: var(--app-text-base);
+      line-height: 20px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
-
-    .logo {
-      display: block;
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-    }
   }
-
-
-  @media (max-width: 640px) {
-    .header-logo .title { display: none; }
-  }
-</style>
-<style lang="scss">
-
 </style>
