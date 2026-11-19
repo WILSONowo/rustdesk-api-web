@@ -39,7 +39,7 @@
         <el-table-column min-width="180" :resizable="false" prop="created_at" :label="T('CreatedAt')" show-overflow-tooltip/>
         <el-table-column min-width="180" :resizable="false" :label="T('ExpireTime')" prop="expired_at">
           <template #default="{row}">
-            <el-tag :type="expired(row)?'info':'success'">{{ row.expired_at ? new Date(row.expired_at * 1000).toLocaleString() : '-' }}</el-tag>
+            <el-tag :type="expired(row)?'info':'success'">{{ row.expired_at === -1 ? T('NeverExpires') : row.expired_at ? new Date(row.expired_at * 1000).toLocaleString() : '-' }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column :resizable="false" :label="T('Actions')" align="center" width="90" class-name="table-actions">
@@ -90,7 +90,7 @@
   }
   const expired = (row) => {
     const now = new Date().getTime()
-    return row.expired_at * 1000 < now
+    return row.expired_at !== -1 && row.expired_at * 1000 < now
   }
 
   const multipleSelection = ref([])
